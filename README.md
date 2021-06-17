@@ -7,47 +7,36 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+## Requirement
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- [Composer](https://getcomposer.org/).
+- [Node JS](https://nodejs.org/en/) (Optional).
+- Code editor for doing coding activities [Visual Studio Code](https://code.visualstudio.com/) or [Sublime](https://www.sublimetext.com/) or [Atom](https://atom.io/).
+- Php and Web server for running laravel in web browser, can use [XAMPP](https://www.apachefriends.org/) or [Laragon](https://laragon.org/).
+- Database Management System.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Because it uses Laravel migrations feature it can use any type of DBMS as long as it's a Relational Database.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Getting Started
 
-## Learning Laravel
+1. Clone repository with the command `git clone https://github.com/Batu-Beling-Digital/hrd.git`
+2. Installing package form Composer with command `composer install`
+3. Installing package module node js with command `node install` (Optional)
+4. Running web application using commands `php artisan serve` or running manually with web server.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Copy the `.env.example` file then change the name to `.env`, then adjust the settings with the database you want to connect to so that it is connected to the desired database, like the example below.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```
+DB_CONNECTION=mysql //Driver Database
+DB_HOST=127.0.0.1 //Host
+DB_PORT=3306 //Port
+DB_DATABASE=bb-temp //Name
+DB_USERNAME=root //Username
+DB_PASSWORD= //Password
+```
+If the key in .env is empty run this command to generate a key `php artisan key:generate` Run the migrations database to import all databases using the command `php artisan migrate:refresh --seed`
 
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Login using username `admin@gmail.com` and password `1234567890`
 
 ## Code of Conduct
 
