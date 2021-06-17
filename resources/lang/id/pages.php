@@ -13,8 +13,17 @@ return [
     |
     */
 
-    'title' => 'Report BatuBeling',
-    'brand' => 'RBB',
+    'title' => 'Template',
+    'brand' => 'TPE',
     'edit' => 'Simpan Perubahan',
-    'save' => 'Simpan'
+    'save' => 'Simpan',
+    'delete' => 'Hapus',
+    'view' => 'Lihat',
+    'editItem' => 'Edit',
+    'logout' => 'Keluar',
+    'login' => 'Masuk',
+    'username' => 'Nama Pengguna',
+    'password' => 'Kata Sandi',
+    'changePassword' => 'Ganti Password',
+    'all' => 'Lihat Semua',
 ];
