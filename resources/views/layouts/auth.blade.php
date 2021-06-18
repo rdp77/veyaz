@@ -18,6 +18,10 @@
                                 @yield('content')
                             </div>
                         </div>
+                        <div class="mt-5 text-muted text-center">
+                            {{ __('pages.noAccount') }}
+                            <a href="{{ route('register') }}">{{ __('pages.createAccount') }}</a>
+                        </div>
                         <div class="simple-footer">
                             @include('layouts.backend.components.credit')
                         </div>

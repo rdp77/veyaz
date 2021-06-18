@@ -1,5 +1,5 @@
 @extends('layouts.auth')
-@section('title', __('pages.title').__(' | Masuk'))
+@section('title', __('pages.title').__(' | ').__('title.login'))
 @section('titleContent', __('pages.login'))
 
 @section('content')
@@ -32,6 +32,13 @@
             {{ $message }}
         </div>
         @enderror
+    </div>
+
+    <div class="form-group">
+        <div class="custom-control custom-checkbox">
+            <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
+            <label class="custom-control-label" for="remember-me">{{ __('pages.remember') }}</label>
+        </div>
     </div>
 
     <div class="form-group">

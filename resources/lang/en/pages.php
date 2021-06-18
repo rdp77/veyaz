@@ -26,7 +26,7 @@ return [
     'password' => 'Kata Sandi',
     'changePassword' => 'Ganti Password',
     'all' => 'Lihat Semua',
-    'remember' => 'Ingat Saya',
-    'noAccount' => 'Tidak punya akun? ',
-    'createAccount' => 'Buat Sekarang'
+    'remember' => 'Remember Me',
+    'noAccount' => 'Don\'t have an account? ',
+    'createAccount' => 'Create One',
 ];
