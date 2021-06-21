@@ -16,5 +16,11 @@ return [
     'failed' => 'Cek username dan password sebelum login.',
     'password' => 'Password salah silahkan cek lagi.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
-
+    'remember' => 'Ingat Saya',
+    'noAccount' => 'Tidak punya akun? ',
+    'createAccount' => 'Buat Sekarang',
+    'logout' => 'Keluar',
+    'login' => 'Masuk',
+    'username' => 'Nama Pengguna',
+    'password' => 'Kata Sandi',
 ];

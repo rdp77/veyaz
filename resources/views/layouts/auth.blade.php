@@ -19,8 +19,13 @@
                             </div>
                         </div>
                         <div class="mt-5 text-muted text-center">
+                            @if (Request::route()->getName() == 'login')
                             {{ __('pages.noAccount') }}
                             <a href="{{ route('register') }}">{{ __('pages.createAccount') }}</a>
+                            @else
+                            {{ __('pages.noAccount') }}
+                            <a href="{{ route('login') }}">{{ __('pages.createAccount') }}</a>
+                            @endif
                         </div>
                         <div class="simple-footer">
                             @include('layouts.backend.components.credit')
