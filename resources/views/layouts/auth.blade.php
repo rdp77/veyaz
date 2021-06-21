@@ -20,11 +20,15 @@
                         </div>
                         <div class="mt-5 text-muted text-center">
                             @if (Request::route()->getName() == 'login')
-                            {{ __('pages.noAccount') }}
-                            <a href="{{ route('register') }}">{{ __('pages.createAccount') }}</a>
+                            {{ __('auth.noAccount') }}
+                            <a href="{{ route('register') }}">
+                                {{ __('auth.createAccount') }}
+                            </a>
                             @else
-                            {{ __('pages.noAccount') }}
-                            <a href="{{ route('login') }}">{{ __('pages.createAccount') }}</a>
+                            {{ __('auth.haveAccount') }}
+                            <a href="{{ route('login') }}">
+                                {{ __('auth.loginAccount') }}
+                            </a>
                             @endif
                         </div>
                         <div class="simple-footer">

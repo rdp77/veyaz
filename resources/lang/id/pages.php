@@ -19,7 +19,6 @@ return [
     'save' => 'Simpan',
     'delete' => 'Hapus',
     'view' => 'Lihat',
-    'editItem' => 'Edit',
-    'changePassword' => 'Ganti Password',
+    'editItem' => 'Ubah',
     'all' => 'Lihat Semua',
 ];

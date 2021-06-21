@@ -18,9 +18,13 @@ return [
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'remember' => 'Ingat Saya',
     'noAccount' => 'Tidak punya akun? ',
+    'haveAccount' => 'Sudah punya akun? ',
+    'loginAccount' => 'Login Sekarang',
     'createAccount' => 'Buat Sekarang',
     'logout' => 'Keluar',
     'login' => 'Masuk',
+    'register' => 'Daftar',
     'username' => 'Nama Pengguna',
     'password' => 'Kata Sandi',
+    'changePassword' => 'Ganti Kata Sandi',
 ];
