@@ -21,23 +21,35 @@
         @enderror
     </div>
 
-    <div class="form-group">
-        <div class="d-block">
-            <label for="password" class="control-label">{{ __('auth.password') }}</label>
+    <div class="row">
+        <div class="form-group col-6">
+            <div class="d-block">
+                <label for="password" class="control-label">{{ __('auth.password') }}</label>
+            </div>
+            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
+                name="password" tabindex="2" required autocomplete="current-password">
+            @error('password')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+            @enderror
         </div>
-        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-            name="password" tabindex="2" required autocomplete="current-password">
-        @error('password')
-        <div class="invalid-feedback">
-            {{ $message }}
+        <div class="form-group col-6">
+            <label for="password-confirm" class="control-label">{{ __('Ulangi Password') }}</label>
+            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required
+                autocomplete="new-password">
+            @error('password_confirmation')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+            @enderror
         </div>
-        @enderror
     </div>
 
     <div class="form-group">
         <div class="custom-control custom-checkbox">
-            <input type="checkbox" name="remember" class="custom-control-input" tabindex="3" id="remember-me">
-            <label class="custom-control-label" for="remember-me">{{ __('auth.remember') }}</label>
+            <input type="checkbox" name="agree" class="custom-control-input" id="agree">
+            <label class="custom-control-label" for="agree">I agree with the terms and conditions</label>
         </div>
     </div>
 
