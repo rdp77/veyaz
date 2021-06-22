@@ -27,4 +27,5 @@ return [
     'username' => 'Username',
     'password' => 'Password',
     'changePassword' => 'Change Password',
+    'terms' => 'I agree with the terms and conditions'
 ];

@@ -27,4 +27,5 @@ return [
     'username' => 'Nama Pengguna',
     'password' => 'Kata Sandi',
     'changePassword' => 'Ganti Kata Sandi',
+    'terms' => 'Saya setuju dengan syarat dan ketentuan'
 ];

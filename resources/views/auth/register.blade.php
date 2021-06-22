@@ -49,7 +49,7 @@
     <div class="form-group">
         <div class="custom-control custom-checkbox">
             <input type="checkbox" name="agree" class="custom-control-input" id="agree">
-            <label class="custom-control-label" for="agree">I agree with the terms and conditions</label>
+            <label class="custom-control-label" for="agree">{{ __('auth.terms') }}</label>
         </div>
     </div>
 
