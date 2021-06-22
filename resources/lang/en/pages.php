@@ -13,8 +13,8 @@ return [
     |
     */
 
-    'title' => 'Template',
-    'brand' => 'TPE',
+    'title' => 'Wreative',
+    'brand' => 'WEA',
     'edit' => 'Save Changes',
     'save' => 'Save',
     'delete' => 'Delete',
