@@ -13,6 +13,6 @@ return [
     |
     */
 
-    'login' => 'Masuk',
-    'register' => 'Daftar'
+    'login' => 'Login',
+    'register' => 'Register'
 ];
