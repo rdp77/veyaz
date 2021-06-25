@@ -25,10 +25,10 @@
     crossorigin="anonymous"></script>
 <script src="{{ asset('js/summernote-bs4.js') }}"></script>
 <script src="{{ asset('js/jquery.uploadPreview.min.js') }}"></script>
-<script>
+{{-- <script>
     $("#name").fireModal({body: 
         '<form method="POST" action="{{ route('users.name') }}" class="needs-validation">
-        @csrf
-        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name"
-                    required autofocus></form>', center: true,title: 'Ganti Nama',});
-</script>
+@csrf
+<input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" required autofocus>
+</form>', center: true,title: 'Ganti Nama',});
+</script> --}}

@@ -76,14 +76,3 @@
     </div>
 </form>
 @endsection
-@section('script')
-@if(Session::has('status'))
-<script type="text/javascript">
-    iziToast.info({
-    title: 'Informasi',
-    message: '{{ Session::get('status') }}',
-    position: 'topRight',
-});
-</script>
-@endif
-@endsection

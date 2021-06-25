@@ -15,9 +15,9 @@
                 <a id="name" class="dropdown-item has-icon" style="cursor: pointer">
                     <i class="fas fa-user"></i> {{ __('Ganti Nama') }}
                 </a>
-                <a href="{{ route('users.password') }}" class="dropdown-item has-icon">
-                    <i class="fas fa-key"></i> {{ __('Ganti Password') }}
-                </a>
+                {{-- <a href="{{ route('users.password') }}" class="dropdown-item has-icon">
+                <i class="fas fa-key"></i> {{ __('Ganti Password') }}
+                </a> --}}
                 <div class="dropdown-divider"></div>
                 <a href="{{ route('logout') }}" onclick="event.preventDefault();
                               document.getElementById('logout-form').submit();"

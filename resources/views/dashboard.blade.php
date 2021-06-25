@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.backend.default')
 @section('title', __('pages.title').__(' | Dashboard'))
 @section('titleContent', __('Dashboard'))
 @section('breadcrumb', __('Tanggal ').date('d-M-Y'))
