@@ -51,16 +51,16 @@
                         <a href="{{ route('users.edit',$u->id) }}" class="btn btn-primary btn-action mb-1 mt-1 mr-1"
                             data-toggle="tooltip" title="{{ __('pages.editItem') }}"><i
                                 class="fas fa-pencil-alt"></i></a>
-                        <form id="del-data{{ $u->id }}" action="{{ route('users.reset',$u->id) }}" method="POST"
-                            class="d-inline">
-                            @csrf
-                            <button class="btn btn-primary btn-action mb-1 mr-1 mt-1" data-toggle="tooltip"
-                                title="{{ __('Reset Password') }}"
-                                data-confirm="Apakah Anda Yakin?|Aksi ini tidak 
+                        {{-- <form id="del-data{{ $u->id }}" action="{{ route('users.reset',$u->id) }}" method="POST"
+                        class="d-inline">
+                        @csrf
+                        <button class="btn btn-primary btn-action mb-1 mr-1 mt-1" data-toggle="tooltip"
+                            title="{{ __('Reset Password') }}"
+                            data-confirm="Apakah Anda Yakin?|Aksi ini tidak 
                                 dapat dikembalikan dan mengubah password menjadi default yaitu '1234567890'. Apakah ingin melanjutkan?"
-                                data-confirm-yes="document.getElementById('del-data{{ $u->id }}').submit();"><i
-                                    class="fas fa-redo-alt"></i></button>
-                        </form>
+                            data-confirm-yes="document.getElementById('del-data{{ $u->id }}').submit();"><i
+                                class="fas fa-redo-alt"></i></button>
+                        </form> --}}
                         <form id="del-data{{ $u->id }}" action="{{ route('users.destroy',$u->id) }}" method="POST"
                             class="d-inline">
                             @csrf

@@ -323,9 +323,8 @@ $(function () {
             $("body").removeClass("sidebar-gone sidebar-show");
             if (now_layout_class) $("body").addClass(now_layout_class);
 
-            let nav_second_classes = $(".main-sidebar").attr(
-                    "data-nav-classes"
-                ),
+            let nav_second_classes =
+                    $(".main-sidebar").attr("data-nav-classes"),
                 nav_second = $(".main-sidebar");
 
             if (
@@ -438,8 +437,10 @@ $(function () {
             minHeight: 150,
             toolbar: [
                 ["style", ["bold", "italic", "underline", "clear"]],
-                ["font", ["strikethrough"]],
-                ["para", ["paragraph"]],
+                ["font", ["strikethrough", "superscript", "subscript"]],
+                ["fontsize", ["fontsize"]],
+                ["color", ["color"]],
+                ["para", ["ul", "ol", "paragraph"]],
             ],
         });
     }
