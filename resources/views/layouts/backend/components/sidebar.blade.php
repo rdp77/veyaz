@@ -8,6 +8,11 @@
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">{{ __('Menu Utama') }}</li>
+            <li class="{{ Request::route()->getName() == 'dashboard' ? 'active' : '' }}">
+                <a href="{{ route('dashboard') }}" class="nav-link">
+                    <i class="fas fa-fire"></i><span>{{ __('pages.dashboard') }}</span>
+                </a>
+            </li>
             {{-- <li class="{{ Request::route()->getName() == 'admin.dashboard' ? 'active' : '' }}">
             <a href="{{ route('admin.dashboard') }}" class="nav-link"><i
                     class="fas fa-fire"></i><span>{{ __('Dashboard') }}</span></a>

@@ -21,5 +21,8 @@ return [
     'view' => 'Lihat',
     'editItem' => 'Ubah',
     'all' => 'Lihat Semua',
-    'name' => 'Nama'
+    'name' => 'Nama',
+    'history' => 'Riwayat',
+    'historyDesc' => 'Riwayat yang kamu lakukan akan tercatat disini',
+    'dashboard' => 'Beranda'
 ];

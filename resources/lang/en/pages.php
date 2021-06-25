@@ -20,6 +20,9 @@ return [
     'delete' => 'Delete',
     'view' => 'View',
     'editItem' => 'Edit',
-    'all' => 'Lihat Semua',
-    'name' => 'Name'
+    'all' => 'All',
+    'name' => 'Name',
+    'history' => 'History',
+    'historyDesc' => 'Your history will be recorded here',
+    'dashboard' => 'Dashboard'
 ];
