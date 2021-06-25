@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Log;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -51,6 +53,15 @@ class UsersController extends Controller
             'name' => $req->name,
             'username' => $req->username,
             'password' => Hash::make($req->password),
+        ]);
+
+        Log::create([
+            'info' => Auth::user()->name . " membuat user baru",
+            'u_id' => Auth::user()->id,
+            'url' => URL::full(),
+            'user_agent' => $req->header('user-agent'),
+            'ip' => $req->ip(),
+            'added_at' => date("Y-m-d H:i:s"),
         ]);
 
         return Redirect::route('users.index');

@@ -1,5 +1,5 @@
 @extends('layouts.frontend.custom')
-@section('title', __('pages.title').__(' | ').__('title.login'))
+@section('title', __('pages.title'))
 @section('titleContent', __('auth.login'))
 
 @section('content')

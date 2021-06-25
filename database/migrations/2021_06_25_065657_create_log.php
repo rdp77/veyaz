@@ -20,6 +20,7 @@ class CreateLog extends Migration
             $table->string('url');
             $table->string('user_agent');
             $table->string('ip');
+            $table->timestamp('added_at');
         });
     }
 
