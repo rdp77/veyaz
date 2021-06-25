@@ -3,12 +3,28 @@
 @section('titleContent', __('auth.register'))
 
 @section('content')
-<form method="POST" action="{{ route('login') }}" class="needs-validation">
+<form method="POST" action="{{ route('register') }}" class="needs-validation">
     @csrf
+    <div class="form-group">
+        <label for="username">{{ __('pages.name') }}</label>
+        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" tabindex="1"
+            value="{{ old('name') }}" required autocomplete="name" autofocus>
+        @if(Session::has('error'))
+        <div class="invalid-feedback">
+            {{ Session::get('error') }}
+        </div>
+        @endif
+        @error('name')
+        <div class="invalid-feedback">
+            {{ $message }}
+        </div>
+        @enderror
+    </div>
+
     <div class="form-group">
         <label for="username">{{ __('auth.username') }}</label>
         <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username"
-            tabindex="1" value="{{ old('username') }}" required autocomplete="username" autofocus>
+            tabindex="2" value="{{ old('username') }}" required autocomplete="username">
         @if(Session::has('error'))
         <div class="invalid-feedback">
             {{ Session::get('error') }}
@@ -27,7 +43,7 @@
                 <label for="password" class="control-label">{{ __('auth.password') }}</label>
             </div>
             <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                name="password" tabindex="2" required autocomplete="current-password">
+                name="password" tabindex="3" required autocomplete="current-password">
             @error('password')
             <div class="invalid-feedback">
                 {{ $message }}
@@ -55,7 +71,7 @@
 
     <div class="form-group">
         <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-            {{ __('auth.login') }}
+            {{ __('auth.register') }}
         </button>
     </div>
 </form>

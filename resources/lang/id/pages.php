@@ -21,4 +21,5 @@ return [
     'view' => 'Lihat',
     'editItem' => 'Ubah',
     'all' => 'Lihat Semua',
+    'name' => 'Nama'
 ];
