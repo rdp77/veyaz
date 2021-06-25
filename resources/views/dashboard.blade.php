@@ -87,24 +87,25 @@
     </div>
     <div class="card-body p-0">
         <div class="tickets-list">
-            {{-- @foreach($history as $s )
+            @foreach($log as $l )
             <a href="javascript:void(0)" class="ticket-item">
                 <div class="ticket-title">
-                    <h4>{{ $s->info }}</h4>
+                    <h4>{{ $l->info }}</h4>
+                </div>
+                <div class="ticket-info">
+                    <div>{{ $l->ip }}</div>
+                    <div class="bullet"></div>
+                    <div class="text-primary">
+                        {{ __('Tercatat pada tanggal ').date("d-M-Y", strtotime($l->added_at)).
+                        __(' Jam ').date("H:m", strtotime($l->added_at)) }}
+                    </div>
+                </div>
+            </a>
+            @endforeach
+            <a href="{{ route('dashboard.log') }}" class="ticket-item ticket-more">
+                {{ __('Lihat Semua ') }} <i class="fas fa-chevron-right"></i>
+            </a>
         </div>
-        <div class="ticket-info">
-            <div>{{ $s->relationUser->name }}</div>
-            <div class="bullet"></div>
-            <div class="text-primary">
-                {{ __('Tercatat pada tanggal ').date("d-M-Y", strtotime($s->date)) }}
-            </div>
-        </div>
-        </a>
-        @endforeach --}}
-        {{-- <a href="{{ route('history.index') }}" class="ticket-item ticket-more">
-        {{ __('Lihat Semua ') }} <i class="fas fa-chevron-right"></i>
-        </a> --}}
     </div>
-</div>
 </div>
 @endsection
