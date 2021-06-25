@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
@@ -9,6 +10,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class NewPasswordController extends Controller
 {
@@ -58,8 +61,40 @@ class NewPasswordController extends Controller
         // the application's home authenticated view. If there is an error we can
         // redirect them back to where they came from with their error message.
         return $status == Password::PASSWORD_RESET
-                    ? redirect()->route('login')->with('status', __($status))
-                    : back()->withInput($request->only('email'))
-                            ->withErrors(['email' => __($status)]);
+            ? redirect()->route('login')->with('status', __($status))
+            : back()->withInput($request->only('email'))
+            ->withErrors(['email' => __($status)]);
+    }
+
+    public function changePassword(Request $req)
+    {
+        $this->validate($req, [
+            'oldPassword' => ['required', 'string', 'min:8'],
+            'password' => ['required', 'string', 'min:8'],
+            'username' => ['required', 'string'],
+        ]);
+
+        if (Auth::user()->username != $req->username) {
+            return redirect()->route('users.password')
+                ->with(['status' => 'Username sebelumnya tidak sama silahkan cek kembali']);
+        }
+
+        $user = User::find(Auth::user()->id);
+
+        if (Hash::check($req->oldPassword, Auth::user()->password)) {
+            $user->password = Hash::make($req->password);
+            $user->save();
+            // Add Record History
+            // History::create([
+            //     'date' => date('Y-m-d'),
+            //     'info' => Auth::user()->name . " telah mereset passwordnya.",
+            //     'u_id' => Auth::user()->id
+            // ]);
+            Auth::logout();
+            return Redirect::route('login');
+        } else {
+            return redirect()->route('users.password')
+                ->with(['status' => 'Password sebelumnya tidak sama silahkan cek kembali']);
+        }
     }
 }

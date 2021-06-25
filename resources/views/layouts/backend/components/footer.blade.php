@@ -23,10 +23,10 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.6/min/dropzone.min.js"
     integrity="sha512-KgeSi6qqjyihUcmxFn9Cwf8dehAB8FFZyl+2ijFEPyWu4ZM8ZOQ80c2so59rIdkkgsVsuTnlffjfgkiwDThewQ=="
     crossorigin="anonymous"></script>
-{{-- <script>
-    $("#name").fireModal({body: 
-        '<form method="POST" action="{{ route('users.name') }}" class="needs-validation">
-@csrf
-<input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" required autofocus>
-</form>', center: true,title: 'Ganti Nama',});
-</script> --}}
+<script>
+    $("#name").fireModal({
+    body: '<form method="POST" action="{{ route('users.name') }}" class="needs-validation">@csrf<input id="name" type="text" class="form-control " name="name" required autofocus></form>',
+    center: true,
+    title: "Ganti Nama",
+});
+</script>

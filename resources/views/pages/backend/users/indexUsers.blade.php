@@ -48,29 +48,39 @@
                         {{ $u->name }}
                     </td>
                     <td>
-                        <a href="{{ route('users.edit',$u->id) }}" class="btn btn-primary btn-action mb-1 mt-1 mr-1"
-                            data-toggle="tooltip" title="{{ __('pages.editItem') }}"><i
-                                class="fas fa-pencil-alt"></i></a>
-                        {{-- <form id="del-data{{ $u->id }}" action="{{ route('users.reset',$u->id) }}" method="POST"
-                        class="d-inline">
-                        @csrf
-                        <button class="btn btn-primary btn-action mb-1 mr-1 mt-1" data-toggle="tooltip"
-                            title="{{ __('Reset Password') }}"
-                            data-confirm="Apakah Anda Yakin?|Aksi ini tidak 
+                        <div class="btn-group">
+                            <form id="reset{{ $u->id }}" action="{{ route('users.reset',$u->id) }}" method="POST"
+                                class="d-inline">
+                                @csrf
+                                <button
+                                    data-confirm="Apakah Anda Yakin?|Aksi ini tidak 
                                 dapat dikembalikan dan mengubah password menjadi default yaitu '1234567890'. Apakah ingin melanjutkan?"
-                            data-confirm-yes="document.getElementById('del-data{{ $u->id }}').submit();"><i
-                                class="fas fa-redo-alt"></i></button>
-                        </form> --}}
-                        <form id="del-data{{ $u->id }}" action="{{ route('users.destroy',$u->id) }}" method="POST"
-                            class="d-inline">
-                            @csrf
-                            @method('DELETE')
-                            <button class="btn btn-danger btn-action mb-1 mt-1" data-toggle="tooltip"
-                                title="{{ __('pages.delItem') }}" data-confirm="Apakah Anda Yakin?|Aksi ini tidak dapat 
-                                dikembalikan. Apakah ingin melanjutkan?"
-                                data-confirm-yes="document.getElementById('del-data{{ $u->id }}').submit();"><i
-                                    class="fas fa-trash"></i></button>
-                        </form>
+                                    data-confirm-yes="document.getElementById('reset{{ $u->id }}').submit();"
+                                    class="btn btn-primary">
+                                    {{ __('Reset Password') }}
+                                </button>
+                            </form>
+                            <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                                data-toggle="dropdown" aria-expanded="false">
+                                <span class="sr-only">{{ __('Toggle Dropdown') }}</span>
+                            </button>
+                            <div class="dropdown-menu" x-placement="bottom-start"
+                                style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(120px, 36px, 0px);">
+                                <a class="dropdown-item" href="{{ route('users.edit',$u->id) }}">
+                                    {{ __('Edit') }}
+                                </a>
+                                <form id="del-data{{ $u->id }}" action="{{ route('users.destroy',$u->id) }}"
+                                    method="POST" class="d-inline">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a class="dropdown-item" style="cursor: pointer" data-confirm="Apakah Anda Yakin?|Aksi ini tidak dapat 
+                                        dikembalikan. Apakah ingin melanjutkan?"
+                                        data-confirm-yes="document.getElementById('del-data{{ $u->id }}').submit();">
+                                        {{ __('Hapus') }}
+                                    </a>
+                                </form>
+                            </div>
+                        </div>
                     </td>
                 </tr>
                 @endforeach

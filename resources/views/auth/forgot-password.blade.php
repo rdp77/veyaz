@@ -1,36 +1,60 @@
-<x-guest-layout>
-    <x-auth-card>
-        <x-slot name="logo">
-            <a href="/">
-                <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-            </a>
-        </x-slot>
+@extends('layouts.backend.default')
+@section('title', __('pages.title').__(' | Ganti Password'))
+@section('titleContent', __('Ganti Password'))
+@section('breadcrumb', __('Dashboard'))
+@section('morebreadcrumb')
+<div class="breadcrumb-item active">{{ __('Ganti Password') }}</div>
+@endsection
 
-        <div class="mb-4 text-sm text-gray-600">
-            {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }}
+@section('content')
+<div class="card">
+    <form method="POST" action="{{ route('changePassword') }}">
+        @csrf
+        @method('post')
+        <div class="card-body">
+            @if (Session::has('status'))
+            <div class="alert alert-danger alert-has-icon">
+                <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
+                <div class="alert-body">
+                    <div class="alert-title">{{ __('Error') }}</div>
+                    {{ Session::get('status') }}
+                </div>
+            </div>
+            @endif
+            <div class="form-group">
+                <label>{{ __('Username') }}</label>
+                <input id="username" type="username" class="form-control @error('username') is-invalid @enderror"
+                    value="{{ old('username') }}" name="username" required autocomplete="username" autofocus>
+                @error('username')
+                <span class="text-danger" role="alert">
+                    {{ $message }}
+                </span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label>{{ __('Password lama') }}</label>
+                <input id="oldPassword" type="password" class="form-control @error('oldPassword') is-invalid @enderror"
+                    name="oldPassword" required>
+                @error('oldPassword')
+                <span class="text-danger" role="alert">
+                    {{ $message }}
+                </span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <label>{{ __('Password Baru') }}</label>
+                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
+                    name="password" required>
+                @error('password')
+                <span class="text-danger" role="alert">
+                    {{ $message }}
+                </span>
+                @enderror
+            </div>
         </div>
-
-        <!-- Session Status -->
-        <x-auth-session-status class="mb-4" :status="session('status')" />
-
-        <!-- Validation Errors -->
-        <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
-        <form method="POST" action="{{ route('password.email') }}">
-            @csrf
-
-            <!-- Email Address -->
-            <div>
-                <x-label for="email" :value="__('Email')" />
-
-                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
-            </div>
-
-            <div class="flex items-center justify-end mt-4">
-                <x-button>
-                    {{ __('Email Password Reset Link') }}
-                </x-button>
-            </div>
-        </form>
-    </x-auth-card>
-</x-guest-layout>
+        <div class="card-footer text-right">
+            <button class="btn btn-primary mr-1" type="submit">{{ __('Ganti Password') }}</button>
+        </div>
+    </form>
+</div>
+@endsection

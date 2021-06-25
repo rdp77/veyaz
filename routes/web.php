@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +21,5 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
 
-Route::resource('users', App\Http\Controllers\UsersController::class)
-    ->except([
-        'show',
-    ]);
-
 require __DIR__ . '/auth.php';
+require __DIR__ . '/users.php';

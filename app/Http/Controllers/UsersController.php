@@ -81,7 +81,7 @@ class UsersController extends Controller
         $user = User::find($id);
         $user->delete();
 
-        return Redirect::route('user.index');
+        return Redirect::route('users.index');
     }
 
     function reset($id)
@@ -95,7 +95,7 @@ class UsersController extends Controller
             ]);
     }
 
-    public function change(Request $req)
+    public function changeName(Request $req)
     {
         $this->validate($req, [
             'name' => ['required', 'string', 'max:255']
@@ -103,6 +103,11 @@ class UsersController extends Controller
         $user = User::find(Auth::user()->id);
         $user->name = $req->name;
         $user->save();
-        return redirect()->route('home');
+        return redirect()->route('dashboard');
+    }
+
+    public function changePassword()
+    {
+        return view('auth.forgot-password');
     }
 }
