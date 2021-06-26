@@ -4,15 +4,7 @@
 @section('breadcrumb', __('Tanggal ').date('d-M-Y'))
 
 @section('content')
-@if(Session::has('status'))
-<div class="alert alert-danger alert-has-icon">
-    <div class="alert-icon"><i class="far fa-lightbulb"></i></div>
-    <div class="alert-body">
-        <div class="alert-title">{{ __('Informasi') }}</div>
-        {{ Session::get('status') }}
-    </div>
-</div>
-@endif
+@include('layouts.backend.components.notification')
 <div class="row">
     <div class="col-lg-3 col-md-6 col-sm-6 col-12">
         <div class="card card-statistic-1">

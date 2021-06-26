@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\DashboardController;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
@@ -15,6 +16,11 @@ class AuthenticatedSessionController extends Controller
      *
      * @return \Illuminate\View\View
      */
+    public function __construct(DashboardController $DashboardController)
+    {
+        $this->DashboardController = $DashboardController;
+    }
+
     public function create()
     {
         return view('auth.login');
@@ -32,6 +38,12 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
+        $this->DashboardController->createLog(
+            $request->header('user-agent'),
+            $request->ip(),
+            'Melakukan login'
+        );
+
         return redirect()->intended(RouteServiceProvider::HOME);
     }
 
@@ -43,6 +55,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
+        $this->DashboardController->createLog(
+            $request->header('user-agent'),
+            $request->ip(),
+            'Melakukan logout'
+        );
+
         Auth::guard('web')->logout();
 
         $request->session()->invalidate();

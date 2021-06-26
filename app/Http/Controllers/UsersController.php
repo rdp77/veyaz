@@ -60,7 +60,11 @@ class UsersController extends Controller
             'Membuat user baru'
         );
 
-        return Redirect::route('users.index');
+        return Redirect::route('users.index')
+            ->with([
+                'status' => 'Berhasil membuat user baru',
+                'type' => 'success'
+            ]);
     }
 
     public function edit($id)
@@ -79,26 +83,58 @@ class UsersController extends Controller
         $user = User::find($id);
         $user->name = $req->name;
         $user->username = $req->username;
+
+        $this->DashboardController->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            'Mengubah user ' . $user->name
+        );
+
         $user->save();
-        return Redirect::route('users.index');
+
+        return Redirect::route('users.index')
+            ->with([
+                'status' => 'Berhasil merubah user',
+                'type' => 'success'
+            ]);
     }
 
-    public function destroy($id)
+    public function destroy($id, Request $req)
     {
         $user = User::find($id);
+
+        $this->DashboardController->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            'Menghapus user ' . $user->name
+        );
+
         $user->delete();
 
-        return Redirect::route('users.index');
+        return Redirect::route('users.index')
+            ->with([
+                'status' => 'Berhasil menghapus user',
+                'type' => 'success'
+            ]);
     }
 
-    function reset($id)
+    function reset($id, Request $req)
     {
         $user = User::find($id);
         $user->password = Hash::make(1234567890);
+
+        $this->DashboardController->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            'Reset password user ' . $user->name
+        );
+
         $user->save();
+
         return Redirect::route('users.index')
             ->with([
-                'status' => 'Password untuk user ' . $user->name . ' telah diganti menjadi \'1234567890\''
+                'status' => 'Password untuk user ' . $user->name . ' telah diganti menjadi \'1234567890\'',
+                'type' => 'success'
             ]);
     }
 
@@ -107,10 +143,24 @@ class UsersController extends Controller
         $this->validate($req, [
             'name' => ['required', 'string', 'max:255']
         ]);
+
         $user = User::find(Auth::user()->id);
+
+        $this->DashboardController->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            'Mengganti nama ' . $user->name . ' menjadi ' . $req->name
+        );
+
+        $oldName = $user->name;
         $user->name = $req->name;
         $user->save();
-        return redirect()->route('dashboard');
+
+        return Redirect::route('dashboard')
+            ->with([
+                'status' => 'Nama berhasil diganti dari ' . $oldName . ' menjadi ' . $req->name,
+                'type' => 'success'
+            ]);
     }
 
     public function changePassword()

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\DashboardController;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -21,6 +22,11 @@ class NewPasswordController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\View\View
      */
+    public function __construct(DashboardController $DashboardController)
+    {
+        $this->DashboardController = $DashboardController;
+    }
+
     public function create(Request $request)
     {
         return view('auth.reset-password', ['request' => $request]);
@@ -76,7 +82,10 @@ class NewPasswordController extends Controller
 
         if (Auth::user()->username != $req->username) {
             return redirect()->route('users.password')
-                ->with(['status' => 'Username sebelumnya tidak sama silahkan cek kembali']);
+                ->with([
+                    'status' => 'Username sebelumnya tidak sama silahkan cek kembali',
+                    'type' => 'error'
+                ]);
         }
 
         $user = User::find(Auth::user()->id);
@@ -84,17 +93,22 @@ class NewPasswordController extends Controller
         if (Hash::check($req->oldPassword, Auth::user()->password)) {
             $user->password = Hash::make($req->password);
             $user->save();
-            // Add Record History
-            // History::create([
-            //     'date' => date('Y-m-d'),
-            //     'info' => Auth::user()->name . " telah mereset passwordnya.",
-            //     'u_id' => Auth::user()->id
-            // ]);
+
+            $this->DashboardController->createLog(
+                $req->header('user-agent'),
+                $req->ip(),
+                'Melakukan login'
+            );
+
             Auth::logout();
+
             return Redirect::route('login');
         } else {
             return redirect()->route('users.password')
-                ->with(['status' => 'Password sebelumnya tidak sama silahkan cek kembali']);
+                ->with([
+                    'status' => 'Password sebelumnya tidak sama silahkan cek kembali',
+                    'type' => 'error'
+                ]);
         }
     }
 }
