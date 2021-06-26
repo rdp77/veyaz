@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Log;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
@@ -18,9 +16,10 @@ class UsersController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(DashboardController $DashboardController)
     {
         $this->middleware('auth');
+        $this->DashboardController = $DashboardController;
     }
 
     /**
@@ -55,14 +54,11 @@ class UsersController extends Controller
             'password' => Hash::make($req->password),
         ]);
 
-        Log::create([
-            'info' => Auth::user()->name . " membuat user baru",
-            'u_id' => Auth::user()->id,
-            'url' => URL::full(),
-            'user_agent' => $req->header('user-agent'),
-            'ip' => $req->ip(),
-            'added_at' => date("Y-m-d H:i:s"),
-        ]);
+        $this->DashboardController->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            'Membuat user baru'
+        );
 
         return Redirect::route('users.index');
     }

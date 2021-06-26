@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Log;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 
 class DashboardController extends Controller
 {
@@ -35,6 +36,18 @@ class DashboardController extends Controller
     {
         return view('pages.backend.log.IndexLog', [
             'log' => Log::all()
+        ]);
+    }
+
+    public function createLog($header, $ip, $action)
+    {
+        Log::create([
+            'info' => $action,
+            'u_id' => Auth::user()->id,
+            'url' => URL::full(),
+            'user_agent' => $header,
+            'ip' => $ip,
+            'added_at' => date("Y-m-d H:i:s"),
         ]);
     }
 }
