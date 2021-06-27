@@ -97,7 +97,7 @@ class NewPasswordController extends Controller
             $this->DashboardController->createLog(
                 $req->header('user-agent'),
                 $req->ip(),
-                'Melakukan login'
+                'Mengganti password'
             );
 
             Auth::logout();
