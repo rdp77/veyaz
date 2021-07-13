@@ -1,4 +1,4 @@
-@include('layouts.backend.components.header')
+@include('layouts.components.header')
 
 <body>
     <div id="app">
@@ -18,12 +18,12 @@
                     </div>
                 </div>
                 <div class="simple-footer mt-5">
-                    @include('layouts.backend.components.credit')
+                    @include('layouts.components.credit')
                 </div>
             </div>
         </section>
     </div>
-    @include('layouts.backend.components.footer')
+    @include('layouts.components.footer')
 </body>
 
 </html>

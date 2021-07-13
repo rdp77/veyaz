@@ -37,7 +37,7 @@
                                 @endif
                             </div>
                             <div class="simple-footer">
-                                @include('layouts.backend.components.credit')
+                                @include('layouts.components.credit')
                             </div>
                         </div>
                     </div>
