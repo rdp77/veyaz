@@ -32,7 +32,7 @@
         </div>
     </div>
     @include('layouts.components.footer')
-    <script src="{{ asset('pages/index.js') }}"></script>
+    <script src="{{ asset('assets/pages/index.js') }}"></script>
     @yield('script')
 </body>
 
