@@ -11,7 +11,9 @@
                             @yield('message')
                         </div>
                         <div class="mt-3">
-                            <a href="{{ url('/') }}">{{ __('Kembali Ke Beranda') }}</a>
+                            <a href="{{ url('/') }}">
+                                {{ __('pages.backTo') }}
+                            </a>
                         </div>
                     </div>
                 </div>

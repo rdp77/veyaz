@@ -24,5 +24,6 @@ return [
     'name' => 'Nama',
     'history' => 'Riwayat',
     'historyDesc' => 'Riwayat yang kamu lakukan akan tercatat disini',
-    'dashboard' => 'Beranda'
+    'dashboard' => 'Beranda',
+    'backTo' => 'Kembali ke Beranda'
 ];
