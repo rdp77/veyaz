@@ -7,3 +7,12 @@ $("#tables").dataTable({
         [10, 25, 50, "All"],
     ],
 });
+
+let modal_body =
+    '<form method="GET" action="/change-name"><input type="text" class="form-control" name="name" required></form>';
+
+$("#name").fireModal({
+    body: modal_body,
+    center: true,
+    title: "Ganti Nama",
+});
