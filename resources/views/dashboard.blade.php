@@ -6,9 +6,9 @@
 @section('content')
 @include('layouts.backend.components.notification')
 <div class="row">
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
         <div class="card card-statistic-1">
-            <div class="card-icon bg-primary">
+            <div class="card-icon bg-info">
                 <i class="far fa-user"></i>
             </div>
             <div class="card-wrap">
@@ -16,52 +16,22 @@
                     <h4>{{ __('Total Admin') }}</h4>
                 </div>
                 <div class="card-body">
-                    {{ __('10') }}
+                    {{ $users }}
                 </div>
             </div>
         </div>
     </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-        <div class="card card-statistic-1">
-            <div class="card-icon bg-danger">
-                <i class="far fa-newspaper"></i>
-            </div>
-            <div class="card-wrap">
-                <div class="card-header">
-                    <h4>{{ __('News') }}</h4>
-                </div>
-                <div class="card-body">
-                    {{ __('42') }}
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
-        <div class="card card-statistic-1">
-            <div class="card-icon bg-warning">
-                <i class="far fa-file"></i>
-            </div>
-            <div class="card-wrap">
-                <div class="card-header">
-                    <h4>{{ __('Reports') }}</h4>
-                </div>
-                <div class="card-body">
-                    {{ __('1,201') }}
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-6 col-12">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
         <div class="card card-statistic-1">
             <div class="card-icon bg-success">
-                <i class="fas fa-circle"></i>
+                <i class="far fa-list-alt"></i>
             </div>
             <div class="card-wrap">
                 <div class="card-header">
-                    <h4>{{ __('Online Users') }}</h4>
+                    <h4>{{ __('Total Aktivitas') }}</h4>
                 </div>
                 <div class="card-body">
-                    {{ __('47') }}
+                    {{ $logCount }}
                 </div>
             </div>
         </div>
