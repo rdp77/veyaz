@@ -323,9 +323,8 @@ $(function () {
             $("body").removeClass("sidebar-gone sidebar-show");
             if (now_layout_class) $("body").addClass(now_layout_class);
 
-            let nav_second_classes = $(".main-sidebar").attr(
-                    "data-nav-classes"
-                ),
+            let nav_second_classes =
+                    $(".main-sidebar").attr("data-nav-classes"),
                 nav_second = $(".main-sidebar");
 
             if (
@@ -647,13 +646,13 @@ $(function () {
     if (jQuery().daterangepicker) {
         if ($(".datepicker").length) {
             $(".datepicker").daterangepicker({
-                locale: { format: "YYYY-MM-DD" },
+                locale: { format: "DD-MM-YYYY" },
                 singleDatePicker: true,
             });
         }
         if ($(".datetimepicker").length) {
             $(".datetimepicker").daterangepicker({
-                locale: { format: "YYYY-MM-DD hh:mm" },
+                locale: { format: "DD-MM-YYYY hh:mm" },
                 singleDatePicker: true,
                 timePicker: true,
                 timePicker24Hour: true,
@@ -661,7 +660,7 @@ $(function () {
         }
         if ($(".daterange").length) {
             $(".daterange").daterangepicker({
-                locale: { format: "YYYY-MM-DD" },
+                locale: { format: "DD-MM-YYYY" },
                 drops: "down",
                 opens: "right",
             });
