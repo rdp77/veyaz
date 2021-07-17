@@ -1,4 +1,4 @@
-@include('layouts.backend.components.header')
+@include('layouts.components.header')
 
 <body>
     <div id="app">
@@ -11,17 +11,19 @@
                             @yield('message')
                         </div>
                         <div class="mt-3">
-                            <a href="{{ url('/') }}">{{ __('Kembali Ke Beranda') }}</a>
+                            <a href="{{ url('/') }}">
+                                {{ __('pages.backTo') }}
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="simple-footer mt-5">
-                    @include('layouts.backend.components.credit')
+                    @include('layouts.components.credit')
                 </div>
             </div>
         </section>
     </div>
-    @include('layouts.backend.components.footer')
+    @include('layouts.components.footer')
 </body>
 
 </html>

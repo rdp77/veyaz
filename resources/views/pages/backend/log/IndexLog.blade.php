@@ -1,6 +1,10 @@
 @extends('layouts.backend.default')
-@section('title', __('pages.title').__(' | Riwayat Aktivitas'))
-@section('titleContent', __('Log Aksi'))
+@section('title', __('pages.title').__(' | ').__('pages.history'))
+@section('titleContent', __('pages.history'))
+@section('breadcrumb', __('Dashboard'))
+@section('morebreadcrumb')
+<div class="breadcrumb-item active">{{ __('pages.history') }}</div>
+@endsection
 
 @section('content')
 <div class="card card-primary">

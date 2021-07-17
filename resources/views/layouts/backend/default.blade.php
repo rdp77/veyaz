@@ -1,4 +1,4 @@
-@include('layouts.backend.components.header')
+@include('layouts.components.header')
 
 <body>
     <div id="app">
@@ -20,7 +20,7 @@
             </div>
             <footer class="main-footer">
                 <div class="footer-left">
-                    @include('layouts.backend.components.credit')
+                    @include('layouts.components.credit')
                 </div>
                 <div class="footer-right">
                     {{ __('v0.1') }} <div class="bullet"></div>
@@ -31,8 +31,8 @@
             </footer>
         </div>
     </div>
-    @include('layouts.backend.components.footer')
-    <script src="{{ asset('pages/index.js') }}"></script>
+    @include('layouts.components.footer')
+    <script src="{{ asset('assets/pages/index.js') }}"></script>
     @yield('script')
 </body>
 

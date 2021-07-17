@@ -11,12 +11,6 @@ const mix = require("laravel-mix");
  |
  */
 
-// mix.js("resources/js/app.js", "public/js").postCss(
-//     "resources/css/app.css",
-//     "public/css",
-//     [require("postcss-import"), require("tailwindcss"), require("autoprefixer")]
-// );
-
 // CSS
 mix.styles(
     [
@@ -35,7 +29,7 @@ mix.styles(
         "resources/css/summernote-bs4.css",
         "resources/css/components.css",
     ],
-    "public/assets.css"
+    "public/assets/style.css"
 ).version();
 
 // Javascript
@@ -66,7 +60,7 @@ mix.scripts(
         "resources/js/scripts.js",
         "resources/js/summernote-bs4.js",
     ],
-    "public/assets.js"
+    "public/assets/scripts.js"
 ).version();
 
 mix.disableNotifications();

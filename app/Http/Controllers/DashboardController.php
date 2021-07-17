@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Log;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 
@@ -26,9 +27,14 @@ class DashboardController extends Controller
 
     public function index()
     {
+        $log = Log::limit(7)->get();
+        $users = User::count();
+        $logCount = Log::where('u_id', Auth::user()->id)
+            ->count();
         return view('dashboard', [
-            'log' => Log::limit(7)
-                ->get()
+            'log' => $log,
+            'users' => $users,
+            'logCount' => $logCount
         ]);
     }
 

@@ -1,4 +1,4 @@
-@extends('layouts.frontend.custom')
+@extends('layouts.frontend.default')
 @section('title', __('pages.title'))
 @section('titleContent', __('auth.login'))
 

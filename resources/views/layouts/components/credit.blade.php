@@ -1,2 +1,6 @@
-{{ __('Copyright') }} <i class="fas fa-copyright"></i>
-{{ __('Melia Sarana Transport ') . date('Y') }}
+{{ __('Build With ') }}
+<span style="color: Tomato;">
+    <i class="fas fa-heart"></i>
+</span>
+{{ __(' | Powered By ') }}
+<a href="https://wreative.com" title="Wreative" target="_blank">{{ __('Wreative') }}</a>

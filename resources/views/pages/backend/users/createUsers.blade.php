@@ -1,7 +1,7 @@
 @extends('layouts.backend.default')
 @section('title', __('pages.title').__(' | Tambah Pengguna'))
 @section('titleContent', __('Tambah Pengguna'))
-@section('breadcrumb', __('Master'))
+@section('breadcrumb', __('Data'))
 @section('morebreadcrumb')
 <div class="breadcrumb-item active">{{ __('Pengguna') }}</div>
 <div class="breadcrumb-item active">{{ __('Tambah Pengguna') }}</div>
