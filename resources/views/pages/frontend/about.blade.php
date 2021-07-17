@@ -1,5 +1,5 @@
 @extends('layouts.frontend.custom')
-@section('title', __('pages.title'))
+@section('title', __('pages.about'))
 @section('titleContent', __('auth.login'))
 
 @section('content')
@@ -16,9 +16,5 @@
             {{ __('auth.register') }}
         </a>
     </div>
-
 </div>
-<a href="{{ route('about') }}" class="btn btn-block btn-round btn-light mt-3">
-    {{ __('pages.about') }}
-</a>
 @endsection
