@@ -101,15 +101,13 @@ class UsersController extends Controller
 
     public function destroy($id, Request $req)
     {
-        $user = User::find($id);
-
         $this->DashboardController->createLog(
             $req->header('user-agent'),
             $req->ip(),
-            'Menghapus user ' . $user->name
+            'Menghapus user ' . User::find($id)->name
         );
 
-        $user->delete();
+        User::destroy($id);
 
         return Redirect::route('users.index')
             ->with([

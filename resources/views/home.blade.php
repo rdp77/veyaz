@@ -18,7 +18,4 @@
     </div>
 
 </div>
-<a href="{{ route('about') }}" class="btn btn-block btn-round btn-light mt-3">
-    {{ __('pages.about') }}
-</a>
 @endsection

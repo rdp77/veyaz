@@ -18,9 +18,6 @@ use App\Http\Controllers\DashboardController;
 Route::get('/', function () {
     return view('home');
 });
-Route::get('/about', function () {
-    return view('pages.frontend.about');
-})->name('about');
 // Backend
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
