@@ -1,9 +1,4 @@
 {
-<<<<<<< HEAD
-    "/assets.css": "/assets.css?id=bd4518120d001bf31e67",
-    "/assets.js": "/assets.js?id=55ac8115859d1ae5ce8e"
-=======
     "/assets/style.css": "/assets/style.css?id=bd4518120d001bf31e67",
-    "/assets/scripts.js": "/assets/scripts.js?id=3f7284defb0d8d349358"
->>>>>>> 82a0b6bc83efb0cf933afb1bfe4cd61fe1502195
+    "/assets/scripts.js": "/assets/scripts.js?id=55ac8115859d1ae5ce8e"
 }
