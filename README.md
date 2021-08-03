@@ -56,7 +56,6 @@ Login using username `admin` and password `admin`
 - [Summernote](https://github.com/summernote/summernote/)
 - [Chart](https://github.com/chartjs/Chart.js)
 - [Cleave](https://github.com/nosir/cleave.js)
-### Laravel
 - [Laravel Mix](https://github.com/JeffreyWay/laravel-mix)
 - [Laravel Page Speed](https://github.com/renatomarinho/laravel-page-speed)
 - [Laravel Jetstream](https://github.com/laravel/jetstream)
