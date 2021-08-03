@@ -80,14 +80,18 @@ class UsersController extends Controller
             'username' => ['required', 'string', 'max:255', 'unique:users'],
         ])->validate();
 
-        $user = User::find($id);
-        $user->name = $req->name;
-        $user->username = $req->username;
 
+        User::where('id', $id)
+            ->update([
+                'name' => $req->name,
+                'username' => $req->username
+            ]);
+
+        $user = User::find($id);
         $this->DashboardController->createLog(
             $req->header('user-agent'),
             $req->ip(),
-            'Mengubah user ' . $user->name
+            'Mengubah user ' . User::find($id)->name
         );
 
         $user->save();
@@ -101,15 +105,13 @@ class UsersController extends Controller
 
     public function destroy($id, Request $req)
     {
-        $user = User::find($id);
+        User::destroy($id);
 
         $this->DashboardController->createLog(
             $req->header('user-agent'),
             $req->ip(),
-            'Menghapus user ' . $user->name
+            'Menghapus user ' . User::find($id)->name
         );
-
-        $user->delete();
 
         return Redirect::route('users.index')
             ->with([
@@ -120,20 +122,20 @@ class UsersController extends Controller
 
     function reset($id, Request $req)
     {
-        $user = User::find($id);
-        $user->password = Hash::make(1234567890);
+        User::where('id', $id)
+            ->update([
+                'password' => Hash::make(1234567890),
+            ]);
 
         $this->DashboardController->createLog(
             $req->header('user-agent'),
             $req->ip(),
-            'Reset password user ' . $user->name
+            'Reset password user ' . User::find($id)->name
         );
-
-        $user->save();
 
         return Redirect::route('users.index')
             ->with([
-                'status' => 'Password untuk user ' . $user->name . ' telah diganti menjadi \'1234567890\'',
+                'status' => 'Password untuk user ' . User::find($id)->name . ' telah diganti menjadi \'1234567890\'',
                 'type' => 'success'
             ]);
     }
