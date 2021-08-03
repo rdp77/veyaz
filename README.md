@@ -19,7 +19,7 @@ Because it uses Laravel migrations feature it can use any type of DBMS as long a
 
 ## Getting Started
 
-1. Clone repository with the command `git clone https://github.com/Batu-Beling-Digital/hrd.git`
+1. Clone repository with the command `git clone https://github.com/rdp77/veyaz.git`
 2. Installing package form Composer with command `composer install`
 3. Installing package module node js with command `node install` (Optional)
 4. Running web application using commands `php artisan serve` or running manually with web server.
@@ -30,17 +30,42 @@ Copy the `.env.example` file then change the name to `.env`, then adjust the set
 DB_CONNECTION=mysql //Driver Database
 DB_HOST=127.0.0.1 //Host
 DB_PORT=3306 //Port
-DB_DATABASE=bb-temp //Name
+DB_DATABASE=database //Name Database
 DB_USERNAME=root //Username
 DB_PASSWORD= //Password
 ```
 If the key in .env is empty run this command to generate a key `php artisan key:generate` Run the migrations database to import all databases using the command `php artisan migrate:refresh --seed`
 
-Login using username `admin@gmail.com` and password `1234567890`
+Login using username `admin` and password `admin`
+
+## Third-party Library
+- [jQuery](https://github.com/jquery/jquery)
+- [Moment](https://github.com/moment/moment/)
+- [Popper](https://github.com/popperjs/popper-core)
+- [DataTables](https://github.com/DataTables/DataTables)
+- [Nicescroll](https://github.com/inuyaksa/jquery.nicescroll)
+- [Sweet Alert](https://github.com/t4t5/sweetalert)
+- [iziToast](https://github.com/marcelodolza/iziToast)
+- [Dropzone](https://github.com/dropzone/dropzone)
+- [NProgress](https://github.com/rstacruz/nprogress)
+- [Material Floating Button](https://github.com/nobitagit/material-floating-button)
+- [Date Range Picker](https://github.com/dangrossman/daterangepicker)
+- [Select2](https://github.com/select2/select2)
+- [Chocolat](https://github.com/nicolas-t/Chocolat)
+- [Bootstrap Tag Input](https://github.com/bootstrap-tagsinput/bootstrap-tagsinput)
+- [Summernote](https://github.com/summernote/summernote/)
+- [Chart](https://github.com/chartjs/Chart.js)
+- [Cleave](https://github.com/nosir/cleave.js)
+### Laravel
+- [Laravel Mix](https://github.com/JeffreyWay/laravel-mix)
+- [Laravel Page Speed](https://github.com/renatomarinho/laravel-page-speed)
+- [Laravel Jetstream](https://github.com/laravel/jetstream)
+- [Laravel Breeze](https://github.com/laravel/breeze)
+- [Barcode Generator](https://github.com/milon/barcode)
 
 ## Code of Conduct
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct) or veyaz [Code of Conduct](https://github.com/rdp77/veyaz/blob/master/CODE_OF_CONDUCT.md).
 
 ## Security Vulnerabilities
 
@@ -48,4 +73,4 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT), and veyaz under the [GPL-3.0](https://github.com/rdp77/veyaz/blob/master/LICENSE)
