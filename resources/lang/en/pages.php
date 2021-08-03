@@ -25,5 +25,6 @@ return [
     'history' => 'History',
     'historyDesc' => 'Your history will be recorded here',
     'dashboard' => 'Dashboard',
-    'backTo' => 'Back to Home'
+    'backTo' => 'Back to Home',
+    'about' => 'About'
 ];

@@ -16,5 +16,6 @@
             {{ __('auth.register') }}
         </a>
     </div>
+
 </div>
 @endsection

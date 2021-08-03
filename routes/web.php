@@ -14,10 +14,11 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
+// Front End
 Route::get('/', function () {
     return view('home');
 });
-
+// Backend
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
 Route::get('/log', [DashboardController::class, 'log'])
