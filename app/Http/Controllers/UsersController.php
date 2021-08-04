@@ -54,12 +54,6 @@ class UsersController extends Controller
                 ->make(true);
         }
         return view('pages.backend.users.indexUsers');
-
-
-
-
-        // $users = 
-        // return view('pages.backend.users.indexUsers', ['users' => $users]);
     }
 
     public function create()

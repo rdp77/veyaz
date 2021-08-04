@@ -68,22 +68,21 @@ $(".filter_name").on("keyup", function () {
     table.search($(this).val()).draw();
 });
 
+$.ajaxSetup({
+    headers: {
+        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+    },
+});
+
 function del(id) {
     swal({
         title: "Apakah Anda Yakin?",
-        text: "Aksi ini tidak dapat dikembalikan. Apakah ingin melanjutkan?",
+        text: "Aksi ini tidak dapat dikembalikan, dan akan menghapus data pengguna Anda.",
         icon: "warning",
         buttons: true,
         dangerMode: true,
     }).then((willDelete) => {
         if (willDelete) {
-            $.ajaxSetup({
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
-                        "content"
-                    ),
-                },
-            });
             $.ajax({
                 url: "/users/" + id,
                 type: "DELETE",
@@ -92,9 +91,6 @@ function del(id) {
                         icon: "success",
                     });
                     table.draw();
-                    // window.location.href = "/users/log/destroy";
-                    // window.history.pushState("", "", "/users/log/destroy");
-                    // window.location.assign("/users/log/destroy");
                 },
             });
         } else {
@@ -103,34 +99,29 @@ function del(id) {
     });
 }
 
-// function reset(id) {
-//     swal({
-//         title: "Apakah Anda Yakin?",
-//         text: "Aksi ini tidak dapat dikembalikan dan mengubah password menjadi default yaitu '1234567890'. Apakah ingin melanjutkan?",
-//         icon: "warning",
-//         buttons: true,
-//         dangerMode: true,
-//     }).then((willDelete) => {
-//         if (willDelete) {
-//             $.ajaxSetup({
-//                 headers: {
-//                     "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
-//                         "content"
-//                     ),
-//                 },
-//             });
-//             $.ajax({
-//                 url: "/users/" + id,
-//                 type: "POST",
-//                 success: function () {
-//                     swal("Data pengguna berhasil dihapus", {
-//                         icon: "success",
-//                     });
-//                     table.draw();
-//                 },
-//             });
-//         } else {
-//             swal("Data pengguna Anda tidak jadi dihapus!");
-//         }
-//     });
-// }
+function reset(id) {
+    swal({
+        title: "Apakah Anda Yakin?",
+        text: "Aksi ini tidak dapat dikembalikan dan mengubah password menjadi default yaitu '1234567890'.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    }).then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                url: "/users/reset/" + id,
+                type: "POST",
+                success: function () {
+                    swal(
+                        "Password pengguna berhasil diubah menjadi '1234567890'",
+                        {
+                            icon: "success",
+                        }
+                    );
+                },
+            });
+        } else {
+            swal("Data pengguna Anda tidak jadi direset password!");
+        }
+    });
+}
