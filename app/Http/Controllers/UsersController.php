@@ -6,8 +6,11 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\DataTables;
+
 
 class UsersController extends Controller
 {
@@ -28,11 +31,35 @@ class UsersController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
 
-    public function index()
+    public function index(Request $req)
     {
-        $users = User::where('id', '!=', Auth::user()->id)
-            ->get();
-        return view('pages.backend.users.indexUsers', ['users' => $users]);
+        if ($req->ajax()) {
+            $data = User::where('id', '!=', Auth::user()->id)->get();;
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $actionBtn = '<div class="btn-group">';
+                    $actionBtn .= '<a onclick="reset(' . $row->id . ')" class="btn btn-primary text-white" style="cursor:pointer;">Reset Password</a>';
+                    $actionBtn .= '<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                            data-toggle="dropdown">
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>';
+                    $actionBtn .= '<div class="dropdown-menu">
+                            <a class="dropdown-item" href="' . route('users.edit', $row->id) . '">Edit</a>';
+                    $actionBtn .= '<a onclick="del(' . $row->id . ')" class="dropdown-item" style="cursor:pointer;">Hapus</a>';
+                    $actionBtn .= '</div></div>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('pages.backend.users.indexUsers');
+
+
+
+
+        // $users = 
+        // return view('pages.backend.users.indexUsers', ['users' => $users]);
     }
 
     public function create()
@@ -70,7 +97,7 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('pages.data.users.updateUsers', ['user' => $user]);
+        return view('pages.backend.users.updateUsers', ['user' => $user]);
     }
 
     public function update($id, Request $req)
@@ -103,21 +130,23 @@ class UsersController extends Controller
             ]);
     }
 
-    public function destroy($id, Request $req)
+    public function destroy(Request $req, $id)
     {
-        User::destroy($id);
-
         $this->DashboardController->createLog(
             $req->header('user-agent'),
             $req->ip(),
             'Menghapus user ' . User::find($id)->name
         );
 
-        return Redirect::route('users.index')
-            ->with([
-                'status' => 'Berhasil menghapus user',
-                'type' => 'success'
-            ]);
+        User::destroy($id);
+
+        return Response::json(['status' => 'success']);
+
+        // return Redirect::route('users.index')
+        //     ->with([
+        //         'status' => 'Berhasil menghapus user',
+        //         'type' => 'success'
+        //     ]);
     }
 
     function reset($id, Request $req)
