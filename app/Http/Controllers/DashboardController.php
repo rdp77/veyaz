@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Log;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
+use Yajra\DataTables\DataTables;
 
 class DashboardController extends Controller
 {
@@ -38,11 +40,19 @@ class DashboardController extends Controller
         ]);
     }
 
-    public function log()
+    public function log(Request $req)
     {
-        return view('pages.backend.log.IndexLog', [
-            'log' => Log::all()
-        ]);
+        if ($req->ajax()) {
+            $data = Log::all();
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('added_at', function ($row) {
+                    return date("d-M-Y H:m", strtotime($row->added_at));
+                })
+                ->rawColumns(['added_at'])
+                ->make(true);
+        }
+        return view('pages.backend.log.IndexLog');
     }
 
     public function createLog($header, $ip, $action)

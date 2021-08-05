@@ -1,8 +1,10 @@
 <div class="card mb-3">
     <div class="card-body">
         <div class="form-group">
-            <label>{{ __('Cari Berdasarkan Nama :') }}</label>
-            <input type="text" name="name" class="form-control col-sm-4 filter_name" placeholder="Cari Nama">
+            <label>
+                {{ __('Cari Berdasarkan Apapun :') }}
+            </label>
+            <input type="text" name="name" class="form-control col-sm-4 filter_name" placeholder="Cari Disini">
         </div>
         {{-- <div class="form-group">
             <label>{{ __('Filter Berdasarkan :') }}</label>

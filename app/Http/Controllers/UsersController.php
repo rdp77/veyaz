@@ -11,7 +11,6 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 
-
 class UsersController extends Controller
 {
     /**
