@@ -61,6 +61,7 @@ Login using username `admin` and password `admin`
 - [Laravel Jetstream](https://github.com/laravel/jetstream)
 - [Laravel Breeze](https://github.com/laravel/breeze)
 - [Barcode Generator](https://github.com/milon/barcode)
+- [Sentry](https://github.com/getsentry/sentry)
 
 ## Code of Conduct
 
