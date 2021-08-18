@@ -40,7 +40,7 @@ Login using username `admin` and password `admin`
 
 ## Third-party Library
 
-This theme uses several libraries as helpers to improve the template, and can be seen [here](/library.md)
+This template uses several libraries as helpers to improve the template, and can be seen [here](/library.md)
 
 ## Code of Conduct
 
