@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
     <title>@yield('title')</title>
+    @auth
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    @endauth
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"

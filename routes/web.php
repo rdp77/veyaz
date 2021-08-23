@@ -23,6 +23,10 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
 Route::get('/log', [DashboardController::class, 'log'])
     ->name('dashboard.log');
+// Debug
+Route::get('/debug-sentry', function () {
+    throw new Exception('My first Sentry error!');
+});
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/users.php';

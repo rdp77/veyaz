@@ -6,8 +6,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Yajra\DataTables\DataTables;
 
 class UsersController extends Controller
 {
@@ -28,11 +30,29 @@ class UsersController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
 
-    public function index()
+    public function index(Request $req)
     {
-        $users = User::where('id', '!=', Auth::user()->id)
-            ->get();
-        return view('pages.backend.users.indexUsers', ['users' => $users]);
+        if ($req->ajax()) {
+            $data = User::where('id', '!=', Auth::user()->id)->get();;
+            return Datatables::of($data)
+                ->addIndexColumn()
+                ->addColumn('action', function ($row) {
+                    $actionBtn = '<div class="btn-group">';
+                    $actionBtn .= '<a onclick="reset(' . $row->id . ')" class="btn btn-primary text-white" style="cursor:pointer;">Reset Password</a>';
+                    $actionBtn .= '<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                            data-toggle="dropdown">
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>';
+                    $actionBtn .= '<div class="dropdown-menu">
+                            <a class="dropdown-item" href="' . route('users.edit', $row->id) . '">Edit</a>';
+                    $actionBtn .= '<a onclick="del(' . $row->id . ')" class="dropdown-item" style="cursor:pointer;">Hapus</a>';
+                    $actionBtn .= '</div></div>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('pages.backend.users.indexUsers');
     }
 
     public function create()
@@ -70,7 +90,7 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('pages.data.users.updateUsers', ['user' => $user]);
+        return view('pages.backend.users.updateUsers', ['user' => $user]);
     }
 
     public function update($id, Request $req)
@@ -80,14 +100,18 @@ class UsersController extends Controller
             'username' => ['required', 'string', 'max:255', 'unique:users'],
         ])->validate();
 
-        $user = User::find($id);
-        $user->name = $req->name;
-        $user->username = $req->username;
 
+        User::where('id', $id)
+            ->update([
+                'name' => $req->name,
+                'username' => $req->username
+            ]);
+
+        $user = User::find($id);
         $this->DashboardController->createLog(
             $req->header('user-agent'),
             $req->ip(),
-            'Mengubah user ' . $user->name
+            'Mengubah user ' . User::find($id)->name
         );
 
         $user->save();
@@ -99,7 +123,7 @@ class UsersController extends Controller
             ]);
     }
 
-    public function destroy($id, Request $req)
+    public function destroy(Request $req, $id)
     {
         $this->DashboardController->createLog(
             $req->header('user-agent'),
@@ -109,29 +133,31 @@ class UsersController extends Controller
 
         User::destroy($id);
 
-        return Redirect::route('users.index')
-            ->with([
-                'status' => 'Berhasil menghapus user',
-                'type' => 'success'
-            ]);
+        return Response::json(['status' => 'success']);
+
+        // return Redirect::route('users.index')
+        //     ->with([
+        //         'status' => 'Berhasil menghapus user',
+        //         'type' => 'success'
+        //     ]);
     }
 
     function reset($id, Request $req)
     {
-        $user = User::find($id);
-        $user->password = Hash::make(1234567890);
+        User::where('id', $id)
+            ->update([
+                'password' => Hash::make(1234567890),
+            ]);
 
         $this->DashboardController->createLog(
             $req->header('user-agent'),
             $req->ip(),
-            'Reset password user ' . $user->name
+            'Reset password user ' . User::find($id)->name
         );
-
-        $user->save();
 
         return Redirect::route('users.index')
             ->with([
-                'status' => 'Password untuk user ' . $user->name . ' telah diganti menjadi \'1234567890\'',
+                'status' => 'Password untuk user ' . User::find($id)->name . ' telah diganti menjadi \'1234567890\'',
                 'type' => 'success'
             ]);
     }
