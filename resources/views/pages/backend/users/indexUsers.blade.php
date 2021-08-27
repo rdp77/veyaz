@@ -18,9 +18,6 @@
         <table class="table-striped table" id="table" width="100%">
             <thead>
                 <tr>
-                    <th class="text-center">
-                        {{ __('NO') }}
-                    </th>
                     <th>
                         {{ __('Username') }}
                     </th>

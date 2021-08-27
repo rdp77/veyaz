@@ -33,9 +33,8 @@ class UsersController extends Controller
     public function index(Request $req)
     {
         if ($req->ajax()) {
-            $data = User::where('id', '!=', Auth::user()->id)->get();;
+            $data = User::where('id', '!=', Auth::user()->id)->get();
             return Datatables::of($data)
-                ->addIndexColumn()
                 ->addColumn('action', function ($row) {
                     $actionBtn = '<div class="btn-group">';
                     $actionBtn .= '<a onclick="reset(' . $row->id . ')" class="btn btn-primary text-white" style="cursor:pointer;">Reset Password</a>';
@@ -52,6 +51,7 @@ class UsersController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
+
         return view('pages.backend.users.indexUsers');
     }
 
@@ -77,14 +77,12 @@ class UsersController extends Controller
         $this->DashboardController->createLog(
             $req->header('user-agent'),
             $req->ip(),
-            'Membuat user baru'
+            Auth::user()->name . ' membuat user baru'
         );
 
-        return Redirect::route('users.index')
-            ->with([
-                'status' => 'Berhasil membuat user baru',
-                'type' => 'success'
-            ]);
+        notify("Berhasil membuat user baru", "Sukses", "success", "topRight");
+
+        return Redirect::route('users.index');
     }
 
     public function edit($id)
@@ -100,6 +98,11 @@ class UsersController extends Controller
             'username' => ['required', 'string', 'max:255', 'unique:users'],
         ])->validate();
 
+        $this->DashboardController->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            Auth::user()->name . ' mengubah user ' . User::find($id)->name
+        );
 
         User::where('id', $id)
             ->update([
@@ -107,20 +110,9 @@ class UsersController extends Controller
                 'username' => $req->username
             ]);
 
-        $user = User::find($id);
-        $this->DashboardController->createLog(
-            $req->header('user-agent'),
-            $req->ip(),
-            'Mengubah user ' . User::find($id)->name
-        );
+        notify("Berhasil merubah user", "Sukses", "success", "topRight");
 
-        $user->save();
-
-        return Redirect::route('users.index')
-            ->with([
-                'status' => 'Berhasil merubah user',
-                'type' => 'success'
-            ]);
+        return Redirect::route('users.index');
     }
 
     public function destroy(Request $req, $id)
