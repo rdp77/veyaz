@@ -25,3 +25,4 @@
 |          Sentry          |            https://github.com/getsentry/sentry             |
 |     jQuery Selectric     |       https://github.com/lcdsantos/jQuery-Selectric        |
 |    Laravel DataTables    |        https://github.com/yajra/laravel-datatables         |
+|     Laravel iziToast     |        https://github.com/AppsLab-KE/lara-izitoast         |
