@@ -1,7 +1,10 @@
 @extends('layouts.backend.default')
 @section('title', __('pages.title').__(' | ').__('pages.history'))
+@section('backToContent')
+@include('pages.backend.components.backToContent',['url'=>route('dashboard.log')])
+@endsection
 @section('titleContent', __('pages.history'))
-@section('breadcrumb', __('Dashboard'))
+@section('breadcrumb', __('pages.dashboard'))
 @section('morebreadcrumb')
 <div class="breadcrumb-item active">{{ __('pages.history') }}</div>
 @endsection
@@ -24,28 +27,6 @@
                 </tr>
             </thead>
             <tbody>
-                {{-- @foreach($log as $number => $l )
-                <tr>
-                    <td class="text-center">
-                        {{ $number + 1 }}
-                </td>
-                <td>
-                    {{ date("d-M-Y H:m", strtotime($l->added_at)) }}
-                </td>
-                <td>
-                    {{ $l->info }}
-                </td>
-                <td>
-                    {{ $l->url }}
-                </td>
-                <td>
-                    {{ $l->ip }}
-                </td>
-                <td>
-                    {{ $l->user_agent }}
-                </td>
-                </tr>
-                @endforeach --}}
             </tbody>
         </table>
     </div>
