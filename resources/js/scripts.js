@@ -642,17 +642,70 @@ $(function () {
         });
     }
 
+    // MomentJS
+    moment.locale("id");
+
     // Daterangepicker
     if (jQuery().daterangepicker) {
         if ($(".datepicker").length) {
             $(".datepicker").daterangepicker({
-                locale: { format: "DD-MM-YYYY" },
+                locale: {
+                    format: "DD MMMM YYYY",
+                    daysOfWeek: [
+                        "Min",
+                        "Sen",
+                        "Sel",
+                        "Rab",
+                        "Kam",
+                        "Jum",
+                        "Sab",
+                    ],
+                    monthNames: [
+                        "Januari",
+                        "Februari",
+                        "Maret",
+                        "April",
+                        "Mei",
+                        "Juni",
+                        "Juli",
+                        "Agustus",
+                        "September",
+                        "Oktober",
+                        "November",
+                        "Desember",
+                    ],
+                },
                 singleDatePicker: true,
             });
         }
         if ($(".datetimepicker").length) {
             $(".datetimepicker").daterangepicker({
-                locale: { format: "DD-MM-YYYY hh:mm" },
+                locale: {
+                    format: "DD MMMM YYYY hh:mm",
+                    daysOfWeek: [
+                        "Min",
+                        "Sen",
+                        "Sel",
+                        "Rab",
+                        "Kam",
+                        "Jum",
+                        "Sab",
+                    ],
+                    monthNames: [
+                        "Januari",
+                        "Februari",
+                        "Maret",
+                        "April",
+                        "Mei",
+                        "Juni",
+                        "Juli",
+                        "Agustus",
+                        "September",
+                        "Oktober",
+                        "November",
+                        "Desember",
+                    ],
+                },
                 singleDatePicker: true,
                 timePicker: true,
                 timePicker24Hour: true,
@@ -660,7 +713,32 @@ $(function () {
         }
         if ($(".daterange").length) {
             $(".daterange").daterangepicker({
-                locale: { format: "DD-MM-YYYY" },
+                locale: {
+                    format: "DD MMMM YYYY",
+                    daysOfWeek: [
+                        "Min",
+                        "Sen",
+                        "Sel",
+                        "Rab",
+                        "Kam",
+                        "Jum",
+                        "Sab",
+                    ],
+                    monthNames: [
+                        "Januari",
+                        "Februari",
+                        "Maret",
+                        "April",
+                        "Mei",
+                        "Juni",
+                        "Juli",
+                        "Agustus",
+                        "September",
+                        "Oktober",
+                        "November",
+                        "Desember",
+                    ],
+                },
                 drops: "down",
                 opens: "right",
             });
@@ -688,4 +766,14 @@ $(function () {
     jQuery(document).ajaxStop(function () {
         NProgress.done();
     });
+
+    // Cleave
+    $(".cleaveNumeral")
+        .toArray()
+        .forEach(function (field) {
+            new Cleave(field, {
+                numeral: true,
+                numeralThousandsGroupStyle: "thousand",
+            });
+        });
 });
