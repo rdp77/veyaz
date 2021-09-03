@@ -41,6 +41,7 @@ mix.scripts(
         "resources/js/bootstrap.min.js",
         "resources/js/stisla.js",
         "resources/js/jquery.dataTables.min.js",
+        "resources/js/jquery.uploadPreview.min.js",
         "resources/js/dataTables.bootstrap4.min.js",
         "resources/js/dataTables.searchBuilder.min.js",
         "resources/js/dataTables.buttons.min.js",
