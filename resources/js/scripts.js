@@ -767,6 +767,7 @@ $(function () {
         NProgress.done();
     });
 
+<<<<<<< HEAD
     // Upload Preview
     $.uploadPreview({
         input_field: "#image-upload", // Default: .image-upload
@@ -777,4 +778,15 @@ $(function () {
         no_label: false, // Default: false
         success_callback: null, // Default: null
     });
+=======
+    // Cleave
+    $(".cleaveNumeral")
+        .toArray()
+        .forEach(function (field) {
+            new Cleave(field, {
+                numeral: true,
+                numeralThousandsGroupStyle: "thousand",
+            });
+        });
+>>>>>>> 8f6c5dda1a9e2254c8eea32b84b575255ba19804
 });

@@ -1,5 +1,8 @@
 @extends('layouts.backend.default')
 @section('title', __('pages.title').__(' | Tambah Pengguna'))
+@section('backToContent')
+@include('pages.backend.components.backToContent',['url'=>route('dashboard.log')])
+@endsection
 @section('titleContent', __('Tambah Pengguna'))
 @section('breadcrumb', __('Data'))
 @section('morebreadcrumb')

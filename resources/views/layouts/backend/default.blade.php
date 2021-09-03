@@ -9,6 +9,7 @@
             <div class="main-content">
                 <section class="section">
                     <div class="section-header">
+                        @yield('backToContent')
                         <h1>@yield('titleContent')</h1>
                         <div class="section-header-breadcrumb">
                             <div class="breadcrumb-item active">@yield('breadcrumb')</div>
@@ -34,6 +35,7 @@
     @include('layouts.components.footer')
     <script src="{{ asset('assets/pages/index.js') }}"></script>
     @yield('script')
+    @include('vendor.lara-izitoast.toast')
 </body>
 
 </html>

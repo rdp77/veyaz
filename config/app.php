@@ -166,6 +166,7 @@ return [
          * Package Service Providers...
          */
         Milon\Barcode\BarcodeServiceProvider::class,
+        LaraIzitoast\LaraIzitoastServiceProvider::class,
 
         /*
          * Application Service Providers...
