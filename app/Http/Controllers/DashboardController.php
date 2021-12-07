@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Log;
+use App\Models\Template\Log;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\URL;
 use Yajra\DataTables\DataTables;
 
 class DashboardController extends Controller
@@ -53,17 +52,5 @@ class DashboardController extends Controller
                 ->make(true);
         }
         return view('pages.backend.log.IndexLog');
-    }
-
-    public function createLog($header, $ip, $action)
-    {
-        Log::create([
-            'info' => $action,
-            'u_id' => Auth::user()->id,
-            'url' => URL::full(),
-            'user_agent' => $header,
-            'ip' => $ip,
-            'added_at' => date("Y-m-d H:i:s"),
-        ]);
     }
 }

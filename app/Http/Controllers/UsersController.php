@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\Template\MainController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -18,10 +19,10 @@ class UsersController extends Controller
      *
      * @return void
      */
-    public function __construct(DashboardController $DashboardController)
+    public function __construct(MainController $MainController)
     {
         $this->middleware('auth');
-        $this->DashboardController = $DashboardController;
+        $this->MainController = $MainController;
     }
 
     /**
@@ -74,7 +75,7 @@ class UsersController extends Controller
             'password' => Hash::make($req->password),
         ]);
 
-        $this->DashboardController->createLog(
+        $this->MainController->createLog(
             $req->header('user-agent'),
             $req->ip(),
             Auth::user()->name . ' membuat user baru'
@@ -98,7 +99,7 @@ class UsersController extends Controller
             'username' => ['required', 'string', 'max:255', 'unique:users'],
         ])->validate();
 
-        $this->DashboardController->createLog(
+        $this->MainController->createLog(
             $req->header('user-agent'),
             $req->ip(),
             Auth::user()->name . ' mengubah user ' . User::find($id)->name
@@ -117,7 +118,7 @@ class UsersController extends Controller
 
     public function destroy(Request $req, $id)
     {
-        $this->DashboardController->createLog(
+        $this->MainController->createLog(
             $req->header('user-agent'),
             $req->ip(),
             'Menghapus user ' . User::find($id)->name
@@ -141,7 +142,7 @@ class UsersController extends Controller
                 'password' => Hash::make(1234567890),
             ]);
 
-        $this->DashboardController->createLog(
+        $this->MainController->createLog(
             $req->header('user-agent'),
             $req->ip(),
             'Reset password user ' . User::find($id)->name
@@ -162,7 +163,7 @@ class UsersController extends Controller
 
         $user = User::find(Auth::user()->id);
 
-        $this->DashboardController->createLog(
+        $this->MainController->createLog(
             $req->header('user-agent'),
             $req->ip(),
             'Mengganti nama ' . $user->name . ' menjadi ' . $req->name

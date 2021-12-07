@@ -12,6 +12,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "laravel/framework": "^8.40",
         "laravel/tinker": "^2.5",
+        "laravolt/indonesia": "^0.30.0",
         "milon/barcode": "^8.0",
         "renatomarinho/laravel-page-speed": "^2.0",
         "sentry/sentry-laravel": "^2.7",

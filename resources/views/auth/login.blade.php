@@ -1,6 +1,5 @@
 @extends('layouts.auth')
 @section('title', __('pages.title').__(' | ').__('title.login'))
-@section('titleContent', __('auth.login'))
 
 @section('content')
 <form method="POST" action="{{ route('login') }}" class="needs-validation">

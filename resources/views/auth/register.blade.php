@@ -1,6 +1,5 @@
 @extends('layouts.auth')
 @section('title', __('pages.title').__(' | ').__('title.register'))
-@section('titleContent', __('auth.register'))
 
 @section('content')
 <form method="POST" action="{{ route('register') }}" class="needs-validation">

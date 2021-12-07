@@ -16,9 +16,6 @@
                                 <img src="{{ asset('assets/img/logo.png') }}" alt="logo" width="150">
                             </div>
                             <div class="card card-primary">
-                                <div class="card-header">
-                                    <h4>@yield('titleContent')</h4>
-                                </div>
                                 <div class="card-body">
                                     @yield('content')
                                 </div>

@@ -167,6 +167,7 @@ return [
          */
         Milon\Barcode\BarcodeServiceProvider::class,
         LaraIzitoast\LaraIzitoastServiceProvider::class,
+        Laravolt\Indonesia\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -231,6 +232,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'DNS1D' => Milon\Barcode\Facades\DNS1DFacade::class,
         'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
+        'Indonesia' => Laravolt\Indonesia\Facade::class,
 
     ],
 

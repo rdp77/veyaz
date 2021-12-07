@@ -19,6 +19,7 @@ Route::resource('users', UsersController::class)
     ->except([
         'show',
     ]);
+
 // Users Password
 Route::post('/users/reset/{id}', [UsersController::class, 'reset'])
     ->name('users.reset');
@@ -26,5 +27,6 @@ Route::get('/change-password', [UsersController::class, 'changePassword'])
     ->name('users.password');
 Route::post('/reset', [NewPasswordController::class, 'changePassword'])
     ->name('changePassword');
+
 // Users Name
 Route::get('/change-name', [UsersController::class, 'changeName']);
