@@ -33,5 +33,8 @@
 </div>
 @endsection
 @section('script')
-<script src="{{ asset('assets/pages/log.js') }}"></script>
+<script>
+    var index = '{{ route('dashboard.log') }}';    
+</script>
+<script src="{{ asset('assets/pages/data/log/index.js') }}"></script>
 @endsection

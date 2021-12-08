@@ -63,16 +63,29 @@ class UsersController extends Controller
 
     public function store(Request $req)
     {
-        Validator::make($req->all(), [
+        $validator = Validator::make($req->all(), [
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ])->validate();
+        ]);
+
+        $validator = $this->MainController
+            ->validator($validator->errors()->all());
+
+        if (count($validator) != 0) {
+            return Response::json([
+                'status' => 'error',
+                'data' => $validator
+            ]);
+        }
 
         User::create([
             'name' => $req->name,
             'username' => $req->username,
             'password' => Hash::make($req->password),
+            'created_by' => Auth::user()->name,
+            'updated_by' => '',
+            'deleted_by' => ''
         ]);
 
         $this->MainController->createLog(
@@ -81,9 +94,10 @@ class UsersController extends Controller
             Auth::user()->name . ' membuat user baru'
         );
 
-        notify("Berhasil membuat user baru", "Sukses", "success", "topRight");
-
-        return Redirect::route('users.index');
+        return Response::json([
+            'status' => 'success',
+            'data' => 'Berhasil membuat user baru'
+        ]);
     }
 
     public function edit($id)
@@ -94,10 +108,20 @@ class UsersController extends Controller
 
     public function update($id, Request $req)
     {
-        Validator::make($req->all(), [
+        $validator = Validator::make($req->all(), [
             'name' => ['required', 'string', 'max:255'],
             'username' => ['required', 'string', 'max:255', 'unique:users'],
-        ])->validate();
+        ]);
+
+        $validator = $this->MainController
+            ->validator($validator->errors()->all());
+
+        if (count($validator) != 0) {
+            return Response::json([
+                'status' => 'error',
+                'data' => $validator
+            ]);
+        }
 
         $this->MainController->createLog(
             $req->header('user-agent'),
@@ -105,15 +129,20 @@ class UsersController extends Controller
             Auth::user()->name . ' mengubah user ' . User::find($id)->name
         );
 
+        $createdBy = User::find($id)->created_by;
+
         User::where('id', $id)
             ->update([
                 'name' => $req->name,
-                'username' => $req->username
+                'username' => $req->username,
+                'created_by' => $createdBy,
+                'updated_by' => Auth::user()->name
             ]);
 
-        notify("Berhasil merubah user", "Sukses", "success", "topRight");
-
-        return Redirect::route('users.index');
+        return Response::json([
+            'status' => 'success',
+            'data' => 'Berhasil mengubah user'
+        ]);
     }
 
     public function destroy(Request $req, $id)

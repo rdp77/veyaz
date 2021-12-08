@@ -10,7 +10,7 @@ var table = $("#table").DataTable({
         [10, 25, 50, "Semua"],
     ],
     ajax: {
-        url: "/log",
+        url: index,
         type: "GET",
     },
     dom: '<"html5buttons">lBrtip',

@@ -32,5 +32,8 @@
 </div>
 @endsection
 @section('script')
-<script src="{{ asset('assets/pages/users.js') }}"></script>
+<script>
+    var index = '{{ route('users.index') }}';    
+</script>
+<script src="{{ asset('assets/pages/data/users/index.js') }}"></script>
 @endsection
