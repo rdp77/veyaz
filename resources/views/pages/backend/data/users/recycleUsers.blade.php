@@ -1,9 +1,17 @@
 @extends('layouts.backend.default')
-@section('title', __('pages.title').__(' | Master Pengguna'))
+@section('title', __('pages.title').__(' | Pengguna'))
+@section('backToContent')
+<div class="section-header-back">
+    <a href="{{ route('users.index') }}" class="btn btn-icon">
+        <i class="fas fa-arrow-left"></i>
+    </a>
+</div>
+@endsection
 @section('titleContent', __('Pengguna'))
 @section('breadcrumb', __('Data'))
 @section('morebreadcrumb')
 <div class="breadcrumb-item active">{{ __('Pengguna') }}</div>
+<div class="breadcrumb-item active">{{ __('Recycle Bin') }}</div>
 @endsection
 
 @section('content')
@@ -11,8 +19,11 @@
 @include('layouts.backend.components.notification')
 <div class="card">
     <div class="card-header">
-        <a href="{{ route('users.create') }}" class="btn btn-icon icon-left btn-primary">
-            <i class="far fa-edit"></i>{{ __(' Tambah Pengguna') }}</a>
+        <div class="card-header-action">
+            <button onclick="delAll()" class="btn btn-icon icon-left btn-danger">
+                <i class="far fa-trash-alt"></i>{{ __('Hapus Semua') }}
+            </button>
+        </div>
     </div>
     <div class="card-body">
         <table class="table-striped table" id="table" width="100%">
@@ -33,7 +44,7 @@
 @endsection
 @section('script')
 <script>
-    var index = '{{ route('users.index') }}';    
+    var index = '{{ route('users.recycle') }}';
 </script>
 <script src="{{ asset('assets/pages/data/users/index.js') }}"></script>
 @endsection

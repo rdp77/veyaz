@@ -53,12 +53,12 @@ class UsersController extends Controller
                 ->make(true);
         }
 
-        return view('pages.backend.users.indexUsers');
+        return view('pages.backend.data.users.indexUsers');
     }
 
     public function create()
     {
-        return view('pages.backend.users.createUsers');
+        return view('pages.backend.data.users.createUsers');
     }
 
     public function store(Request $req)
@@ -91,19 +91,19 @@ class UsersController extends Controller
         $this->MainController->createLog(
             $req->header('user-agent'),
             $req->ip(),
-            Auth::user()->name . ' membuat user baru'
+            Auth::user()->name . ' membuat pengguna baru'
         );
 
         return Response::json([
             'status' => 'success',
-            'data' => 'Berhasil membuat user baru'
+            'data' => 'Berhasil membuat pengguna baru'
         ]);
     }
 
     public function edit($id)
     {
         $user = User::find($id);
-        return view('pages.backend.users.updateUsers', ['user' => $user]);
+        return view('pages.backend.data.users.updateUsers', ['user' => $user]);
     }
 
     public function update($id, Request $req)
@@ -126,7 +126,7 @@ class UsersController extends Controller
         $this->MainController->createLog(
             $req->header('user-agent'),
             $req->ip(),
-            Auth::user()->name . ' mengubah user ' . User::find($id)->name
+            Auth::user()->name . ' mengubah pengguna ' . User::find($id)->name
         );
 
         $createdBy = User::find($id)->created_by;
@@ -141,27 +141,100 @@ class UsersController extends Controller
 
         return Response::json([
             'status' => 'success',
-            'data' => 'Berhasil mengubah user'
+            'data' => 'Berhasil mengubah pengguna'
         ]);
     }
 
     public function destroy(Request $req, $id)
     {
-        $this->MainController->createLog(
-            $req->header('user-agent'),
-            $req->ip(),
-            'Menghapus user ' . User::find($id)->name
-        );
+        $user = User::find($id);
+        $user->deleted_by = Auth::user()->name;
+        $user->save();
 
         User::destroy($id);
 
-        return Response::json(['status' => 'success']);
+        $this->MainController->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            Auth::user()->name . ' menghapus data pengguna ke recycle bin'
+        );
 
-        // return Redirect::route('users.index')
-        //     ->with([
-        //         'status' => 'Berhasil menghapus user',
-        //         'type' => 'success'
-        //     ]);
+        return Response::json(['status' => 'success']);
+    }
+
+    public function recycle(Request $req)
+    {
+        if ($req->ajax()) {
+            $data = User::onlyTrashed()->get();
+            return Datatables::of($data)
+                ->addColumn('action', function ($row) {
+                    $actionBtn = '<button onclick="restore(' . $row->id . ')" class="btn btn btn-primary 
+                btn-action mb-1 mt-1 mr-1">Kembalikan</button>';
+                    $actionBtn .= '<button onclick="delRecycle(' . $row->id . ')" class="btn btn-danger 
+                    btn-action mb-1 mt-1">Hapus</button>';
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+        return view('pages.backend.data.users.recycleUsers');
+    }
+
+    public function restore($id, Request $req)
+    {
+        User::onlyTrashed()
+            ->where('id', $id)
+            ->restore();
+
+        $user = User::find($id);
+        $user->deleted_by = '';
+        $user->save();
+
+        $this->MainController->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            Auth::user()->name . ' mengembalikan data pengguna'
+        );
+
+        return Response::json(['status' => 'success']);
+    }
+
+    public function delete($id, Request $req)
+    {
+        User::onlyTrashed()
+            ->where('id', $id)
+            ->forceDelete();
+
+        $this->MainController->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            Auth::user()->name . ' menghapus data pengguna secara permanen'
+        );
+
+        return Response::json(['status' => 'success']);
+    }
+
+    public function deleteAll(Request $req)
+    {
+        $user = User::onlyTrashed()
+            ->forceDelete();
+
+        if ($user == 0) {
+            return Response::json([
+                'status' => 'error',
+                'data' => "Tidak ada data di recycle bin"
+            ]);
+        } else {
+            $user;
+        }
+
+        $this->MainController->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            Auth::user()->name . ' menghapus semua data pengguna secara permanen'
+        );
+
+        return Response::json(['status' => 'success']);
     }
 
     function reset($id, Request $req)
@@ -174,12 +247,12 @@ class UsersController extends Controller
         $this->MainController->createLog(
             $req->header('user-agent'),
             $req->ip(),
-            'Reset password user ' . User::find($id)->name
+            'Reset password pengguna ' . User::find($id)->name
         );
 
         return Redirect::route('users.index')
             ->with([
-                'status' => 'Password untuk user ' . User::find($id)->name . ' telah diganti menjadi \'1234567890\'',
+                'status' => 'Password untuk pengguna ' . User::find($id)->name . ' telah diganti menjadi \'1234567890\'',
                 'type' => 'success'
             ]);
     }

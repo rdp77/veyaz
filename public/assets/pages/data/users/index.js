@@ -14,6 +14,9 @@ var table = $("#table").DataTable({
         type: "GET",
     },
     dom: '<"html5buttons">lBrtip',
+    oLanguage: {
+        sEmptyTable: "Belum ada data",
+    },
     columns: [
         { data: "username" },
         { data: "name" },
@@ -83,7 +86,7 @@ function del(id) {
     }).then((willDelete) => {
         if (willDelete) {
             $.ajax({
-                url: "/users/" + id,
+                url: "/data/users/" + id,
                 type: "DELETE",
                 success: function () {
                     swal("Data pengguna berhasil dihapus", {
@@ -121,6 +124,88 @@ function reset(id) {
             });
         } else {
             swal("Data pengguna Anda tidak jadi direset password!");
+        }
+    });
+}
+
+function delRecycle(id) {
+    swal({
+        title: "Apakah Anda Yakin?",
+        text: "Aksi ini tidak dapat dikembalikan, dan akan menghapus data pengguna Anda secara permanen.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    }).then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                url: "/temp/users/delete/" + id,
+                type: "DELETE",
+                success: function () {
+                    swal("Data pengguna berhasil dihapus", {
+                        icon: "success",
+                    });
+                    table.draw();
+                },
+            });
+        } else {
+            swal("Data pengguna Anda tidak jadi dihapus!");
+        }
+    });
+}
+
+function delAll() {
+    swal({
+        title: "Apakah Anda Yakin?",
+        text: "Aksi ini tidak dapat dikembalikan, dan akan menghapus semua data pengguna Anda secara permanen.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    }).then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                url: "/temp/users/delete-all",
+                type: "DELETE",
+                success: function (data) {
+                    if (data.status == "success") {
+                        swal("Semua data pengguna berhasil dihapus", {
+                            icon: "success",
+                        });
+                        table.draw();
+                    } else if (data.status == "error") {
+                        iziToast.error({
+                            title: "Error",
+                            message: data.data,
+                        });
+                    }
+                },
+            });
+        } else {
+            swal("Semua data pengguna Anda tidak jadi dihapus!");
+        }
+    });
+}
+
+function restore(id) {
+    swal({
+        title: "Apakah Anda Yakin?",
+        text: "Aksi ini mengembalikan data pengguna Anda.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    }).then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                url: "/temp/users/restore/" + id,
+                type: "GET",
+                success: function () {
+                    swal("Data pengguna berhasil dikembalikan", {
+                        icon: "success",
+                    });
+                    table.draw();
+                },
+            });
+        } else {
+            swal("Data pengguna Anda tidak jadi dikembalikan!");
         }
     });
 }
