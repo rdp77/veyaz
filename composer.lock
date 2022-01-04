@@ -4,8 +4,74 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "136ab7672248452924a9cd93395edc1d",
+    "content-hash": "a9f7431d9aaeb7bd594732060808c272",
     "packages": [
+        {
+            "name": "alek13/slack",
+            "version": "1.12.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-slack/slack.git",
+                "reference": "9db79a622803bf7baf0efafb50e37b900882f7fb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-slack/slack/zipball/9db79a622803bf7baf0efafb50e37b900882f7fb",
+                "reference": "9db79a622803bf7baf0efafb50e37b900882f7fb",
+                "shasum": ""
+            },
+            "require": {
+                "ext-json": "*",
+                "ext-mbstring": "*",
+                "guzzlehttp/guzzle": "~7.0|~6.0|~5.0|~4.0",
+                "php": "^5.6|^7.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*",
+                "phpunit/phpunit": "4.2.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Maknz\\Slack\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-2-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "maknz",
+                    "email": "github@mak.geek.nz"
+                },
+                {
+                    "name": "Alexander Chibrikin",
+                    "email": "alek13.me@gmail.com"
+                }
+            ],
+            "description": "A simple PHP package (fork of maknz/slack) for sending messages to Slack, with a focus on ease of use and elegant syntax.",
+            "keywords": [
+                "laravel",
+                "slack"
+            ],
+            "support": {
+                "issues": "https://github.com/php-slack/slack/issues",
+                "source": "https://github.com/php-slack/slack/tree/1.12.0"
+            },
+            "funding": [
+                {
+                    "url": "https://donorbox.org/php-slack",
+                    "type": "custom"
+                }
+            ],
+            "time": "2020-09-01T18:22:43+00:00"
+        },
         {
             "name": "appslabke/lara-izitoast",
             "version": "v1.1.1",
@@ -233,6 +299,86 @@
                 }
             ],
             "time": "2020-10-02T12:38:20+00:00"
+        },
+        {
+            "name": "composer/semver",
+            "version": "1.7.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer/semver.git",
+                "reference": "647490bbcaf7fc4891c58f47b825eb99d19c377a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/composer/semver/zipball/647490bbcaf7fc4891c58f47b825eb99d19c377a",
+                "reference": "647490bbcaf7fc4891c58f47b825eb99d19c377a",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.3.2 || ^7.0 || ^8.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.5 || ^5.0.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Composer\\Semver\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nils Adermann",
+                    "email": "naderman@naderman.de",
+                    "homepage": "http://www.naderman.de"
+                },
+                {
+                    "name": "Jordi Boggiano",
+                    "email": "j.boggiano@seld.be",
+                    "homepage": "http://seld.be"
+                },
+                {
+                    "name": "Rob Bast",
+                    "email": "rob.bast@gmail.com",
+                    "homepage": "http://robbast.nl"
+                }
+            ],
+            "description": "Semver library that offers utilities, version constraint parsing and validation.",
+            "keywords": [
+                "semantic",
+                "semver",
+                "validation",
+                "versioning"
+            ],
+            "support": {
+                "irc": "irc://irc.freenode.org/composer",
+                "issues": "https://github.com/composer/semver/issues",
+                "source": "https://github.com/composer/semver/tree/1.7.2"
+            },
+            "funding": [
+                {
+                    "url": "https://packagist.com",
+                    "type": "custom"
+                },
+                {
+                    "url": "https://github.com/composer",
+                    "type": "github"
+                },
+                {
+                    "url": "https://tidelift.com/funding/github/packagist/composer/composer",
+                    "type": "tidelift"
+                }
+            ],
+            "time": "2020-12-03T15:47:16+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -672,6 +818,43 @@
                 }
             ],
             "time": "2021-04-26T11:24:25+00:00"
+        },
+        {
+            "name": "geerlingguy/ping",
+            "version": "1.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/geerlingguy/Ping.git",
+                "reference": "e0206326e23c99e3e8820e24705f8ca517adff93"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/geerlingguy/Ping/zipball/e0206326e23c99e3e8820e24705f8ca517adff93",
+                "reference": "e0206326e23c99e3e8820e24705f8ca517adff93",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "JJG/Ping.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeff Geerling",
+                    "email": "jeff@jeffgeerling.com"
+                }
+            ],
+            "description": "A PHP class to ping hosts.",
+            "support": {
+                "issues": "https://github.com/geerlingguy/Ping/issues",
+                "source": "https://github.com/geerlingguy/Ping/tree/1.2.1"
+            },
+            "time": "2019-07-29T21:54:12+00:00"
         },
         {
             "name": "graham-campbell/result-type",
@@ -3286,6 +3469,77 @@
                 "source": "https://github.com/renatomarinho/laravel-page-speed/tree/2.0.0"
             },
             "time": "2021-01-15T21:21:00+00:00"
+        },
+        {
+            "name": "sarfraznawaz2005/servermonitor",
+            "version": "1.9.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/sarfraznawaz2005/servermonitor.git",
+                "reference": "895c53c97fe833391de242fdca7d1fc54ec927b0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/sarfraznawaz2005/servermonitor/zipball/895c53c97fe833391de242fdca7d1fc54ec927b0",
+                "reference": "895c53c97fe833391de242fdca7d1fc54ec927b0",
+                "shasum": ""
+            },
+            "require": {
+                "alek13/slack": "~1.7",
+                "composer/semver": "^1.4",
+                "geerlingguy/ping": "^1.1",
+                "illuminate/support": "~5|~6|~7|~8",
+                "league/flysystem": "^1.0",
+                "nesbot/carbon": "^1.0|^2.0",
+                "php": "^7.0"
+            },
+            "suggest": {
+                "Predis/Client": "Needed for Redis check",
+                "league/flysystem-sftp": "Needed for SFTP check",
+                "sensiolabs/security-checker": "Needed for security check of composer packages."
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Sarfraznawaz2005\\ServerMonitor\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Sarfraznawaz2005\\ServerMonitor\\": "src/"
+                },
+                "files": [
+                    "src/Helpers/helper.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sarfraz Ahmed",
+                    "email": "sarfraznawaz2005@gmail.com",
+                    "homepage": "http://codeinphp.github.io"
+                }
+            ],
+            "description": "Laravel package to periodically monitor the health of your server and website.",
+            "homepage": "https://github.com/sarfraznawaz2005/servermonitor",
+            "keywords": [
+                "check",
+                "health",
+                "laravel",
+                "monitor",
+                "server",
+                "status"
+            ],
+            "support": {
+                "issues": "https://github.com/sarfraznawaz2005/servermonitor/issues",
+                "source": "https://github.com/sarfraznawaz2005/servermonitor/tree/master"
+            },
+            "time": "2020-09-09T08:04:02+00:00"
         },
         {
             "name": "sentry/sdk",
