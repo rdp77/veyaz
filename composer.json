@@ -17,6 +17,7 @@
         "renatomarinho/laravel-page-speed": "^2.0",
         "sarfraznawaz2005/servermonitor": "^1.9",
         "sentry/sentry-laravel": "^2.7",
+        "spatie/laravel-menu": "^3.7",
         "spatie/laravel-permission": "^5.4",
         "yajra/laravel-datatables-oracle": "~9.0"
     },
