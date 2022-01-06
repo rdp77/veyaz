@@ -27,6 +27,9 @@ Route::get('/log', [DashboardController::class, 'log'])
 Route::get('/debug-sentry', function () {
     throw new Exception('My first Sentry error!');
 });
+// Server Monitor
+Route::get('/server-monitor', [DashboardController::class, 'serverMonitor'])
+    ->name('dashboard.server-monitor');
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/data/users.php';

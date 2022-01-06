@@ -26,5 +26,6 @@ return [
     'historyDesc' => 'Riwayat yang kamu lakukan akan tercatat disini',
     'dashboard' => 'Beranda',
     'backTo' => 'Kembali ke Beranda',
-    'about' => 'Tentang'
+    'about' => 'Tentang',
+    'view' => 'Lihat Lebih Banyak',
 ];

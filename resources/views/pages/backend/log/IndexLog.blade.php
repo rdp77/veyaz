@@ -1,7 +1,7 @@
 @extends('layouts.backend.default')
 @section('title', __('pages.title').__(' | ').__('pages.history'))
 @section('backToContent')
-@include('pages.backend.components.backToContent',['url'=>route('dashboard.log')])
+@include('pages.backend.components.backToContent',['url'=>route('dashboard')])
 @endsection
 @section('titleContent', __('pages.history'))
 @section('breadcrumb', __('pages.dashboard'))

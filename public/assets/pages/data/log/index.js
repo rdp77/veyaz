@@ -14,6 +14,9 @@ var table = $("#table").DataTable({
         type: "GET",
     },
     dom: '<"html5buttons">lBrtip',
+    oLanguage: {
+        sEmptyTable: "Belum ada data",
+    },
     columns: [
         { data: "DT_RowIndex", orderable: false, searchable: false },
         { data: "added_at" },

@@ -23,8 +23,8 @@ return [
     */
     'web_interface_enabled' => true,
     'route' => 'servermonitor',
-    'username' => 'servermonitor',
-    'password' => 'servermonitor',
+    'username' => 'admin',
+    'password' => 'admin',
 
 
     /*
@@ -60,7 +60,6 @@ return [
                 'fail_percentage' => 90
             ],
 
-            /*
             \Sarfraznawaz2005\ServerMonitor\Checks\Server\CheckPhpIniValues::class => [
                 'checks' => [
                     'max_execution_time' => '36000',
@@ -69,7 +68,6 @@ return [
                     'error_reporting' => '32767',
                 ]
             ],
-            */
 
             /*
             \Sarfraznawaz2005\ServerMonitor\Checks\Server\FtpConnectionWorks::class => [
@@ -104,31 +102,25 @@ return [
             ],
             */
 
-            /*
             \Sarfraznawaz2005\ServerMonitor\Checks\Server\SslCertificateValid::class => [
-                'url' => 'https://yourdomain.com'
+                'url' => env('APP_URL')
             ],
-            */
 
-            /*
             \Sarfraznawaz2005\ServerMonitor\Checks\Server\ServersArePingable::class => [
                 'servers' => [
                     [
-                        'host' => 'www.google.com',
+                        'host' => env('APP_URL'),
                         'port' => null,
                         'timeout' => 5
                     ],
                 ]
             ],
-            */
 
-            /*
-             \Sarfraznawaz2005\ServerMonitor\Checks\Server\HttpStatusCode::class => [
-                 'sites' => [
-                     'google' => ['url' => 'http://google.com', 'expected_code' => 200],
-                 ]
-             ],
-             */
+            \Sarfraznawaz2005\ServerMonitor\Checks\Server\HttpStatusCode::class => [
+                'sites' => [
+                    'google' => ['url' => env('APP_URL'), 'expected_code' => 200],
+                ]
+            ],
 
         ],
 
@@ -157,7 +149,7 @@ return [
 
                 \Sarfraznawaz2005\ServerMonitor\Checks\Application\StorageDirectoryIsLinked::class,
 
-                /*
+
                 \Sarfraznawaz2005\ServerMonitor\Checks\Application\CorrectEnvValues::class => [
                     'checks' => [
                         'local' => [
@@ -165,7 +157,7 @@ return [
                             'expected_values' => [
                                 'env' => 'local',
                                 'debug' => true,
-                                'url' => 'http://localhost',
+                                'url' => env('APP_URL'),
                             ]
                         ],
                         'production' => [
@@ -173,12 +165,20 @@ return [
                             'expected_values' => [
                                 'env' => 'production',
                                 'debug' => false,
-                                'url' => 'http://mysite.com',
+                                'url' => env('APP_URL'),
+                            ]
+                        ],
+                        'production' => [
+                            'path' => config_path('app.php'),
+                            'expected_values' => [
+                                'env' => 'prod',
+                                'debug' => false,
+                                'url' => env('APP_URL'),
                             ]
                         ],
                     ]
                 ],
-                */
+
 
                 /*
                 // requires "sensiolabs/security-checker" package.
