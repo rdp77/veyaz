@@ -131,8 +131,8 @@ unset($checkResults['counts'], $checkResults['via'])
 @endsection
 @section('script')
 <script>
-    window.ServerMonitorRefreshUrl = "{{ route('servermonitor_refresh') }}";
-    window.ServerMonitorRefreshAllUrl = "{{ route('servermonitor_refresh_all') }}";
+    window.ServerMonitorRefreshUrl = "{{ route('dashboard.server-monitor.refresh') }}";
+    window.ServerMonitorRefreshAllUrl = "{{ route('dashboard.server-monitor.refreshAll') }}";
 </script>
 <script src="{{ asset('assets/pages/data/server/index.js') }}"></script>
 @endsection

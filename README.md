@@ -22,19 +22,8 @@ Because it uses Laravel migrations feature it can use any type of DBMS as long a
 1. Clone repository with the command `git clone https://github.com/rdp77/veyaz.git`
 2. Installing package form Composer with command `composer install`
 3. Installing package module node js with command `node install` (Optional)
-4. Running web application using commands `php artisan serve` or running manually with web server.
-
-Copy the `.env.example` file then change the name to `.env`, then adjust the settings with the database you want to connect to so that it is connected to the desired database, like the example below.
-
-```
-DB_CONNECTION=mysql //Driver Database
-DB_HOST=127.0.0.1 //Host
-DB_PORT=3306 //Port
-DB_DATABASE=database //Name Database
-DB_USERNAME=root //Username
-DB_PASSWORD= //Password
-```
-If the key in .env is empty run this command to generate a key `php artisan key:generate` Run the migrations database to import all databases using the command `php artisan migrate:refresh --seed`
+4. Run command `php artisan veyaz:start`
+5. Running web application using commands `php artisan serve` or running manually with web server.
 
 Login using username `admin` and password `admin`
 

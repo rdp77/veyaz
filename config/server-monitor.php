@@ -21,7 +21,7 @@ return [
     | will be available in your app and basic auth login details.
     |
     */
-    'web_interface_enabled' => true,
+    'web_interface_enabled' => false,
     'route' => 'servermonitor',
     'username' => 'admin',
     'password' => 'admin',
