@@ -787,4 +787,9 @@ $(function () {
                 numeralThousandsGroupStyle: "thousand",
             });
         });
+
+    // Dark Mode
+    $("#dark-mode").on("click", function (e) {
+        document.documentElement.classList.toggle("dark-mode");
+    });
 });

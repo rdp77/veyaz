@@ -1,5 +1,6 @@
 |           Name           |                           Source                           |
 | :----------------------: | :--------------------------------------------------------: |
+|          Stisla          |              https://github.com/stisla/stisla              |
 |          jQuery          |              https://github.com/jquery/jquery              |
 |          Moment          |             https://github.com/moment/moment/              |
 |          Popper          |          https://github.com/popperjs/popper-core           |
