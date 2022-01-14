@@ -1,10 +1,13 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<p align="center"><a href="https://laravel.com" target="_blank"><img src="veyaz.png" width="400"></a></p>
 
 <p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
+<img alt="Laravel Version" src="https://img.shields.io/badge/Laravel%20Version-8.47.0-informational">
+<img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/rdp77/veyaz">
+<img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/rdp77/veyaz">
+<a href="https://www.codacy.com/gh/rdp77/veyaz/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rdp77/veyaz&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/d998aaac69b646dd9c5b06c9b386db04"/></a>
+<a href="https://github.com/rdp77/veyaz/actions/workflows/laravel.yml"><img src="https://github.com/rdp77/veyaz/actions/workflows/laravel.yml/badge.svg" alt="License"></a>
+<img alt="Uptime Robot status" src="https://img.shields.io/uptimerobot/status/m790337652-bfb5e67991cdf56e1ddb9e4f">
+<a href="https://github.com/rdp77/veyaz/blob/master/LICENSE"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
 ## Requirement
@@ -27,6 +30,18 @@ Because it uses Laravel migrations feature it can use any type of DBMS as long a
 
 Login using username `admin` and password `admin`
 
+## Command Reference
+
+```http
+  php artisan command:name
+```
+
+| Name          | Description               |
+| :------------ | :------------------------ |
+| `veyaz:start` | Setup Veyaz               |
+| `veyaz:con`   | Setup Connection Database |
+| `veyaz:db`    | Database Import           |
+
 ## Third-party Library
 
 This template uses several libraries as helpers to improve the template, and can be seen [here](/library.md)
@@ -41,4 +56,4 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT), and veyaz under the [GPL-3.0](https://github.com/rdp77/veyaz/blob/master/LICENSE)
+The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).

@@ -14,7 +14,7 @@ class VeyazCon extends Command
      *
      * @var string
      */
-    protected $signature = 'veyaz:start';
+    protected $signature = 'veyaz:con';
 
     /**
      * The console command description.
