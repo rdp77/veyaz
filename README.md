@@ -9,6 +9,8 @@
 
 ## Requirement
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/d8d541d872d04664942afeda5f7c7024)](https://app.codacy.com/gh/rdp77/veyaz?utm_source=github.com&utm_medium=referral&utm_content=rdp77/veyaz&utm_campaign=Badge_Grade_Settings)
+
 - [Composer](https://getcomposer.org/).
 - [Node JS](https://nodejs.org/en/) (Optional).
 - Code editor for doing coding activities [Visual Studio Code](https://code.visualstudio.com/) or [Sublime](https://www.sublimetext.com/) or [Atom](https://atom.io/).
