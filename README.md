@@ -32,7 +32,7 @@ Login using username `admin` and password `admin`
 
 ## Command Reference
 
-```http
+```
   php artisan command:name
 ```
 
