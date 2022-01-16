@@ -54,7 +54,7 @@ class VeyazStart extends Command
 
     function db()
     {
-        Artisan::call("migrate:fresh --seed");
+        Artisan::call("migrate:refresh --seed");
         $this->info('Importing Database Successful.');
     }
 
