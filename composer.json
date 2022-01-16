@@ -12,6 +12,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "imliam/laravel-env-set-command": "1.0",
         "laravel/framework": "^8.40",
+        "laravel/telescope": "^4.7",
         "laravel/tinker": "^2.5",
         "laravolt/indonesia": "^0.30.0",
         "milon/barcode": "^8.0",

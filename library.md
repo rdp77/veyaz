@@ -30,3 +30,4 @@
 |      Server Monitor      |     https://github.com/sarfraznawaz2005/servermonitor      |
 |       Laravel Menu       |           https://github.com/spatie/laravel-menu           |
 | Laravel env:set Command  |     https://github.com/ImLiam/laravel-env-set-command      |
+|    Laravel Telescope     |            https://github.com/laravel/telescope            |
