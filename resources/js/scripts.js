@@ -789,7 +789,40 @@ $(function () {
         });
 
     // Dark Mode
-    $("#dark-mode").on("click", function (e) {
-        document.documentElement.classList.toggle("dark-mode");
+    const themeBtn = document.querySelector("#toggle-theme");
+
+    function getCurrentTheme() {
+        let theme = window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        localStorage.getItem("veyaz.theme")
+            ? (theme = localStorage.getItem("veyaz.theme"))
+            : null;
+        return theme;
+    }
+
+    function loadTheme(theme) {
+        const root = document.querySelector(":root");
+        if (theme === "light") {
+            themeBtn.innerHTML = '<i class="fas fa-moon"></i>';
+        } else {
+            themeBtn.innerHTML = '<i class="fas fa-sun"></i>';
+        }
+        root.setAttribute("color-scheme", `${theme}`);
+    }
+
+    themeBtn.addEventListener("click", () => {
+        let theme = getCurrentTheme();
+        if (theme === "dark") {
+            theme = "light";
+        } else {
+            theme = "dark";
+        }
+        localStorage.setItem("veyaz.theme", `${theme}`);
+        loadTheme(theme);
+    });
+
+    window.addEventListener("DOMContentLoaded", () => {
+        loadTheme(getCurrentTheme());
     });
 });
