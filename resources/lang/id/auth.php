@@ -26,6 +26,7 @@ return [
     'register' => 'Daftar',
     'username' => 'Nama Pengguna',
     'password' => 'Kata Sandi',
+    'phone' => 'No Telepon',
     'changePassword' => 'Ganti Kata Sandi',
     'terms' => 'Saya setuju dengan syarat dan ketentuan'
 ];

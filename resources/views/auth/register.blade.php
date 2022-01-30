@@ -39,6 +39,30 @@
     <div class="row">
         <div class="form-group col-6">
             <div class="d-block">
+                <label for="email" class="control-label">{{ __('Email') }}</label>
+            </div>
+            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
+                tabindex="3" required autocomplete="email">
+            @error('email')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+        <div class="form-group col-6">
+            <label for="phone" class="control-label">{{ __('auth.phone') }}</label>
+            <input id="phone" type="text" class="form-control" name="phone" required>
+            @error('phone')
+            <div class="invalid-feedback">
+                {{ $message }}
+            </div>
+            @enderror
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-6">
+            <div class="d-block">
                 <label for="password" class="control-label">{{ __('auth.password') }}</label>
             </div>
             <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
