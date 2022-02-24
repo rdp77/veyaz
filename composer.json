@@ -17,6 +17,7 @@
         "laravolt/indonesia": "^0.30.0",
         "milon/barcode": "^8.0",
         "renatomarinho/laravel-page-speed": "^2.0",
+        "rezaamini-ir/migrator": "^1.5",
         "sarfraznawaz2005/servermonitor": "^1.9",
         "sentry/sentry-laravel": "^2.7",
         "spatie/laravel-menu": "^3.7",
