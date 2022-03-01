@@ -1,0 +1,113 @@
+/// TRANSACTION TABLE
+/////////////////////////////////////
+.nk-tnx-type{
+    display: flex;
+    align-items: center;
+    &-icon{
+        font-size: 1.125rem;
+        flex-shrink: 0;
+        height: 2.5rem;
+        width: 2.5rem;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: $light;
+        @if($rtl==false){
+            margin-right: 1rem;
+        }
+        @if($rtl==true){
+            margin-left: 1rem;
+        }
+    }
+}
+
+@include media-breakpoint-down(md){
+    .nk-tb-tnx{
+        font-size: $fx-sz-12;
+        letter-spacing: -0.01em;
+    }
+    .nk-tnx-type{
+        &-icon{
+            font-size: 0.875rem;
+            height: 1.75rem;
+            width: 1.75rem;
+            @if($rtl==false){
+                margin-right: .75rem;
+            }
+            @if($rtl==true){
+                margin-left: .75rem;
+            }
+        }
+    }
+}
+@include media-breakpoint-down(xs){
+    .nk-tb-tnx{
+        .nk-tb{
+            &-head{
+                .nk-tb-col-tools{
+                    opacity: 0;
+                }
+            }
+            &-col{
+                &-status{
+                    @if($rtl==false){
+                        text-align: right;
+                        padding-right: 1.25rem !important;
+                    }
+                    @if($rtl==true){
+                        text-align: left;
+                        padding-left: 1.25rem !important;
+                    }
+                }
+                &-tools{
+                    position: absolute;
+                    right: 0;
+                    opacity: 0;
+                    transition: .3s ease;
+                }
+            }
+            &-item:hover {
+                .nk-tb-col-tools{
+                    opacity: 1;
+                }
+            }
+        }
+    }
+    .nk-tnx-type{
+        &-icon{
+            @if($rtl==false){
+                margin-right: .5rem;
+            }
+            @if($rtl==true){
+                margin-left: .5rem;
+            }
+        }
+    }
+}
+@include media-breakpoint-up(md){
+    .nk-tb-tnx{
+        .nk-tb-col-status{
+            @if($rtl==false){
+                padding-left: 2.5rem;
+            }
+            @if($rtl==true){
+                padding-right: 2.5rem;
+            }
+        }
+    }
+}
+
+
+@media (min-width: 1800px) {
+    .nk-tb-tnx{
+        .nk-tb-col-status{
+            @if($rtl==false){
+                padding-left: 6rem;
+            }
+            @if($rtl==true){
+                padding-right: 6rem;
+            }
+        }
+    }
+}

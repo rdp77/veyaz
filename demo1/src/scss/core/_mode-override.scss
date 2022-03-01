@@ -1,0 +1,181 @@
+///// Shadow Variable //////////
+$softy_shadow: 0 1px 4px rgba($dark, 0.15);
+$shady_shadow: 0 0 25px -12px rgba($dark, .15);
+
+//// BODY STYLE OVERRIDE 
+////////////////////////////////
+.nk-body{
+    &.ui-clean{
+        background:$white !important;
+    }
+    &.ui-softy, &.ui-shady{
+        background: $lighter !important;
+    }
+}
+
+// SOFTY & SHADY STYLE
+.ui-softy, .ui-shady{
+    .card,
+    .code-block,
+    .nk-iv-scheme-item,
+    .sp-pdl-item,
+    .invoice-wrap,
+    .nk-msg-boxed,
+    .nk-iv-wg1,
+    .accordion:not(.accordion-s2):not(.accordion-s3){
+        border: none;
+    }
+    .table .thead-light th {
+        background: rgba($lighter, .5);
+        box-shadow: 0 -1px 5px -5px rgba($dark, 0.7);
+    }
+    .tb-tnx-head, .sp-plan-action, .tb-ticket-item.is-unread, .support-topic-block:link:hover, .nk-refwg-stats {
+        background: rgba($lighter, .5);
+    }
+    .nk-refwg-stats {
+        background: rgba($lighter, .5) !important;
+    }
+    .card .card-inner + .table .tb-tnx-head {
+        border-top: 1px solid $border-color;
+    }
+    .kanban-board-header {
+        border-left: 0;
+        border-right: 0;
+        border-bottom: 0;
+    }
+    .kanban-item {
+        border: 0;
+    }
+}
+
+.ui-softy {
+    .card,
+    .code-block,
+    .nk-iv-scheme-item,
+    .sp-pdl-item,
+    .invoice-wrap,
+    .nk-iv-wg1,
+    .accordion:not(.accordion-s2):not(.accordion-s3),
+    &.npc-apps-messages .nk-reply-form,
+    &.npc-apps-inbox .nk-reply-form,
+    .nk-files-view-grid .nk-file, .nk-files-view-group .nk-file, .nk-files-view-list .nk-files-list,
+    .chat-msg, .kanban-board-header, .kanban-item, .kanban-add-task
+    {
+        box-shadow: $softy_shadow;
+    }
+    .card .accordion:not(.accordion-s2):not(.accordion-s3) {
+        box-shadow: none;
+        border: 1px solid $border-color;
+    }
+}
+
+.ui-shady{
+    .card,
+    .code-block,
+    .nk-iv-scheme-item,
+    .sp-pdl-item,
+    .invoice-wrap,
+    .nk-iv-wg1,
+    .accordion:not(.accordion-s2):not(.accordion-s3),
+    &.npc-apps-messages .nk-reply-form,
+    &.npc-apps-inbox .nk-reply-form,
+    .nk-files-view-grid .nk-file, .nk-files-view-group .nk-file, .nk-files-view-list .nk-files-list,
+    .chat-msg, .kanban-board-header, .kanban-item, .kanban-add-task
+    {
+        box-shadow: $shady_shadow;
+    }
+    .card .accordion:not(.accordion-s2):not(.accordion-s3) {
+        box-shadow: none;
+        border: 1px solid $border-color;
+    } 
+}
+
+// Apps
+.ui-softy {
+    .nk-msg-boxed, .nk-ibx-boxed, .nk-fmg-boxed, .nk-chat-boxed{
+        box-shadow: $softy_shadow;
+    }
+}
+.ui-shady {
+    .nk-msg-boxed, .nk-ibx-boxed, .nk-fmg-boxed, .nk-chat-boxed{
+        box-shadow: $shady_shadow;
+    }
+}
+
+.ui-shady, .ui-softy{
+    .nk-msg-aside, .nk-msg-nav{
+        background: $white;
+    }
+    .nk-msg-item.active, .nk-msg-item.current {
+        background: rgba($lighter, .5);
+        position: relative;
+        &:after {
+            position: absolute;
+            content: "";
+            @if($rtl==false){
+                left: 0;
+            }
+            @if($rtl==true){
+                right: 0;
+            }
+            top: 0;
+            height: 100%;
+            width: 2px;
+            background: $accent-color;
+        }
+    }
+    &.npc-apps-messages {
+        .nk-msg-item.active, .nk-msg-item.current {
+            background: $lighter;
+            &:after {
+                width: 3px;
+            }
+        }
+        .nk-msg-reply {
+            box-shadow: inset 0 0 8px -5px rgba($darker, .3);
+        } 
+        .nk-header {
+            box-shadow: 0 0 4px -1px rgba($darker, .2);
+        }
+    }
+    &.npc-apps-inbox {
+        .nk-ibx-reply, .nk-ibx-nav {
+            box-shadow: inset 0 0 8px -5px rgba($darker, .3);
+        }
+        .nk-header {
+            box-shadow: 0 0 4px -1px rgba($darker, .2);
+        }
+        .nk-ibx-item {
+            box-shadow: 0 0 7px -1px rgba($darker, .1);
+        }
+    }
+    &.npc-apps-chat {
+        .nk-chat-panel {
+            box-shadow: inset 0 0 8px -5px rgba($darker, .3);
+        }
+    }
+}
+.ui-clean.npc-apps-messages {
+    .nk-msg-aside, .nk-msg-nav{
+        background: $white;
+    }
+    .nk-msg-item.active, .nk-msg-item.current {
+        background: $lighter;
+    }
+}
+
+.ui-clean.npc-apps-chat {
+    .nk-chat-panel {
+        background: $white;
+    }
+    .chat.is-you .chat-msg {
+        background-color: $light;
+        color: $base-color;
+    }
+}
+
+.ui-rounder{
+    .card,.embed-responsive{
+        border-radius: $border-radius-xxl;
+    }
+}
