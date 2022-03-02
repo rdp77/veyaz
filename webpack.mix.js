@@ -32,6 +32,27 @@ mix.styles(
     "public/assets/style.css"
 ).version();
 
+// SCSS
+mix.sass(
+    [
+        "resources/css/nprogress.css",
+        "resources/css/mfb.min.css",
+        "resources/css/bootstrap.min.css",
+        "resources/css/daterangepicker.css",
+        "resources/css/dataTables.bootstrap4.min.css",
+        "resources/css/searchBuilder.dataTables.min.css",
+        "resources/css/buttons.bootstrap4.min.css",
+        "resources/css/responsive.bootstrap4.min.css",
+        "resources/css/select2.min.css",
+        "resources/css/chocolat.css",
+        "resources/css/bootstrap-tagsinput.css",
+        "resources/css/style.css",
+        "resources/css/summernote-bs4.css",
+        "resources/css/components.css",
+    ],
+    "public/assets/style.css"
+).version();
+
 // Javascript
 mix.scripts(
     [
