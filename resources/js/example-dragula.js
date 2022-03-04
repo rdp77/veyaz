@@ -1,53 +1,44 @@
+"use strict";
+
 (function (NioApp, $) {
-    'use strict';
+  'use strict'; // Basic
 
-    // Basic
-    dragula([document.querySelector("#basicLeft"), document.querySelector("#basicRight")]);
+  dragula([document.querySelector("#basicLeft"), document.querySelector("#basicRight")]); // Basic with list
 
-    // Basic with list
-    dragula([document.querySelector("#basicLeftList"), document.querySelector("#basicRightList")]);
+  dragula([document.querySelector("#basicLeftList"), document.querySelector("#basicRightList")]); // Theme
 
-    // Theme
-    dragula([document.querySelector("#themeLeft"), document.querySelector("#themeRight")])
-        .on('drag', function (el) {
-            el.className = el.className.replace('bg-white', '');
-        }).on('drop', function (el) {
-            el.className += ' bg-warning-dim';
-        });
+  dragula([document.querySelector("#themeLeft"), document.querySelector("#themeRight")]).on('drag', function (el) {
+    el.className = el.className.replace('bg-white', '');
+  }).on('drop', function (el) {
+    el.className += ' bg-warning-dim';
+  }); // Remove on Spill
 
-    // Remove on Spill
-    dragula([document.querySelector("#removeSpillLeft"), document.querySelector("#removeSpillRight")], {
-        removeOnSpill: true
-    });
+  dragula([document.querySelector("#removeSpillLeft"), document.querySelector("#removeSpillRight")], {
+    removeOnSpill: true
+  }); // Not Remove Spill
 
-    // Not Remove Spill
-    dragula([document.querySelector("#not-removeSpillLeft"), document.querySelector("#not-removeSpillRight")], {
-        removeOnSpill: false
-    });
+  dragula([document.querySelector("#not-removeSpillLeft"), document.querySelector("#not-removeSpillRight")], {
+    removeOnSpill: false
+  }); // Copy spill Both
 
-    // Copy spill Both
-    dragula([document.querySelector("#both-copySpillLeft"), document.querySelector("#both-copySpillRight")], {
-        copy: true
-    });
+  dragula([document.querySelector("#both-copySpillLeft"), document.querySelector("#both-copySpillRight")], {
+    copy: true
+  }); // Copy spill aside
 
-    // Copy spill aside
-    dragula([document.querySelector("#aside-copySpillLeft"), document.querySelector("#aside-copySpillRight")], {
-        copy: function (el, source) {
-            return source === document.querySelector("#aside-copySpillLeft")
-        },
-        accepts: function (el, target) {
-            return target !== document.querySelector("#aside-copySpillLeft")
-        }
-    });
+  dragula([document.querySelector("#aside-copySpillLeft"), document.querySelector("#aside-copySpillRight")], {
+    copy: function copy(el, source) {
+      return source === document.querySelector("#aside-copySpillLeft");
+    },
+    accepts: function accepts(el, target) {
+      return target !== document.querySelector("#aside-copySpillLeft");
+    }
+  }); // Drag Handle 
 
-    // Drag Handle 
-    dragula([document.querySelector("#dragHandleLeft"), document.querySelector("#dragHandleRight")], {
-        moves: function (el, container, handle) {
-            return handle.classList.contains('handle');
-        }
-    });
+  dragula([document.querySelector("#dragHandleLeft"), document.querySelector("#dragHandleRight")], {
+    moves: function moves(el, container, handle) {
+      return handle.classList.contains('handle');
+    }
+  }); // Drag Container
 
-    // Drag Container
-    dragula([document.querySelector("#dragContainer")]);
-
+  dragula([document.querySelector("#dragContainer")]);
 })(NioApp, jQuery);

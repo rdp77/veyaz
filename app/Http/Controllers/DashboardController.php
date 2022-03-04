@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Template\MainController;
+use App\Http\Traits\MainTrait;
 use App\Models\Template\Log;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,6 +13,7 @@ use Sarfraznawaz2005\ServerMonitor\ServerMonitor;
 
 class DashboardController extends Controller
 {
+    use MainTrait;
     /**
      * Create a new controller instance.
      *
@@ -32,6 +34,7 @@ class DashboardController extends Controller
 
     public function index()
     {
+        dd($this->changeMonthIdToEn('29 Januari 2020'));
         $log = Log::limit(7)
             ->orderBy('id', 'desc')
             ->get();

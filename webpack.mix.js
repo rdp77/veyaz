@@ -1,4 +1,4 @@
-const mix = require("laravel-mix");
+let mix = require("laravel-mix");
 
 /*
  |--------------------------------------------------------------------------
@@ -11,78 +11,30 @@ const mix = require("laravel-mix");
  |
  */
 
-// CSS
+// CSS Main
 mix.styles(
-    [
-        "resources/css/nprogress.css",
-        "resources/css/mfb.min.css",
-        "resources/css/bootstrap.min.css",
-        "resources/css/daterangepicker.css",
-        "resources/css/dataTables.bootstrap4.min.css",
-        "resources/css/searchBuilder.dataTables.min.css",
-        "resources/css/buttons.bootstrap4.min.css",
-        "resources/css/responsive.bootstrap4.min.css",
-        "resources/css/select2.min.css",
-        "resources/css/chocolat.css",
-        "resources/css/bootstrap-tagsinput.css",
-        "resources/css/style.css",
-        "resources/css/summernote-bs4.css",
-        "resources/css/components.css",
-    ],
-    "public/assets/style.css"
-).version();
+    ["resources/css/dashlite.css", "resources/css/theme.css"],
+    "public/css/style.css"
+)
+    // Javascript Main
+    .js(
+        ["resources/js/bundle.js", "resources/js/scripts.js"],
+        "public/assets/scripts.js"
+    )
+    .version();
 
-// SCSS
-mix.sass(
-    [
-        "resources/css/nprogress.css",
-        "resources/css/mfb.min.css",
-        "resources/css/bootstrap.min.css",
-        "resources/css/daterangepicker.css",
-        "resources/css/dataTables.bootstrap4.min.css",
-        "resources/css/searchBuilder.dataTables.min.css",
-        "resources/css/buttons.bootstrap4.min.css",
-        "resources/css/responsive.bootstrap4.min.css",
-        "resources/css/select2.min.css",
-        "resources/css/chocolat.css",
-        "resources/css/bootstrap-tagsinput.css",
-        "resources/css/style.css",
-        "resources/css/summernote-bs4.css",
-        "resources/css/components.css",
-    ],
-    "public/assets/style.css"
-).version();
+// SCSS Main
+// mix.sass("resources/scss/*.scss", "public/assets/css")
+//     // SCSS Editors
+//     .sass("resources/scss/editors/*.scss", "public/assets/css/editors")
+//     .sass("resources/scss/libs/*.scss", "public/assets/css/libs")
+//     // SCSS Skins
+//     .sass("resources/scss/skins/*.scss", "public/assets/css/skins")
+//     .version();
 
-// Javascript
-mix.scripts(
-    [
-        "resources/js/nprogress.js",
-        "resources/js/mfb.min.js",
-        "resources/js/daterangepicker.js",
-        "resources/js/bootstrap.min.js",
-        "resources/js/stisla.js",
-        "resources/js/jquery.dataTables.min.js",
-        "resources/js/jquery.uploadPreview.min.js",
-        "resources/js/dataTables.bootstrap4.min.js",
-        "resources/js/dataTables.searchBuilder.min.js",
-        "resources/js/dataTables.buttons.min.js",
-        "resources/js/buttons.bootstrap4.min.js",
-        "resources/js/buttons.flash.min.js",
-        "resources/js/buttons.html5.min.js",
-        "resources/js/buttons.print.min.js",
-        "resources/js/buttons.colVis.min.js",
-        "resources/js/dataTables.responsive.min.js",
-        "resources/js/responsive.bootstrap4.min.js",
-        "resources/js/Chart.min.js",
-        "resources/js/bootstrap-tagsinput.js",
-        "resources/js/select2.full.min.js",
-        "resources/js/cleave.min.js",
-        "resources/js/cleave-phone.id.js",
-        "resources/js/jquery.chocolat.js",
-        "resources/js/scripts.js",
-        "resources/js/summernote-bs4.js",
-    ],
-    "public/assets/scripts.js"
-).version();
+// mix.js("resources/js/app.js", "public/assets/js")
+//     .js("resources/js/charts/*.js", "public/assets/js/charts/*.js")
+//     .js("resources/js/apps/*.js", "public/assets/js/apps")
+//     .version();
 
 mix.disableNotifications();
