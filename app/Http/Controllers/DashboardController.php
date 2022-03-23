@@ -34,7 +34,8 @@ class DashboardController extends Controller
 
     public function index()
     {
-        dd($this->changeMonthIdToEn('29 Januari 2020'));
+        // dd($this->changeMonthIdToEn('29 Januari 2020'));
+        // dd($this->getTotalRam());
         $log = Log::limit(7)
             ->orderBy('id', 'desc')
             ->get();
@@ -46,9 +47,9 @@ class DashboardController extends Controller
             'log' => $log,
             'users' => $users,
             'logCount' => $logCount,
-            'ram' => $this->MainController->getTotalRAM(),
-            'cpu' => $this->MainController->getTotalCPU(),
-            'disk' => $this->MainController->getTotalDisk(),
+            'ram' => $this->getTotalRAM(),
+            'cpu' => $this->getTotalCPU(),
+            'disk' => $this->getTotalDisk(),
         ]);
     }
 

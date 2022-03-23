@@ -32,3 +32,4 @@
 | Laravel env:set Command  |     https://github.com/ImLiam/laravel-env-set-command      |
 |    Laravel Telescope     |            https://github.com/laravel/telescope            |
 |         Migrator         |          https://github.com/rezaamini-ir/migrator          |
+|     Laravel Livewire     |            https://github.com/livewire/livewire            |

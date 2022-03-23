@@ -15,6 +15,7 @@
         "laravel/telescope": "^4.7",
         "laravel/tinker": "^2.5",
         "laravolt/indonesia": "^0.30.0",
+        "livewire/livewire": "^2.10",
         "milon/barcode": "^8.0",
         "renatomarinho/laravel-page-speed": "^2.0",
         "rezaamini-ir/migrator": "^1.5",
