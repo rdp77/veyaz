@@ -1,0 +1,220 @@
+$change-up-icon: $ni-arrow-long-up !default;
+$change-down-icon: $ni-arrow-long-down !default;
+
+// collapse
+.collapse{
+    &-shown{
+        display: inline-block !important;
+        .collapsed &{
+            display: none !important;
+        }
+    }
+    &-hidden{
+        display: none !important;
+        .collapsed &{
+            display: inline-block !important;
+        }
+    }
+}
+
+.entry {
+    img{
+        border-radius: $border-radius;
+        + p, + h2, + h3, + h4, + h5, + h6, + ul, + ol{
+            margin-top: ($para-margin * 2);
+        }
+    }
+    p {
+        + img{
+            margin-top: $para-margin ;
+        }
+    }
+    p {
+        + h2, + h3, + h4,+ h5, + h6{
+            padding-top: ($para-margin * .75);
+        }
+    }
+}
+
+p > span > .icon.ni {
+    vertical-align: middle;
+}
+
+.embed-responsive{
+    border-radius: $border-radius;
+}
+
+//btns
+.btns-inline{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: -$gutter-width/2;
+    .text-center & {
+        justify-content: center;
+    }
+    > * {
+        padding: $gutter-width/2;
+    }
+}
+
+//rating
+.rating{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    &-text{
+        font-size: 1rem;
+        color: $base-text;
+        .rating-sm &{
+            font-size: 0.875rem;
+        }
+    }
+    &-stars{
+        display: flex;
+        margin: 0 -.125rem;
+        .icon{
+            font-size: 0.875rem;
+            color: $warning;
+        }
+        > *{
+            display: inline-flex;
+            padding: 0 .125rem;
+        }
+        .rating-sm &{
+            margin: 0;
+            > *{
+                padding: 0;
+            }
+        }
+    }
+    &-stars + .rating-text,
+    &-text + .rating-stars{
+        padding-left: 1rem;
+        .rating-sm &{
+            padding-left: .5rem;
+        }
+    }
+}
+
+// badge pro
+.badge-pro {
+    display: inline-flex;
+    align-items: center;
+    background-color: $accent-dark;
+    padding: .5rem;
+    border-radius: 50px;
+    &-text {
+      font-size: 0.875rem;
+      line-height: 1.25rem;
+      color: $white;
+      padding: 0 .25rem 0 .75rem; 
+    }
+}
+
+//bg image
+%bg-default{
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+}
+%abs-around{
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.has-bg-image,.has-bg-video {
+	position: relative;
+	> *:not(.bg-image):not(.bg-video):not(.nk-ovm):not(.header-main):not([class*=position]) {
+		position: relative;
+        z-index: 5;
+	}
+}
+.bg {
+	&-fixed {
+		background-attachment: fixed;
+	}
+	&-image {
+		@extend %abs-around;
+		@extend %bg-default;
+        position: absolute !important;
+		z-index: 0 !important;
+		opacity: 0;
+		transition: opacity .4s;
+        &.bg-image-loaded{
+            opacity: 1;
+        }
+		img {
+			display: none !important;
+		}
+	}
+	&-left {
+        background-position: 0% 50%; 
+    }
+    &-right {
+        background-position: 100% 50%;
+    }
+    &-contain{
+        background-size: contain;
+    }
+    &-video{
+        @extend %abs-around;
+		@extend %bg-default;
+        position: absolute !important;
+		z-index: 0 !important;
+        overflow: hidden;
+        &-cover{
+            @extend %abs-around;
+		    @extend %bg-default;
+            opacity: 0;
+            .cover-enabled &{
+                opacity: 1;
+            }
+        }
+        .ytplayer-container{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            &.cover-enabled &{
+                display: none;
+            }
+        }
+    }
+}
+
+.bg{
+    &-overlay{
+        &:after {
+            content: ''; 
+            @extend %abs-around;
+        }
+        &-dark:after{
+            background: $dark;
+        }
+        &-dark-transparent:after {
+            background: linear-gradient(90deg, $dark 0%, $dark 55%, rgba($dark, 0.7) 75%, transparent 100%); 
+        }
+    }
+}
+
+// .after-bg
+@each $name, $color in $theme-colors {
+    .after-bg-#{$name}:after {
+        background-color: $color;
+    }
+}
+@each $name, $color in $extend-colors {
+    .after-bg-#{$name}:after {
+        background-color: $color;
+    }
+}
+
+@for $i from 1 through 20{
+    .after-opacity-#{$i*5}:after{
+        opacity: .05 * $i;
+    }
+}

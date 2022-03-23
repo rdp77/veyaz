@@ -1,0 +1,86 @@
+.pricing{
+    position: relative;
+    overflow: hidden;
+    &-amount{
+        color: $accent-color;
+        small{
+            font-size: 1rem;
+            color: $base-light;
+        }
+    }
+    &-title{
+        margin: 1.25rem 0;
+    }
+    &-action{
+        margin-top: 1.75rem;
+    }
+    &-badge{
+        position: absolute;
+        background: $accent-color;
+        color: $white;
+        top: 0;
+        right: -50%;
+        transform: rotate(45deg);
+        transform-origin: 50% 0;
+        padding: 2rem 0 .5rem;
+        width: 100%;
+        text-align: center;
+    }
+    &-s1{
+        &.pricing-featured{
+            background-color: $accent-color;
+            .sub-title{
+                color: $accent-dim;
+            }
+            .btn{
+                color: $base-dark;
+                background: $white;
+                border-color: $white;
+                &:hover{
+                    color: $accent-color;
+                }
+            }
+            .pricing{
+                &-amount{
+                    color: $white;
+                    small{
+                        color: $accent-300;
+                    }
+                }
+                &-title{
+                    color: $white;
+                }
+                &-features{
+                    li{
+                        color: $accent-dim;
+                        del{
+                            color: $accent-400;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    &-s2{
+        .sub-title{
+            font-size: .75rem;
+        }
+        .pricing{
+            &-title{
+                margin-bottom: 0rem ;
+            }
+        }
+    }
+    &-s3{
+        &.pricing-featured{
+            border-color: $accent-color;
+            li{
+                line-height:25px;
+            }
+            .btn{
+                @extend .btn-primary;
+            }
+
+        }
+    }
+}

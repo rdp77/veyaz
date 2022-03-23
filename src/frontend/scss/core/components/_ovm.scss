@@ -1,0 +1,114 @@
+//// Overlay Element ////
+/////////////////////////
+.has-ovm {
+    position: relative;
+
+    >[class*=container],
+    >*:not(.nk-ovm):not(.header-main):not(.nk-header-ld) {
+        position: relative;
+        z-index: 5;
+    }
+}
+.nk-ovm {
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 50% 50%;
+    z-index: 1;
+    &:before,
+    &:after {
+        position: absolute;
+        bottom: 0;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: 50% 50%;
+        content: "";
+    }
+    &:before {
+        z-index: 2;
+    }
+    &-fixed {
+        &:after {
+            background-attachment: fixed;
+        }
+    }
+}
+
+.ovm {
+    &-top {
+        bottom: auto;
+    }
+
+    &-bottom {
+        top: auto;
+    }
+
+    &-left {
+        right: auto;
+    }
+
+    &-right {
+        left: auto;
+    }
+}
+
+@for $i from 1 through 9 {
+    .ovm-h-#{$i}0 {
+        height: $i * 10%;
+    }
+}
+
+@for $i from 1 through 9 {
+    .ovm-w-#{$i}0 {
+        width: $i * 10%;
+    }
+}
+
+//bg
+.bg-grad-a{
+    background-image: linear-gradient(90deg, #2B237C 0%, #251C72 00%, #000C6F 100%);
+}
+
+//shape//
+@each $shape in a,b {
+    .shape-#{$shape}:before {
+        background-image: url(../images/shape/shape-#{$shape}.png);
+    }
+}
+.shape-contain:before{
+    background-size: contain;
+}
+.shape-cover:before{
+    background-size: cover;
+}
+.shape-top:before{
+    background-position: 0 0;
+}
+.shape-bottom:before{
+    background-position: 0 100%;
+}
+
+//mask//
+@each $mask in a,b {
+    .mask-#{$mask}:after {
+        background-image: url(../images/shape/mask-#{$mask}.svg);
+    }
+}
+.mask-contain:after{
+    background-size: contain;
+}
+.mask-bottom:after{
+    background-position: 0 100%;
+    bottom: -1px;
+}
+.mask-top:after{
+    background-position: 100% 0;
+    top: -1px;
+}

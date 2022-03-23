@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Template\MainController;
 use App\Http\Traits\MainTrait;
 use App\Models\Template\Log;
 use App\Models\User;
@@ -19,10 +18,9 @@ class DashboardController extends Controller
      *
      * @return void
      */
-    public function __construct(MainController $MainController, ServerMonitor $serverMonitor)
+    public function __construct(ServerMonitor $serverMonitor)
     {
         $this->middleware('auth');
-        $this->MainController = $MainController;
         $this->serverMonitor = $serverMonitor;
     }
 
@@ -78,5 +76,15 @@ class DashboardController extends Controller
             'checkResults',
             'lastRun'
         ));
+    }
+
+    public function serverMonitorRefreshAll(): array
+    {
+        return $this->serverMonitor->runChecks();
+    }
+
+    public function serverMonitorRefresh(): array
+    {
+        return $this->serverMonitor->runCheck(request()->check);
     }
 }

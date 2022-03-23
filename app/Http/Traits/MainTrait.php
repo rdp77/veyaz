@@ -12,15 +12,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\URL;
-use Sarfraznawaz2005\ServerMonitor\ServerMonitor;
 
 trait MainTrait
 {
-    public function __construct(ServerMonitor $serverMonitor)
-    {
-        $this->middleware('auth');
-        $this->serverMonitor = $serverMonitor;
-    }
 
     public function changeMonthIdToEn($dates)
     {
@@ -234,15 +228,5 @@ trait MainTrait
             "total_disk_size" => round($total_disk_size) . __(' GB'),
             "disk_used_size" => round($disk_used_size) . __(' GB')
         );
-    }
-
-    public function serverMonitorRefreshAll(): array
-    {
-        return $this->serverMonitor->runChecks();
-    }
-
-    public function serverMonitorRefresh(): array
-    {
-        return $this->serverMonitor->runCheck(request()->check);
     }
 }

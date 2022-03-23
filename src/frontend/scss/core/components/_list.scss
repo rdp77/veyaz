@@ -1,0 +1,127 @@
+$list-default-icon: $ni-bullet-fill !default;
+$list-checked-icon: $ni-check-fill-c !default;
+$list-checked-circle-icon: $ni-check-circle-fill !default;
+$list-cross-icon: $ni-cross-fill-c !default;
+
+.list{
+    &:not(:last-child) {
+        margin-bottom: $para-margin;
+    }
+    li{
+        position: relative;
+        @if($rtl==false){
+            padding-left:1.5rem;
+        }
+        @if($rtl==true){
+            padding-right:1.5rem;
+        }
+        line-height: 1.5rem;
+        &:not(:last-child){
+            padding-bottom: .5rem;
+        }
+        &:before{
+            position: absolute;
+            @if($rtl==false){
+                left: 0;
+            }
+            @if($rtl==true){
+                right: 0;
+            }
+            font-size: $fx-sz-14;
+            line-height: 1.5rem;
+            font-family: $nk-dashlite-font;
+            content: $list-default-icon;
+        }
+        span{
+            color: $base-light;
+        }
+        ul {
+            margin-top: .5rem;
+        }
+        del{
+            color: $base-light;
+        }
+    }
+    &-checked{
+        li:before{
+            color: $accent-color;
+            content: $list-checked-icon;
+        }
+        &.outlined{
+            li:before{
+                content: $ni-check-round;
+            }
+        }
+        &-circle{
+            li:before{
+                color: $accent-color;
+                content: $list-checked-circle-icon;
+            }
+            &.outlined{
+                li:before{
+                    content: $ni-check-circle;
+                }
+            }
+        }
+    }
+    &-cross {
+        li:before{
+            color: rgba($danger, .8);
+            content: $list-cross-icon;
+        }
+    }
+    &-check{
+        li:before{
+            content: $ni-check-thick;
+        }
+    }
+    &-lg {
+        li {
+            @if($rtl==false){
+                padding-left: 2rem;
+            }
+            @if($rtl==true){
+                padding-right: 2rem;
+            }
+            &:not(:last-child){
+                padding-bottom: .75rem;
+            }
+            &:before{
+                font-size: 1.35rem;
+            }
+        }
+    }
+    &-sm{
+        li{
+            @if($rtl==false){
+                padding-left: 1.2rem;
+            }
+            @if($rtl==true){
+                padding-right: 1.2rem;
+            }
+            &:not(:last-child){
+                padding-bottom: .35rem;
+            }
+            &:before{
+                font-size: $fx-sz-12;
+            }
+        }
+    }
+    &-nostyle{
+        font-size: 0.875rem;
+        li{
+            padding-left: 0;
+            &:before{
+                display: none;
+            }
+        }
+    }
+}
+
+@each $name, $value in $theme-colors {
+    .list-#{$name} {
+        li:before{
+            color: $value;
+        }
+    }
+}

@@ -32,7 +32,7 @@
     <link rel="manifest" href="{{ asset('icons/manifest.json') }}">
     <meta name="msapplication-config" content="{{ asset('icons/browserconfig.xml') }}" />
 
-    <!--[ Theme Color ]-->
+    <!-- Theme Color -->
     <meta content='#3a455c' name='theme-color' />
     <meta content='#3a455c' name='msapplication-navbutton-color' />
     <meta content='#3a455c' name='apple-mobile-web-app-status-bar-style' />
@@ -102,10 +102,10 @@
     <meta content='#' property='fb:app_id' />
     <meta content='#' property='article:author' />
     <meta content='#' property='article:publisher' />
-    <meta content='@ravi77__' name='twitter:site' />
-    <meta content='@ravi77__' name='twitter:creator' />
+    <meta content='{{ env(' TWITTER_USERNAME') }}' name='twitter:site' />
+    <meta content='{{ env(' TWITTER_USERNAME') }}' name='twitter:creator' />
 
     <!-- General CSS Files -->
-    <link rel="stylesheet" href="./assets/css/dashlite.css?ver=2.9.0">
-    <link id="skin-default" rel="stylesheet" href="./assets/css/theme.css?ver=2.9.0">
+    <link rel="stylesheet" href="{{ asset('css/dashlite.css') }}">
+    <link id="skin-default" rel="stylesheet" href="{{ asset('css/theme.css') }}">
 </head>

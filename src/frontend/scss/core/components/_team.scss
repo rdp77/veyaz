@@ -1,0 +1,31 @@
+.team{
+    &-role{
+        font-size:0.8125rem;
+        + .social{
+            margin-top: 0.75rem;
+        }
+    }
+    &-portrait{
+        border-radius: $border-radius-lg;
+        overflow: hidden;
+        img{
+            width: 100%;
+        }
+    }
+    &-info{
+        .team-s1 &{
+            position: relative;
+            z-index:2;
+            margin: -1.5rem 1.25rem 0;
+            background:$white;
+            border-radius: $border-radius-lg;
+            text-align: center;
+            padding:1.25rem 1rem 1rem;
+            box-shadow: $box-shadow-sm;
+            transition: all .3s ease;
+        }
+        .team-s1:hover &{
+            transform: translateY(-.75rem);
+        }
+    }
+}

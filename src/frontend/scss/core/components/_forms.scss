@@ -1,0 +1,58 @@
+//subscription
+.subscription {
+    .form-control{
+        border: none;
+        &:focus{
+            box-shadow: none;
+        }
+    }
+    &-form{
+        display: flex;
+        background: $white;
+        padding: .25rem;
+        border-radius: $input-height-inner-lg;
+        overflow: hidden;
+    }
+    &-input {
+        width: 100%;
+    }
+    &-btn {
+        flex-shrink: 0;
+    }
+    &-note {
+        display: flex;
+        flex-wrap: wrap;
+        color: $accent-400;
+        padding-top: 1.75rem;
+        li {
+            display: flex;
+            align-items: flex-start;
+            font-size: 1rem;
+            &:before {
+                content: $ni-check-circle-fill;
+                font-family: $nk-dashlite-font;
+                font-size: 1.375rem;
+                line-height: 1;
+                padding: 1px 0;
+                color: $accent-color;
+                margin-right: 0.5rem;
+            }
+        }
+    }
+}
+
+@media (max-width: 420px) {
+    .subscription{
+        &-form{
+            flex-wrap: wrap;
+            border-radius: 1.635rem;
+        }
+        &-btn{
+            width: 100%;
+            .btn{
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    }
+}

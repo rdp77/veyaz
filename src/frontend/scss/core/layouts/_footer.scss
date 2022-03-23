@@ -1,0 +1,19 @@
+.footer{
+    &.has-mask-b{
+        padding-top: 30px;
+    }
+}
+@include media-breakpoint-up(lg){
+    .footer{
+        &.has-mask-b{
+            padding-top: 40px;
+        }
+    }
+}
+@include media-breakpoint-up(xl){
+    .footer{
+        &.has-mask-b{
+            padding-top: 60px;
+        }
+    }
+}
