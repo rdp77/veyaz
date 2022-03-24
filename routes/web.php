@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Frontend\MainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +15,6 @@ use App\Http\Controllers\DashboardController;
 |
 */
 
-// Front End
-Route::get('/', function () {
-    return view('pages.frontend.home');
-});
 // Backend
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
@@ -38,4 +35,5 @@ Route::prefix('server-monitor')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/front.php';
 require __DIR__ . '/data/users.php';

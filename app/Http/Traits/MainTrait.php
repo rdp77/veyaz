@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\URL;
 
 trait MainTrait
 {
-
     public function changeMonthIdToEn($dates)
     {
         $dateLocale = $dates;

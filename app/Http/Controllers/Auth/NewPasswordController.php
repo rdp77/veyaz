@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\DashboardController;
+use App\Http\Traits\MainTrait;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Redirect;
 
 class NewPasswordController extends Controller
 {
+    use MainTrait;
     /**
      * Display the password reset view.
      *
@@ -94,7 +96,7 @@ class NewPasswordController extends Controller
             $user->password = Hash::make($req->password);
             $user->save();
 
-            $this->DashboardController->createLog(
+            $this->createLog(
                 $req->header('user-agent'),
                 $req->ip(),
                 'Mengganti password'

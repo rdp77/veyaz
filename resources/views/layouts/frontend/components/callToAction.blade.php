@@ -1,4 +1,4 @@
-<section class="section section-cta bg-lighter" id="cta">
+<section class="section section-cta bg-lighter" id="explore">
     <div class="container">
         <div class="row justify-content-center text-center">
             <div class="col-xl-6 col-lg-7 col-md-8">
@@ -8,7 +8,7 @@
                         base dashboard including great UI/UX ui/ux.</p>
                     <ul class="btns-inline">
                         <li>
-                            <a href="#" class="btn btn-lg btn-primary">Get Dashlite</a>
+                            <a href="#" class="btn btn-lg btn-primary">{{ __('Github') }}</a>
                         </li>
                     </ul>
                 </div>

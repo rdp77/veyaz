@@ -33,3 +33,4 @@
 |    Laravel Telescope     |            https://github.com/laravel/telescope            |
 |         Migrator         |          https://github.com/rezaamini-ir/migrator          |
 |     Laravel Livewire     |            https://github.com/livewire/livewire            |
+|        Seo Tools         |            https://github.com/artesaos/seotools            |

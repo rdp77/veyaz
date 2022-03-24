@@ -41,7 +41,7 @@ class DashboardController extends Controller
         $logCount = Log::where('u_id', Auth::user()->id)
             ->count();
 
-        return view('dashboard', [
+        return view('pages.backend.dashboard', [
             'log' => $log,
             'users' => $users,
             'logCount' => $logCount,

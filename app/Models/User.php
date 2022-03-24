@@ -28,6 +28,8 @@ class User extends Authenticatable
         'deleted_by'
     ];
 
+    // protected $guarded = ['role'];
+
     /**
      * The attributes that should be hidden for arrays.
      *
