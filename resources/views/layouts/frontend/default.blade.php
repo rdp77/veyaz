@@ -4,10 +4,7 @@
     <div class="nk-app-root">
         <!-- main @s -->
         <div class="nk-main ">
-            @include('layouts.frontend.components.header')
-            @include('layouts.frontend.components.feature')
-            @include('layouts.frontend.components.callToAction')
-            @include('layouts.frontend.components.footer')
+            @yield('content')
         </div>
         <!-- main @e -->
     </div>
