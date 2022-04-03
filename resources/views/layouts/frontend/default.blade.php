@@ -1,6 +1,6 @@
 @include('layouts.components.header')
 
-<body class="nk-body bg-white npc-landing ">
+<body class="nk-body bg-white npc-default pg-error">
     <div class="nk-app-root">
         <!-- main @s -->
         <div class="nk-main ">
