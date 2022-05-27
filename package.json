@@ -1,5 +1,5 @@
 {
-    "name":"Veyaz",
+    "name": "Veyaz",
     "version": "2.0",
     "private": true,
     "scripts": {
@@ -36,10 +36,13 @@
         "jstree": "^3.3.11",
         "jszip": "^3.7.0",
         "knob": "^1.1.0",
+        "laravel-mix-glob": "^1.1.10",
         "magnific-popup": "^1.1.0",
         "nouislider": "^14.7.0",
         "pdfmake": "^0.1.72",
         "perfect-scrollbar": "^1.5.2",
+        "popper.js": "^1.16.1",
+        "prop-types": "^15.8.1",
         "quill": "^1.3.7",
         "select2": "^4.0.11",
         "simplebar": "^5.3.5",
@@ -48,7 +51,8 @@
         "summernote": "^0.8.18",
         "sweetalert2": "^9.17.1",
         "tinymce": "^5.7.1",
-        "toastr": "^2.1.4"
+        "toastr": "^2.1.4",
+        "webpack": "^5.72.0"
     },
     "devDependencies": {
         "@tailwindcss/forms": "^0.2.1",
@@ -62,6 +66,7 @@
         "resolve-url-loader": "^3.1.3",
         "sass": "^1.49.9",
         "sass-loader": "^12.6.0",
-        "tailwindcss": "^2.0.2"
+        "tailwindcss": "^2.0.2",
+        "webpack-cli": "^4.9.2"
     }
 }

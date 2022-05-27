@@ -12,24 +12,24 @@ let mix = require("laravel-mix");
  */
 
 // CSS Main
-mix.styles(
-    ["resources/css/dashlite.css", "resources/css/theme.css"],
-    "public/css/style.css"
-)
-    // Javascript Main
-    .js(
-        ["resources/js/bundle.js", "resources/js/scripts.js"],
-        "public/assets/scripts.js"
-    )
-    .version();
+// mix.styles(
+//     ["resources/css/dashlite.css", "resources/css/theme.css"],
+//     "public/css/style.css"
+// )
+//     // Javascript Main
+//     .js(
+//         ["resources/js/bundle.js", "resources/js/scripts.js"],
+//         "public/assets/scripts.js"
+//     )
+//     .version();
 
 // SCSS Main
-// mix.sass("resources/scss/*.scss", "public/assets/css")
+// mix.combine("resources/scss/*.scss", "public/assets/css.css")
 //     // SCSS Editors
-//     .sass("resources/scss/editors/*.scss", "public/assets/css/editors")
-//     .sass("resources/scss/libs/*.scss", "public/assets/css/libs")
+mix.combine("resources/scss/editors/", "public/assets/css/editors.css");
+//     .combine("resources/scss/libs/*.scss", "public/assets/css/libs.css")
 //     // SCSS Skins
-//     .sass("resources/scss/skins/*.scss", "public/assets/css/skins")
+//     .combine("resources/scss/skins/*.scss", "public/assets/css/skins.css")
 //     .version();
 
 // mix.js("resources/js/app.js", "public/assets/js")
