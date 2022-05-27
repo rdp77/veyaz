@@ -9,21 +9,29 @@ function save() {
         type: "POST",
         processData: false,
         contentType: false,
-        success: function (data) {
-            if (data.status == "success") {
-                swal(data.data, {
-                    icon: "success",
-                }).then(function () {
-                    window.location = index;
-                });
-            } else if (data.status == "error") {
-                for (var number in data.data) {
+        success: function (response) {
+            swal(response.data, {
+                icon: "success",
+            }).then(function () {
+                window.location = index;
+            });
+        },
+        statusCode: {
+            422: function (response) {
+                for (var index in response.responseJSON.data) {
                     iziToast.error({
                         title: "Error",
-                        message: data.data[number],
+                        message: response.responseJSON.data[index],
                     });
                 }
-            }
+            },
+            419: function () {
+                swal("Login session has expired, please login again!", {
+                    icon: "error",
+                }).then(function () {
+                    window.location.reload();
+                });
+            },
         },
     });
 }
@@ -38,21 +46,29 @@ function update() {
         type: "POST",
         processData: false,
         contentType: false,
-        success: function (data) {
-            if (data.status == "success") {
-                swal(data.data, {
-                    icon: "success",
-                }).then(function () {
-                    window.location = index;
-                });
-            } else if (data.status == "error") {
-                for (var number in data.data) {
+        success: function (response) {
+            swal(response.data, {
+                icon: "success",
+            }).then(function () {
+                window.location = index;
+            });
+        },
+        statusCode: {
+            422: function (response) {
+                for (var index in response.responseJSON.data) {
                     iziToast.error({
                         title: "Error",
-                        message: data.data[number],
+                        message: response.responseJSON.data[index],
                     });
                 }
-            }
+            },
+            419: function () {
+                swal("Login session has expired, please login again!", {
+                    icon: "error",
+                }).then(function () {
+                    window.location.reload();
+                });
+            },
         },
     });
 }

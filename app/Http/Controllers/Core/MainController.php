@@ -5,14 +5,12 @@ namespace App\Http\Controllers\Core;
 use App\Http\Controllers\Controller;
 use App\Models\Template\City;
 use App\Models\Template\District;
-use App\Models\Template\Log;
 use App\Models\Template\Village;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\URL;
 use Sarfraznawaz2005\ServerMonitor\ServerMonitor;
 
 class MainController extends Controller
@@ -147,18 +145,6 @@ class MainController extends Controller
             ->get(["name", "id"]);
 
         return Response::json($data);
-    }
-
-    public function createLog($header, $ip, $action)
-    {
-        Log::create([
-            'info' => $action,
-            'u_id' => Auth::user()->id,
-            'url' => URL::full(),
-            'user_agent' => $header,
-            'ip' => $ip,
-            'added_at' => date("Y-m-d H:i:s"),
-        ]);
     }
 
     public function serverMonitorRefreshAll(): array

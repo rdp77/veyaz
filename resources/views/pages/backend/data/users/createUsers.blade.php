@@ -26,6 +26,11 @@
                     autocomplete="username">
             </div>
             <div class="form-group">
+                <label for="email">{{ __('Email') }}<code>*</code></label>
+                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required
+                    autocomplete="email">
+            </div>
+            <div class="form-group">
                 <div class="d-block">
                     <label for="password" class="control-label">{{ __('Password') }}<code>*</code></label>
                 </div>

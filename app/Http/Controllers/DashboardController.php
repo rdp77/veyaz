@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 use Sarfraznawaz2005\ServerMonitor\ServerMonitor;
+use Spatie\Activitylog\Models\Activity;
 
 class DashboardController extends Controller
 {
@@ -32,11 +33,11 @@ class DashboardController extends Controller
 
     public function index()
     {
-        $log = Log::limit(7)
+        $log = Activity::limit(7)
             ->orderBy('id', 'desc')
             ->get();
         $users = User::count();
-        $logCount = Log::where('u_id', Auth::user()->id)
+        $logCount = Activity::where('causer_id', Auth::user()->id)
             ->count();
 
         return view('dashboard', [
@@ -49,14 +50,23 @@ class DashboardController extends Controller
     public function log(Request $req)
     {
         if ($req->ajax()) {
-            $data = Log::where('u_id', Auth::user()->id)
+            $data = Activity::where('causer_id', Auth::user()->id)
                 ->get();
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('added_at', function ($row) {
-                    return date("d-M-Y H:m", strtotime($row->added_at));
+                    return date("d-M-Y H:m", strtotime($row->created_at));
                 })
-                ->rawColumns(['added_at'])
+                ->addColumn('url', function ($row) {
+                    return $row->getExtraProperty('url');
+                })
+                ->addColumn('ip', function ($row) {
+                    return $row->getExtraProperty('ip');
+                })
+                ->addColumn('user_agent', function ($row) {
+                    return $row->getExtraProperty('user_agent');
+                })
+                ->rawColumns(['added_at', 'ip', 'user_agent'])
                 ->make(true);
         }
         return view('pages.backend.log.IndexLog');

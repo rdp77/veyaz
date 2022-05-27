@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
 use Yajra\DataTables\DataTables;
 
 class UsersController extends Controller
@@ -64,17 +65,26 @@ class UsersController extends Controller
     public function store(UsersRequest $req)
     {
         $validated = $req->validated();
-        User::create([
+        $performedOn = User::create([
             'name' => $validated['name'],
             'username' => $validated['username'],
             'email' => $validated['email'],
             'password' => Hash::make($validated['password']),
+            'is_admin' => false,
             'created_by' => Auth::user()->name,
             'updated_by' => '',
             'deleted_by' => ''
         ]);
 
-        $this->createLog($req->header('user-agent'), $req->ip(), 1);
+        activity()
+            ->causedBy(Auth::user()->id)
+            ->performedOn(User::find($performedOn->id))
+            ->withProperties([
+                'url' => URL::full(),
+                'ip' => $req->ip(),
+                'user_agent' => $req->header('user-agent')
+            ])
+            ->log($this->getStatus(1));
 
         return Response::json([
             'status' => 'success',
@@ -100,7 +110,16 @@ class UsersController extends Controller
                 'updated_by' => Auth::user()->name
             ]);
 
-        $this->createLog($req->header('user-agent'), $req->ip(), 2, false, User::find($id)->name);
+        // Create Log
+        activity()
+            ->causedBy(Auth::user()->id)
+            ->performedOn(User::find($id))
+            ->withProperties([
+                'url' => URL::full(),
+                'ip' => $req->ip(),
+                'user_agent' => $req->header('user-agent')
+            ])
+            ->log($this->getStatus(2));
 
         return Response::json([
             'status' => 'success',
@@ -116,7 +135,15 @@ class UsersController extends Controller
 
         User::destroy($id);
 
-        $this->createLog($req->header('user-agent'), $req->ip(), 3);
+        // Create Log
+        activity()
+            ->causedBy(Auth::user()->id)
+            ->withProperties([
+                'url' => URL::full(),
+                'ip' => $req->ip(),
+                'user_agent' => $req->header('user-agent')
+            ])
+            ->log($this->getStatus(3));
 
         return Response::json(['status' => 'success']);
     }
@@ -149,7 +176,16 @@ class UsersController extends Controller
         $user->deleted_by = '';
         $user->save();
 
-        $this->createLog($req->header('user-agent'), $req->ip(), 4);
+        // Create Log
+        activity()
+            ->causedBy(Auth::user()->id)
+            ->performedOn(User::find($id))
+            ->withProperties([
+                'url' => URL::full(),
+                'ip' => $req->ip(),
+                'user_agent' => $req->header('user-agent')
+            ])
+            ->log($this->getStatus(4));
 
         return Response::json(['status' => 'success']);
     }
@@ -160,7 +196,15 @@ class UsersController extends Controller
             ->where('id', $id)
             ->forceDelete();
 
-        $this->createLog($req->header('user-agent'), $req->ip(), 5);
+        // Create Log
+        activity()
+            ->causedBy(Auth::user()->id)
+            ->withProperties([
+                'url' => URL::full(),
+                'ip' => $req->ip(),
+                'user_agent' => $req->header('user-agent')
+            ])
+            ->log($this->getStatus(5));
 
         return Response::json(['status' => 'success']);
     }
@@ -179,7 +223,15 @@ class UsersController extends Controller
             $user;
         }
 
-        $this->createLog($req->header('user-agent'), $req->ip(), 6);
+        // Create Log
+        activity()
+            ->causedBy(Auth::user()->id)
+            ->withProperties([
+                'url' => URL::full(),
+                'ip' => $req->ip(),
+                'user_agent' => $req->header('user-agent')
+            ])
+            ->log($this->getStatus(6));
 
         return Response::json(['status' => 'success']);
     }
@@ -191,7 +243,16 @@ class UsersController extends Controller
                 'password' => Hash::make(1234567890),
             ]);
 
-        $this->createLog($req->header('user-agent'), $req->ip(), 7, false, User::find($id)->name);
+        // Create Log
+        activity()
+            ->causedBy(Auth::user()->id)
+            ->performedOn(User::find($id))
+            ->withProperties([
+                'url' => URL::full(),
+                'ip' => $req->ip(),
+                'user_agent' => $req->header('user-agent')
+            ])
+            ->log($this->getStatus(7));
 
         return Redirect::route('users.index')
             ->with([
@@ -208,14 +269,17 @@ class UsersController extends Controller
 
         $user = User::find(Auth::user()->id);
 
-        $this->createLog(
-            $req->header('user-agent'),
-            $req->ip(),
-            0,
-            true,
-            null,
-            'Mengganti nama ' . $user->name . ' menjadi ' . $req->name
-        );
+        // Create Log
+        activity()
+            ->causedBy(Auth::user()->id)
+            ->performedOn($user)
+            ->withProperties([
+                'url' => URL::full(),
+                'ip' => $req->ip(),
+                'user_agent' => $req->header('user-agent')
+            ])
+            ->log('Mengganti nama ' . $user->name . ' menjadi ' . $req->name, true);
+
 
         $oldName = $user->name;
         $user->name = $req->name;
@@ -233,39 +297,22 @@ class UsersController extends Controller
         return view('auth.forgot-password');
     }
 
-    protected function createLog($userAgent, $ip, $type, $custom = false, $desc = null, $message = null)
+    protected function getStatus($type, $custom = false)
     {
-        switch ($type) {
-            case 1:
-                $status = "membuat pengguna baru";
-                break;
-            case 2:
-                $status = "mengubah pengguna";
-                break;
-            case 3:
-                $status = "menghapus data pengguna ke recycle bin";
-                break;
-            case 4:
-                $status = "mengembalikan data pengguna";
-                break;
-            case 5:
-                $status = "menghapus data pengguna secara permanen";
-                break;
-            case 6:
-                $status = "menghapus semua data pengguna secara permanen";
-                break;
-            case 7:
-                $status = "reset password pengguna";
-                break;
-            default:
-                $status = "";
-                break;
-        }
+        $status = [
+            1 => 'Menambahkan pengguna baru',
+            2 => 'Mengubah data pengguna',
+            3 => 'Menghapus data pengguna',
+            4 => 'Mengembalikan data pengguna',
+            5 => 'Menghapus data pengguna yang telah dihapus',
+            6 => 'Menghapus semua data pengguna yang telah dihapus',
+            7 => 'Mengubah password pengguna'
+        ];
 
-        $this->MainController->createLog(
-            $userAgent,
-            $ip,
-            $custom ? $message : Auth::user()->name . ' ' . $status . ' ' . $desc,
-        );
+        if ($custom) {
+            return $custom;
+        } else {
+            return $status[$type];
+        }
     }
 }

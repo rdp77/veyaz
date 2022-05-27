@@ -8,6 +8,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\URL;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -62,24 +63,20 @@ class AuthenticatedSessionController extends Controller
         return redirect('/');
     }
 
-    protected function createLog($userAgent, $ip, $type, $custom = false, $desc = null, $message = null)
+    protected function createLog($userAgent, $ip, $type)
     {
-        switch ($type) {
-            case 1:
-                $status = "melakukan login";
-                break;
-            case 2:
-                $status = "melakukan logout";
-                break;
-            default:
-                $status = "";
-                break;
-        }
+        $status = [
+            1 => 'Melakukan login',
+            2 => 'Melakukan logout'
+        ];
 
-        $this->MainController->createLog(
-            $userAgent,
-            $ip,
-            $custom ? $message : Auth::user()->name . ' ' . $status . ' ' . $desc,
-        );
+        activity()
+            ->causedBy(Auth::user()->id)
+            ->withProperties([
+                'url' => URL::full(),
+                'ip' => $ip,
+                'user_agent' => $userAgent
+            ])
+            ->log($status[$type]);
     }
 }

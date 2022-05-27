@@ -26,6 +26,11 @@
                 <input id="username" type="text" class="form-control" name="username" value="{{ $user->username }}"
                     required autocomplete="username">
             </div>
+            <div class="form-group">
+                <label for="email">{{ __('Email') }}<code>*</code></label>
+                <input id="email" type="email" class="form-control" name="email" value="{{ $user->email }}" required
+                    autocomplete="email">
+            </div>
         </div>
         <div class="card-footer text-right">
             <button class="btn btn-primary mr-1" onclick="update()" type="button">{{ __('pages.edit') }}</button>

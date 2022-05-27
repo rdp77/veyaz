@@ -20,7 +20,7 @@ var table = $("#table").DataTable({
     columns: [
         { data: "DT_RowIndex", orderable: false, searchable: false },
         { data: "added_at" },
-        { data: "info" },
+        { data: "description" },
         { data: "url" },
         { data: "ip" },
         { data: "user_agent" },

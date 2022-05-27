@@ -61,14 +61,14 @@
             @foreach($log as $l )
             <a href="javascript:void(0)" class="ticket-item">
                 <div class="ticket-title">
-                    <h4>{{ $l->info }}</h4>
+                    <h4>{{ $l->description }}</h4>
                 </div>
                 <div class="ticket-info">
-                    <div>{{ $l->ip }}</div>
+                    <div>{{ $l->getExtraProperty('ip') }}</div>
                     <div class="bullet"></div>
                     <div class="text-primary">
-                        {{ __('Tercatat pada tanggal ').date("d-M-Y", strtotime($l->added_at)).
-                        __(' Jam ').date("H:m", strtotime($l->added_at)) }}
+                        {{ __('Tercatat pada tanggal ').date("d-M-Y", strtotime($l->created_at)).
+                        __(' Jam ').date("H:m", strtotime($l->created_at)) }}
                     </div>
                 </div>
             </a>
