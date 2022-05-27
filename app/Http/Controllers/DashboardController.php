@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Template\MainController;
+use App\Http\Controllers\Core\MainController;
 use App\Models\Template\Log;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -42,10 +42,7 @@ class DashboardController extends Controller
         return view('dashboard', [
             'log' => $log,
             'users' => $users,
-            'logCount' => $logCount,
-            'ram' => $this->MainController->getTotalRAM(),
-            'cpu' => $this->MainController->getTotalCPU(),
-            'disk' => $this->MainController->getTotalDisk(),
+            'logCount' => $logCount
         ]);
     }
 

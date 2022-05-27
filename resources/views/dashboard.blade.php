@@ -13,36 +13,6 @@
                     class="fas fa-chevron-right"></i></a>
         </div>
     </div>
-    <div class="card-body">
-        <div class="mb-4">
-            <div class="text-small float-right font-weight-bold text-muted">
-                {{ $ram['used_memory_in_gb'] .__(' GB / ').
-                $ram['total_ram'] .__(' GB (').$ram['memory'].__('%)') }}</div>
-            <div class="font-weight-bold mb-1">{{ __('RAM') }}</div>
-            <div class="progress" data-height="3" style="height: 3px;">
-                <div class="progress-bar" role="progressbar" data-width="{{ $ram['memory'] }}%" aria-valuenow="25"
-                    aria-valuemin="0" aria-valuemax="100" style="width: {{ $ram['memory'] }}%;"></div>
-            </div>
-        </div>
-        <div class="mb-4">
-            <div class="text-small float-right font-weight-bold text-muted">{{ $cpu['load'] }}</div>
-            <div class="font-weight-bold mb-1">{{ __('CPU') }}</div>
-            <div class="progress" data-height="3" style="height: 3px;">
-                <div class="progress-bar" role="progressbar" data-width="{{ $cpu['load_width'] }}" aria-valuenow="25"
-                    aria-valuemin="0" aria-valuemax="100" style="width: {{ $cpu['load_width'] }};"></div>
-            </div>
-        </div>
-        <div class="mb-4">
-            <div class="text-small float-right font-weight-bold text-muted">
-                {{ $disk['disk_used_size'] .(' / ').$disk['total_disk_size'].__(' (').$disk['diskuse'].__('%)') }}
-            </div>
-            <div class="font-weight-bold mb-1">{{ __('Disk') }}</div>
-            <div class="progress" data-height="3" style="height: 3px;">
-                <div class="progress-bar" role="progressbar" data-width="{{ $disk['diskuse'] }}%" aria-valuenow="25"
-                    aria-valuemin="0" aria-valuemax="100" style="width: {{ $disk['diskuse'] }}%;"></div>
-            </div>
-        </div>
-    </div>
 </div>
 <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-6 col-12">

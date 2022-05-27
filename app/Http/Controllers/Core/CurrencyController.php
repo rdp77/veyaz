@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Template;
+namespace App\Http\Controllers\Core;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;

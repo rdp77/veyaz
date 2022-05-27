@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Template\MainController;
+use App\Http\Controllers\Core\MainController;
 
 /*
 |--------------------------------------------------------------------------

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Template\MainController;
+use App\Http\Controllers\Core\MainController;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
@@ -38,11 +38,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $this->MainController->createLog(
-            $request->header('user-agent'),
-            $request->ip(),
-            'Melakukan login'
-        );
+        $this->createLog($request->header('user-agent'), $request->ip(), 1);
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }
@@ -55,11 +51,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        $this->MainController->createLog(
-            $request->header('user-agent'),
-            $request->ip(),
-            'Melakukan logout'
-        );
+        $this->createLog($request->header('user-agent'), $request->ip(), 2);
 
         Auth::guard('web')->logout();
 
@@ -68,5 +60,26 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerateToken();
 
         return redirect('/');
+    }
+
+    protected function createLog($userAgent, $ip, $type, $custom = false, $desc = null, $message = null)
+    {
+        switch ($type) {
+            case 1:
+                $status = "melakukan login";
+                break;
+            case 2:
+                $status = "melakukan logout";
+                break;
+            default:
+                $status = "";
+                break;
+        }
+
+        $this->MainController->createLog(
+            $userAgent,
+            $ip,
+            $custom ? $message : Auth::user()->name . ' ' . $status . ' ' . $desc,
+        );
     }
 }
