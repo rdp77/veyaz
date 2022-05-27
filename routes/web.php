@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\Template\MainController;
+use App\Http\Controllers\Frontend\MainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +15,6 @@ use App\Http\Controllers\Template\MainController;
 |
 */
 
-// Front End
-Route::get('/', function () {
-    return view('home');
-});
 // Backend
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->name('dashboard');
@@ -32,11 +28,12 @@ Route::get('/debug-sentry', function () {
 Route::get('/server-monitor', [DashboardController::class, 'serverMonitor'])
     ->name('dashboard.server-monitor');
 Route::prefix('server-monitor')->group(function () {
-    Route::get('refresh', [MainController::class, 'serverMonitorRefresh'])
+    Route::get('refresh', [DashboardController::class, 'serverMonitorRefresh'])
         ->name('dashboard.server-monitor.refresh');
-    Route::get('refresh-all', [MainController::class, 'serverMonitorRefreshAll'])
+    Route::get('refresh-all', [DashboardController::class, 'serverMonitorRefreshAll'])
         ->name('dashboard.server-monitor.refreshAll');
 });
 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/front.php';
 require __DIR__ . '/data/users.php';

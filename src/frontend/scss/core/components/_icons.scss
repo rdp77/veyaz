@@ -1,0 +1,114 @@
+.styled-icon{
+    position: relative;
+    display: grid;
+    place-items: center;
+    .icon,svg{
+        color: currentColor;
+    } 
+    &-s1{
+        height: 90px;
+        width: 90px;
+        color: $white;
+        background-color: $primary;
+        border-radius: 7px;
+        .icon,svg{
+            height: 50px;
+            width: 50px;
+        }
+    }
+    &-s2{
+        height: 90px;
+        width: 90px;
+        color: $white;
+        border-radius: 50% 50% 50% 0;
+        .icon,svg{
+            height: 44px;
+            width: 44px;
+        }
+    }
+    &-s3{
+        background-color: $lighter;
+        width: 60px;
+        height: 60px;
+        border-radius:  50% 50% 50% 0;
+        .icon,svg{
+            height: 32px;
+            width: 32px;
+            color: currentColor;
+        }
+    }
+    &-s4{
+        position: relative;
+        border-radius: $border-radius;
+        overflow: hidden;
+        &:before{
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            content: '';
+            background: currentColor;
+            opacity: 0.2;
+        }
+        .icon,svg{
+            height: 50%;
+            width: 50%;
+            color: currentColor;
+        }
+        &.circle{
+            border-radius: 50%;
+            .icon,svg{
+                height: 40%;
+                width: 40%;
+            }
+        }
+    }
+    &-s5{
+        border: 2px solid currentColor;
+        border-radius: 50%;
+        .icon,svg{
+            height: 50%;
+            width: 50%;
+        }
+    }
+}
+
+@for $i from 1 through 6 {
+    .styled-icon-#{$i}x{
+        height: $i*10px;
+        width: $i*10px;
+    }
+}
+
+.social{
+    display: inline-flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: -.5rem;
+    li{
+        display: inline-flex;
+        padding: .5rem;
+        .icon{
+            font-size: 1.25rem;
+        }
+        a{
+            display: inline-flex;
+            color: $base-400;
+            &:hover{
+                color: $primary;
+            }
+        }
+    }
+}
+
+@each $name, $color in $theme-colors {
+    .social-#{$name}{
+        li a{
+            color: $color;
+            &:hover{
+                color: darken($color, 7.5%)
+            }
+        }
+    }
+}

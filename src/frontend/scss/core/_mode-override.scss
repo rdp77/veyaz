@@ -1,0 +1,40 @@
+.is-dark.bg-indigo,.bg-indigo .is-dark,.bg-grad-a .is-dark{
+    p{
+        color: $accent-400;
+    }
+    .list li{
+        color: $accent-light;
+    }
+    .link-inline a,.social li a{
+        color: $accent-400;
+        &:hover{
+            color: $white;
+        }
+    }
+    .text-base{
+        color: $accent-400 !important;
+    }
+}
+.is-dark{
+    h1,h2,h3,h4,h5,h6{
+        color: $white;
+    }
+    p{
+        color: $light-400;
+    }
+    .list li{
+        color: $accent-light;
+    }
+    .link-inline a,.social li a{
+        color: $light-400;
+        &:hover{
+            color: $white;
+        }
+    }
+    .text-base{
+        color: $light-400 !important;
+    }
+    .border-light{
+        border-color: rgba($white,.1) !important;
+    }
+}

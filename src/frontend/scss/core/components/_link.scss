@@ -1,0 +1,52 @@
+.link-inline{
+    display: inline-flex;
+    flex-wrap: wrap;
+    a{
+        color: $base-400;
+        &:hover{
+            color: $primary;
+        }
+    }
+    &-2col{
+        li{
+            width: 50%;
+        }
+    }
+    &-3col{
+        li{
+            width: 33.33%;
+        }
+    }
+}
+
+$link-bps : md, lg, xl;
+
+@each $link-bp in $link-bps {
+    @include media-breakpoint-up($link-bp){
+        .link-inline-#{$link-bp}{
+            &-2col{
+                li{
+                    width: 50%;
+                }
+            }
+            &-3col{
+                li{
+                    width: 33.33%;
+                }
+            }
+        }
+    }
+}
+
+.link-list{
+    margin: -.25rem 0;
+    li{
+        padding: .25rem 0;
+    }
+    a{
+        color: $base-400;
+        &:hover{
+            color: $primary;
+        }
+    }
+}

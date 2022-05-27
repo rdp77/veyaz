@@ -1,0 +1,24 @@
+<svg x="0px" y="0px" viewBox="0 0 512 512" style="fill:currentColor" xml:space="preserve">
+<g>
+	<defs>
+		<rect id="TOOLSALT_SVGID_1_" width="512" height="512"/>
+	</defs>
+	<clipPath id="TOOLSALT_SVGID_2_">
+		<use xlink:href="#TOOLSALT_SVGID_1_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#TOOLSALT_SVGID_2_);">
+		<path style="fill:currentColor" d="M32.6,394.6L0,512l117.4-32.5L32.6,394.6z"/>
+		<path style="fill:currentColor" d="M498.9,34.3l-21.2-21.2c-17.5-17.5-46.1-17.5-63.6,0l-15.2,15.2l84.9,84.9L498.9,98
+			C516.4,80.5,516.4,51.8,498.9,34.3z"/>
+		<path style="fill:currentColor" d="M377.7,49.5l-21.2,21.2l84.9,84.9l21.2-21.2L377.7,49.5z"/>
+		<path style="fill:currentColor" d="M388.2,145L106.8,426.4l31.8,31.8l281.5-281.5L388.2,145z"/>
+		<path style="fill:currentColor" d="M335.2,91.9L53.8,373.4l31.8,31.8L367,123.7L335.2,91.9z"/>
+		<path style="fill:currentColor" d="M483.4,345.6c-22.1-22.1-52.1-31.3-80.9-27.8l-40.5-40.5l-84.8,84.8l40.5,40.5c-3,24.1,3.1,49,18,69.4
+			l89.3-89.3l76.2,76.2C520.1,422.3,514.1,376.2,483.4,345.6z"/>
+		<path style="fill:currentColor" d="M403.9,446.3L357,493.2c30,21.9,69.6,24.6,101.9,8.1L403.9,446.3z"/>
+		<path style="fill:currentColor" d="M53.1,10.7l55,55L155,18.8C125.1-3.2,85.4-5.9,53.1,10.7z"/>
+		<path style="fill:currentColor" d="M194.3,109.4c3-24.1-3.1-49-18-69.4l-89.3,89.3L10.7,53.1C-8.1,89.7-2.1,135.8,28.6,166.4
+			c22.1,22.1,52.1,31.4,80.9,27.8l40.5,40.5l84.9-84.8L194.3,109.4z"/>
+	</g>
+</g>
+</svg>

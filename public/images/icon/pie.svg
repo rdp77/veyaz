@@ -1,0 +1,18 @@
+<svg x="0px" y="0px" viewBox="0 0 512 512" style="fill:currentColor" xml:space="preserve">
+<g>
+	<defs>
+		<rect id="PIESVGID_1_" x="5.7" width="500.1" height="512"/>
+	</defs>
+	<clipPath id="PIESVGID_2_">
+		<use xlink:href="#PIESVGID_1_"  style="overflow:visible;"/>
+	</clipPath>
+	<g style="clip-path:url(#PIESVGID_2_);">
+		<path style="fill:currentColor; opacity:.52;" d="M266.1,0c-5.8,0-10.4,4.8-10.4,10.7v234.4c0,5.9,4.7,10.7,10.4,10.7h229.2c5.8,0,10.4-4.8,10.4-10.7
+			C505.6,109.8,398.4,0.1,266.1,0z"/>
+		<path style="fill:currentColor" d="M378.5,451.6L234.9,262.7V32c0-5.9-4.7-10.7-10.4-10.7C103.8,21.3,5.7,131.2,5.7,266.4
+			C5.8,401.7,113,511.3,245.3,511.5c48,3.8,95.5-12.4,131.6-45.1C381.3,462.7,382,456.2,378.5,451.6z"/>
+		<path style="fill:currentColor; opacity:.7;" d="M495.3,277H287c-5.8,0-10.4,4.8-10.4,10.7c0,2.4,0.8,4.8,2.3,6.7l135.4,171.5c1.8,2.3,4.5,3.7,7.4,3.9h0.7
+			c2.6,0,5.2-1,7.1-2.9c48.5-46.4,76.1-111.3,76.2-179.3C505.8,281.8,501.1,277,495.3,277z"/>
+	</g>
+</g>
+</svg>

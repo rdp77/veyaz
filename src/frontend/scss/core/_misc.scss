@@ -1,0 +1,32 @@
+// Shadow on card 
+.has-shadow {
+    &.bg-lighter {
+        .card, .accordion {
+            box-shadow: 0 0 8px -3px rgba($shadow-color-light, 0.15);
+        }
+    }
+    .card, .accordion {
+        box-shadow: 0 0 6px -2px rgba($shadow-color-light, 0.2);
+    }
+}
+
+.is-scrollable {
+    overflow: auto;
+}
+@if($rtl==true){
+    .ni {
+        &[class*="left"],&[class*="right"], &[class*="back-ios"], &[class*="forward-ios"] {
+        transform: scale(-1);
+            .btn > span + & {
+                @if($rtl==false){
+                    padding-left: 0;
+                    padding-right: 8px;
+                }
+                @if($rtl==true){
+                    padding-right: 0;
+                    padding-left: 8px;
+                }
+            }
+        }
+    }
+}

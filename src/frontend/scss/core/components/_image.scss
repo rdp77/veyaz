@@ -1,0 +1,63 @@
+//image block
+.img-block{
+    &-s1,&-s2{
+        img{
+            width: 100%;
+        }
+    }
+}
+@include media-breakpoint-up(xl){
+    .img-block{
+        &-s1{
+            &.left{
+                margin:0 -30px 0 -100px;
+            }
+            &.right{
+                margin:0 -100px 0 -30px;
+            }
+        }
+        &-s2{
+            margin: 0 -30px;
+        }
+    }
+}
+
+// Portrait
+.portrait{
+    position: relative;
+    &-s1{
+        img{
+            position: relative;
+            border-radius: 60px 60px 0 60px;
+            z-index: 2;
+        }
+        &:before,&:after{
+            position: absolute;
+            height: 60px;
+            width: 57px;
+            content: '';
+            z-index: 0;
+            background-size: 10px 10px;
+            background-image: linear-gradient(to bottom,transparent 0, transparent 2px, $white 2px, $white 2px),linear-gradient(to right,$base-text 0, $base-text 2px, $white 2px, $white 2px);
+            opacity: 0.3;
+            z-index: 1;
+        }
+        &:before{
+            top: -15px;
+            right:0;
+        }
+        &:after{
+            bottom: 16px;
+            left: -5px;
+        }
+    }
+}
+
+//image circle
+.img-circle {
+    border-radius: 50%; 
+    &.sm {
+        height: 60px;
+        width: 60px; 
+    }
+}

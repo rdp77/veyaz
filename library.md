@@ -32,3 +32,7 @@
 | Laravel env:set Command  |     https://github.com/ImLiam/laravel-env-set-command      |
 |    Laravel Telescope     |            https://github.com/laravel/telescope            |
 |         Migrator         |          https://github.com/rezaamini-ir/migrator          |
+|     Laravel Livewire     |            https://github.com/livewire/livewire            |
+|        Seo Tools         |            https://github.com/artesaos/seotools            |
+|    Laravel Debug Bar     |        https://github.com/barryvdh/laravel-debugbar        |
+|    Eloquent Sluggable    |      https://github.com/cviebrock/eloquent-sluggable       |

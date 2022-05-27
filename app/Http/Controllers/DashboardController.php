@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Template\MainController;
+use App\Http\Traits\MainTrait;
 use App\Models\Template\Log;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -12,15 +12,15 @@ use Sarfraznawaz2005\ServerMonitor\ServerMonitor;
 
 class DashboardController extends Controller
 {
+    use MainTrait;
     /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct(MainController $MainController, ServerMonitor $serverMonitor)
+    public function __construct(ServerMonitor $serverMonitor)
     {
         $this->middleware('auth');
-        $this->MainController = $MainController;
         $this->serverMonitor = $serverMonitor;
     }
 
@@ -32,6 +32,8 @@ class DashboardController extends Controller
 
     public function index()
     {
+        // dd($this->changeMonthIdToEn('29 Januari 2020'));
+        // dd($this->getTotalRam());
         $log = Log::limit(7)
             ->orderBy('id', 'desc')
             ->get();
@@ -39,13 +41,13 @@ class DashboardController extends Controller
         $logCount = Log::where('u_id', Auth::user()->id)
             ->count();
 
-        return view('dashboard', [
+        return view('pages.backend.dashboard', [
             'log' => $log,
             'users' => $users,
             'logCount' => $logCount,
-            'ram' => $this->MainController->getTotalRAM(),
-            'cpu' => $this->MainController->getTotalCPU(),
-            'disk' => $this->MainController->getTotalDisk(),
+            'ram' => $this->getTotalRAM(),
+            'cpu' => $this->getTotalCPU(),
+            'disk' => $this->getTotalDisk(),
         ]);
     }
 
@@ -74,5 +76,15 @@ class DashboardController extends Controller
             'checkResults',
             'lastRun'
         ));
+    }
+
+    public function serverMonitorRefreshAll(): array
+    {
+        return $this->serverMonitor->runChecks();
+    }
+
+    public function serverMonitorRefresh(): array
+    {
+        return $this->serverMonitor->runCheck(request()->check);
     }
 }

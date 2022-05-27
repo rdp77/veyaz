@@ -1,12 +1,14 @@
 {
     "name": "laravel/laravel",
     "type": "project",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "description": "The Laravel Framework with Veyaz Theme.",
+    "keywords": ["framework", "laravel", "veyaz"],
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
         "appslabke/lara-izitoast": "^1.1",
+        "artesaos/seotools": "^0.22.0",
+        "cviebrock/eloquent-sluggable": "^8.0",
         "fideloper/proxy": "^4.4",
         "fruitcake/laravel-cors": "^2.0",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -15,6 +17,7 @@
         "laravel/telescope": "^4.7",
         "laravel/tinker": "^2.5",
         "laravolt/indonesia": "^0.30.0",
+        "livewire/livewire": "^2.10",
         "milon/barcode": "^8.0",
         "renatomarinho/laravel-page-speed": "^2.0",
         "rezaamini-ir/migrator": "^1.5",
@@ -25,6 +28,7 @@
         "yajra/laravel-datatables-oracle": "~9.0"
     },
     "require-dev": {
+        "barryvdh/laravel-debugbar": "^3.6",
         "facade/ignition": "^2.5",
         "fakerphp/faker": "^1.9.1",
         "laravel/breeze": "^1.3",

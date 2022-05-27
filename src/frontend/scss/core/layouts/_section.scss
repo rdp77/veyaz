@@ -1,0 +1,70 @@
+.section{
+    padding: 3.75rem 0;
+}
+@include media-breakpoint-up(sm){
+    .section{
+        padding: 4.25rem 0;
+        &-sm{
+            padding: 3.75rem 0;
+        }
+    }
+}
+@include media-breakpoint-up(md){
+    .section{
+        padding: 5rem 0;
+        &-sm{
+            padding: 3.75rem 0;
+        }
+    }
+}
+@include media-breakpoint-up(lg){
+    .section{
+        padding: 6.875rem 0;
+        &-sm{
+            padding: 3.75rem 0;
+        }
+    }
+}
+
+.gap-small{
+    padding-top: 3rem;
+}
+@include media-breakpoint-up(xl){
+    .gap-small{
+        padding-top: 5.625rem;
+    }
+}
+
+.section-head{
+    padding-bottom: 2.5rem;
+    &-sm{
+        padding-bottom: 1.5rem;
+    }
+    .title + p{
+        padding-top: 1rem;
+    }
+}
+@include media-breakpoint-up(sm){
+    .section-head{
+        padding-bottom: 3rem;
+        &-sm{
+            padding-bottom: 1.5rem;
+        }
+    }
+}
+
+$section-overlap:
+    "1"     4rem,
+    "2"     8rem,
+    "3"     12rem;
+
+@each $step, $unit in $section-overlap {
+    .next-overlap{
+        &-#{$step}x{
+            padding-bottom: $unit;
+            + .section{
+                margin-top: -$unit;
+            }
+        }
+    }
+}

@@ -1,0 +1,75 @@
+.card{
+    + .card:not(.card .card + .card){
+        margin-top: $gutter-width; 
+    }
+    &-full {
+        height: 100%;
+    }
+    &.is-dark{
+        background: $accent-dark;
+    }
+    &-bordered{
+        border: 1px solid $card-bordered-color;
+        &.is-dark{
+            border-color: $accent-dark;
+        }
+        &.dashed{
+            border-style: dashed;
+        }
+    }
+    &-shadow{
+        box-shadow: 0px 6px 35.2px 4.8px rgba($shadow-color, .06);
+    }
+    &-inner{
+        padding: $card-spacer-x;
+        &-sm{
+            padding-top: .75rem;
+            padding-bottom: .75rem;
+        }
+        &-group{
+            .card-inner{
+                &:not(:last-child){
+                    border-bottom: 1px solid $card-bordered-color;
+                }
+            }
+        }
+    }
+}
+@include media-breakpoint-down(xs){
+    .card-stretch {
+        margin-left: - $card-stretch-gap-x;
+        margin-right: - $card-stretch-gap-x;
+        border-left: 0;
+        border-right: 0;
+        border-radius: 0;
+    }
+}
+@include media-breakpoint-up(sm){
+    .card{
+        &-inner{
+            padding: $card-spacer-sm-x;
+            &-sm{
+                padding-top: .75rem;
+                padding-bottom: .75rem;
+            }
+            &-md{
+                padding-top: 1rem;
+                padding-bottom: 1rem;
+            }
+        }
+        &-header {
+            padding-left: $card-spacer-sm-x;
+            padding-right: $card-spacer-sm-x;
+        }
+    }
+}
+@include media-breakpoint-up(md){
+    .card{
+        &-inner-lg{
+            padding: $card-spacer-large;
+        }
+        &-inner-xl{
+            padding: ($card-spacer-large * 1.5);
+        }
+    }
+}

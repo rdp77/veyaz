@@ -1,0 +1,96 @@
+/// Text
+///////////////////////////
+
+.fs-9px{
+  font-size: $fx-sz-9;
+}
+.fs-10px{
+  font-size: $fx-sz-10;
+}
+.fs-11px{
+  font-size: $fx-sz-11;
+}
+.fs-12px{
+  font-size: $fx-sz-12;
+}
+.fs-13px{
+  font-size: $fx-sz-13;
+}
+.fs-14px{
+  font-size: $fx-sz-14;
+}
+.fs-15px{
+  font-size: $fx-sz-15;
+}
+.fs-16px{
+  font-size: $fx-sz-16;
+}
+.fs-17px{
+  font-size: 17px;
+}
+.fs-18px{
+  font-size: 18px;
+}
+.fs-19px{
+  font-size: 19px;
+}
+.fs-20px{
+  font-size: 20px;
+}
+.fs-21px{
+  font-size: 21px;
+}
+.fs-22px{
+  font-size: 22px;
+}
+
+.note-text{
+  font-size: $fx-sz-12;
+  font-style: italic;
+  color: $base-light;
+}
+
+//text block
+.text-block,.text-block.is-compact{
+  > .title{
+      margin-bottom: 1rem;
+      + .review-s3{
+          margin-top: 1.5rem;
+      }
+      + .service-group{
+        margin-top: 0.75rem;
+      }
+  }
+  p +{
+    h1,h2,h3,h4,h5,h6{
+      margin-top: 1.5rem;
+      margin-bottom: 1rem;
+    }
+  }
+  .lead{
+      margin-bottom: 1.3125rem;
+  }
+  .btns-inline{
+      padding-top: .25rem;
+  }
+  .review-s3 + .btns-inline{
+      padding-top: 1.5rem;
+  }
+}
+
+@include media-breakpoint-up(xl){
+  .text-block{
+      > .title{
+          margin-bottom: 1.75rem;
+          + .review-s3{
+              margin-top: 2.25rem;
+          }
+      }
+      .btns-inline{
+          padding-top: 1.25rem;
+      }
+      .review-s3 + .btns-inline{
+          padding-top: 2.5rem;
+      }
+  }
+}

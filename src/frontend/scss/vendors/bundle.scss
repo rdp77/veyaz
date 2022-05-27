@@ -1,0 +1,39 @@
+///////////////////////////////////////////////////
+///        INCLUDED THIRD-PARTY VENDORS         ///
+///////////////////////////////////////////////////
+
+// Include NioIcon 
+@import "nioicon/nioicon";
+
+// Include Select2 
+@import "select2/core.scss";
+
+// Include Simplebar
+@import "simplebar";
+.simplebar-scroll-content {
+	@extend .simplebar-content-wrapper;
+}
+
+// Include Slick
+@import "slick/slick";
+
+// Include dropzone
+@import "dropzone/dropzone";
+
+// Include nouislider
+@import "nouislider/nouislider";
+
+// Include datepicker
+@import "datepicker/bootstrap-datepicker";
+
+// Include time
+@import "timepicker/jquery.timepicker";
+
+// Include Magnific Popup
+@import "magnific-popup/main";
+
+// Include toastr
+@import "toastr/toastr";
+
+// Include sweetalert2
+@import "sweetalert2/sweetalert2";

@@ -55,6 +55,7 @@ return [
     'url' => env('APP_URL', 'http://localhost'),
 
     'asset_url' => env('ASSET_URL', null),
+    'mix_url' => env('MIX_ASSET_URL', null),
 
     /*
     |--------------------------------------------------------------------------
@@ -180,6 +181,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\TelescopeServiceProvider::class,
+        Artesaos\SEOTools\Providers\SEOToolsServiceProvider::class,
 
     ],
 
@@ -237,6 +239,12 @@ return [
         'DNS2D' => Milon\Barcode\Facades\DNS2DFacade::class,
         'Indonesia' => Laravolt\Indonesia\Facade::class,
         'Menu' => Spatie\Menu\Laravel\Facades\Menu::class,
+        'SEOMeta'       => Artesaos\SEOTools\Facades\SEOMeta::class,
+        'OpenGraph'     => Artesaos\SEOTools\Facades\OpenGraph::class,
+        'Twitter'       => Artesaos\SEOTools\Facades\TwitterCard::class,
+        'JsonLd'        => Artesaos\SEOTools\Facades\JsonLd::class,
+        'JsonLdMulti'   => Artesaos\SEOTools\Facades\JsonLdMulti::class,
+        'SEO' => Artesaos\SEOTools\Facades\SEOTools::class,
 
     ],
 

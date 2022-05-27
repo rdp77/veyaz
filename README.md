@@ -1,7 +1,10 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="veyaz.png" width="400"></a></p>
+<p align="center">
+<img src="veyaz.png#gh-light-mode-only" width="400">
+<img src="veyaz-veyaz-dark.png#gh-dark-mode-only" width="400">
+</p>
 
 <p align="center">
-<img alt="Laravel Version" src="https://img.shields.io/badge/Laravel%20Version-8.81.0-informational">
+<img alt="Laravel Version" src="https://img.shields.io/badge/Laravel%20Version-8.83.2-informational">
 <img alt="GitHub repo size" src="https://img.shields.io/github/repo-size/rdp77/veyaz">
 <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/rdp77/veyaz">
 <a href="https://www.codacy.com/gh/rdp77/veyaz/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rdp77/veyaz&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/d998aaac69b646dd9c5b06c9b386db04"/></a>
