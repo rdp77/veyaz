@@ -39,7 +39,12 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $this->createLog($request->header('user-agent'), $request->ip(), 1);
+        $this->MainController->createLog(
+            $request->header('user-agent'),
+            $request->ip(),
+            $this->getStatus(1),
+            false
+        );
 
         return redirect()->intended(RouteServiceProvider::HOME);
     }
@@ -52,7 +57,12 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        $this->createLog($request->header('user-agent'), $request->ip(), 2);
+        $this->MainController->createLog(
+            $request->header('user-agent'),
+            $request->ip(),
+            $this->getStatus(2),
+            false
+        );
 
         Auth::guard('web')->logout();
 
@@ -63,20 +73,13 @@ class AuthenticatedSessionController extends Controller
         return redirect('/');
     }
 
-    protected function createLog($userAgent, $ip, $type)
+    protected function createLog($type)
     {
         $status = [
             1 => 'Melakukan login',
             2 => 'Melakukan logout'
         ];
 
-        activity()
-            ->causedBy(Auth::user()->id)
-            ->withProperties([
-                'url' => URL::full(),
-                'ip' => $ip,
-                'user_agent' => $userAgent
-            ])
-            ->log($status[$type]);
+        return $status[$type];
     }
 }

@@ -11,6 +11,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\URL;
 use Sarfraznawaz2005\ServerMonitor\ServerMonitor;
 
 class MainController extends Controller
@@ -150,6 +151,30 @@ class MainController extends Controller
     public function serverMonitorRefreshAll(): array
     {
         return $this->serverMonitor->runChecks();
+    }
+
+    public function createLog($header, $ip, $action, $withPerformedOn = false, $performedOn = null)
+    {
+        if ($withPerformedOn) {
+            activity()
+                ->causedBy(Auth::user()->id)
+                ->performedOn($performedOn)
+                ->withProperties([
+                    'url' => URL::full(),
+                    'ip' => $ip,
+                    'user_agent' => $header
+                ])
+                ->log($action);
+        } else {
+            activity()
+                ->causedBy(Auth::user()->id)
+                ->withProperties([
+                    'url' => URL::full(),
+                    'ip' => $ip,
+                    'user_agent' => $header
+                ])
+                ->log($action);
+        }
     }
 
     public function serverMonitorRefresh(): array

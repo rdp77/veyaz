@@ -76,15 +76,14 @@ class UsersController extends Controller
             'deleted_by' => ''
         ]);
 
-        activity()
-            ->causedBy(Auth::user()->id)
-            ->performedOn(User::find($performedOn->id))
-            ->withProperties([
-                'url' => URL::full(),
-                'ip' => $req->ip(),
-                'user_agent' => $req->header('user-agent')
-            ])
-            ->log($this->getStatus(1));
+        // Create Log
+        $this->MainController->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            $this->getStatus(1),
+            true,
+            User::find($performedOn->id)
+        );
 
         return Response::json([
             'status' => 'success',
@@ -111,15 +110,13 @@ class UsersController extends Controller
             ]);
 
         // Create Log
-        activity()
-            ->causedBy(Auth::user()->id)
-            ->performedOn(User::find($id))
-            ->withProperties([
-                'url' => URL::full(),
-                'ip' => $req->ip(),
-                'user_agent' => $req->header('user-agent')
-            ])
-            ->log($this->getStatus(2));
+        $this->MainController->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            $this->getStatus(2),
+            true,
+            User::find($id)
+        );
 
         return Response::json([
             'status' => 'success',
@@ -136,14 +133,12 @@ class UsersController extends Controller
         User::destroy($id);
 
         // Create Log
-        activity()
-            ->causedBy(Auth::user()->id)
-            ->withProperties([
-                'url' => URL::full(),
-                'ip' => $req->ip(),
-                'user_agent' => $req->header('user-agent')
-            ])
-            ->log($this->getStatus(3));
+        $this->MainController->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            $this->getStatus(3),
+            false
+        );
 
         return Response::json(['status' => 'success']);
     }
@@ -177,15 +172,13 @@ class UsersController extends Controller
         $user->save();
 
         // Create Log
-        activity()
-            ->causedBy(Auth::user()->id)
-            ->performedOn(User::find($id))
-            ->withProperties([
-                'url' => URL::full(),
-                'ip' => $req->ip(),
-                'user_agent' => $req->header('user-agent')
-            ])
-            ->log($this->getStatus(4));
+        $this->MainController->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            $this->getStatus(4),
+            true,
+            User::find($id)
+        );
 
         return Response::json(['status' => 'success']);
     }
@@ -197,14 +190,12 @@ class UsersController extends Controller
             ->forceDelete();
 
         // Create Log
-        activity()
-            ->causedBy(Auth::user()->id)
-            ->withProperties([
-                'url' => URL::full(),
-                'ip' => $req->ip(),
-                'user_agent' => $req->header('user-agent')
-            ])
-            ->log($this->getStatus(5));
+        $this->MainController->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            $this->getStatus(5),
+            false
+        );
 
         return Response::json(['status' => 'success']);
     }
@@ -224,14 +215,12 @@ class UsersController extends Controller
         }
 
         // Create Log
-        activity()
-            ->causedBy(Auth::user()->id)
-            ->withProperties([
-                'url' => URL::full(),
-                'ip' => $req->ip(),
-                'user_agent' => $req->header('user-agent')
-            ])
-            ->log($this->getStatus(6));
+        $this->MainController->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            $this->getStatus(6),
+            false
+        );
 
         return Response::json(['status' => 'success']);
     }
@@ -244,15 +233,13 @@ class UsersController extends Controller
             ]);
 
         // Create Log
-        activity()
-            ->causedBy(Auth::user()->id)
-            ->performedOn(User::find($id))
-            ->withProperties([
-                'url' => URL::full(),
-                'ip' => $req->ip(),
-                'user_agent' => $req->header('user-agent')
-            ])
-            ->log($this->getStatus(7));
+        $this->MainController->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            $this->getStatus(7),
+            true,
+            User::find($id)
+        );
 
         return Redirect::route('users.index')
             ->with([
@@ -270,16 +257,13 @@ class UsersController extends Controller
         $user = User::find(Auth::user()->id);
 
         // Create Log
-        activity()
-            ->causedBy(Auth::user()->id)
-            ->performedOn($user)
-            ->withProperties([
-                'url' => URL::full(),
-                'ip' => $req->ip(),
-                'user_agent' => $req->header('user-agent')
-            ])
-            ->log('Mengganti nama ' . $user->name . ' menjadi ' . $req->name, true);
-
+        $this->MainController->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            $this->getStatus(0, true, 'Mengganti nama ' . $user->name . ' menjadi ' . $req->name),
+            true,
+            $user
+        );
 
         $oldName = $user->name;
         $user->name = $req->name;
@@ -297,7 +281,7 @@ class UsersController extends Controller
         return view('auth.forgot-password');
     }
 
-    protected function getStatus($type, $custom = false)
+    protected function getStatus($type, $custom = false, $message = null)
     {
         $status = [
             1 => 'Menambahkan pengguna baru',
@@ -309,10 +293,6 @@ class UsersController extends Controller
             7 => 'Mengubah password pengguna'
         ];
 
-        if ($custom) {
-            return $custom;
-        } else {
-            return $status[$type];
-        }
+        return $custom ? $message : $status[$type];
     }
 }
