@@ -34,3 +34,4 @@
 |         Migrator         |          https://github.com/rezaamini-ir/migrator          |
 |   Laravel Activity Log   |       https://github.com/spatie/laravel-activitylog        |
 |      Pretty Routes       |         https://github.com/Wulfheart/pretty-routes         |
+|      Laravel Tinker      |             https://github.com/laravel/tinker              |
