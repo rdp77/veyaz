@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.5",
         "laravolt/indonesia": "^0.30.0",
         "milon/barcode": "^8.0",
+        "moneyphp/money": "^3.3",
         "renatomarinho/laravel-page-speed": "^2.0",
         "rezaamini-ir/migrator": "^1.5",
         "sarfraznawaz2005/servermonitor": "^1.9",

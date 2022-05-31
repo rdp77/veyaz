@@ -20,7 +20,6 @@
 |          Cleave          |             https://github.com/nosir/cleave.js             |
 |       Laravel Mix        |         https://github.com/JeffreyWay/laravel-mix          |
 |    Laravel Page Speed    |    https://github.com/renatomarinho/laravel-page-speed     |
-|    Laravel Jetstream     |            https://github.com/laravel/jetstream            |
 |      Laravel Breeze      |             https://github.com/laravel/breeze              |
 |    Barcode Generator     |              https://github.com/milon/barcode              |
 |          Sentry          |            https://github.com/getsentry/sentry             |
@@ -35,3 +34,4 @@
 |   Laravel Activity Log   |       https://github.com/spatie/laravel-activitylog        |
 |      Pretty Routes       |         https://github.com/Wulfheart/pretty-routes         |
 |      Laravel Tinker      |             https://github.com/laravel/tinker              |
+|        Money PHP         |             https://github.com/moneyphp/money              |
