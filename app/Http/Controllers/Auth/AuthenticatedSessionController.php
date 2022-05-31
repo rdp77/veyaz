@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Core\MainController;
 use App\Http\Requests\Auth\LoginRequest;
+use App\Models\Template\ActivityList;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\URL;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -73,13 +73,8 @@ class AuthenticatedSessionController extends Controller
         return redirect('/');
     }
 
-    protected function createLog($type)
+    protected function getStatus($type)
     {
-        $status = [
-            1 => 'Melakukan login',
-            2 => 'Melakukan logout'
-        ];
-
-        return $status[$type];
+        return ActivityList::find($type)->name;
     }
 }

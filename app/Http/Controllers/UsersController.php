@@ -4,13 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Core\MainController;
 use App\Http\Requests\UsersRequest;
+use App\Models\Template\ActivityList;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\URL;
 use Yajra\DataTables\DataTables;
 
 class UsersController extends Controller
@@ -283,16 +283,6 @@ class UsersController extends Controller
 
     protected function getStatus($type, $custom = false, $message = null)
     {
-        $status = [
-            1 => 'Menambahkan pengguna baru',
-            2 => 'Mengubah data pengguna',
-            3 => 'Menghapus data pengguna',
-            4 => 'Mengembalikan data pengguna',
-            5 => 'Menghapus data pengguna yang telah dihapus',
-            6 => 'Menghapus semua data pengguna yang telah dihapus',
-            7 => 'Mengubah password pengguna'
-        ];
-
-        return $custom ? $message : $status[$type];
+        return $custom ? $message : ActivityList::find($type)->name;
     }
 }

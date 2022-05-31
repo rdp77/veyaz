@@ -31,6 +31,24 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-item dropdown {{ Request::route()->getName() == 'activity' ? 'active' : (
+                Request::route()->getName() == 'activity.list.index' ? 'active' : (
+                        Request::route()->getName() == 'activity.type.index' ? 'active' : '')) }}">
+                <a href="{{ route('activity') }}" class="nav-link has-dropdown" data-toggle="dropdown">
+                    <i class="fas fa-clock-rotate-left"></i>
+                    <span>{{ __('Aktivitas') }}</span></a>
+                <ul class="dropdown-menu">
+                    <li class="{{ Request::route()->getName() == 'activity' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('activity') }}">{{ __('Semua') }}</a>
+                    </li>
+                    <li class="{{ Request::route()->getName() == 'activity.list.index' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('activity.list.index') }}">{{ __('Daftar') }}</a>
+                    </li>
+                    <li class="{{ Request::route()->getName() == 'activity.type.index' ? 'active' : '' }}">
+                        <a class="nav-link" href="{{ route('activity.type.index') }}">{{ __('Tipe') }}</a>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </aside>
 </div>

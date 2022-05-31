@@ -23,6 +23,8 @@ class DatabaseSeeder extends Seeder
             CitiesSeeder::class,
             DistrictsSeeder::class,
             VillagesSeeder::class,
+            ActivityType::class,
+            ActivityList::class,
         ]);
     }
 }
