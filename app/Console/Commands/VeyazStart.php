@@ -4,9 +4,27 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Log;
 
 class VeyazStart extends Command
 {
+    private static $template = '
+<fg=blue>
+
+██╗   ██╗███████╗██╗   ██╗ █████╗ ███████╗
+██║   ██║██╔════╝╚██╗ ██╔╝██╔══██╗╚══███╔╝
+██║   ██║█████╗   ╚████╔╝ ███████║  ███╔╝ 
+╚██╗ ██╔╝██╔══╝    ╚██╔╝  ██╔══██║ ███╔╝  
+ ╚████╔╝ ███████╗   ██║   ██║  ██║███████╗
+  ╚═══╝  ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚══════╝
+                                                                                                                               
+</>
+Congratulations! You successfully set up your <fg=green>Veyaz</> template!
+<fg=cyan>Documentation</>: (Coming Soon)
+<fg=cyan>Contribute</>: https://github.com/rdp77
+<fg=cyan>Give a star</>: https://github.com/rdp77/veyaz
+Made with <fg=green>love</> by the community. Be a part of it!
+';
     /**
      * The name and signature of the console command.
      *
@@ -41,9 +59,9 @@ class VeyazStart extends Command
         $this->env();
         $this->connection();
         $this->key();
-        $this->db();
-        $this->newLine();
-        $this->info('Starting Veyaz Command Successful.');
+        $this->clear();
+        $this->migrate();
+        $this->line(self::$template);
     }
 
     function key()
@@ -52,10 +70,16 @@ class VeyazStart extends Command
         $this->info('Application Key Set Successfully.');
     }
 
-    function db()
+    function migrate()
     {
         Artisan::call("migrate:refresh --seed");
         $this->info('Importing Database Successful.');
+    }
+
+    function clear()
+    {
+        Artisan::call("optimize:clear");
+        $this->info('Cache Cleared Successfully.');
     }
 
     function env()
@@ -69,67 +93,13 @@ class VeyazStart extends Command
 
     function connection()
     {
-        // Choice Database Connection
-        $databaseConnection = [
-            1 => 'SQLite',
-            2 => 'MySQL',
-            3 => 'PostgreSQL',
-            4 => 'SQL Server',
-        ];
-
-        $choice = array_search(
-            $this->choice('Select Database Connection', $databaseConnection),
-            $databaseConnection
-        );
-
-        $hostname = $this->ask('Database Hostname?');
-        $port = $this->ask('Database Port?');
-        $database = $this->ask('Database Name?');
-        $username = $this->ask('Database Username?');
-        $password = $this->ask('Database Password?');
-
-        switch ($choice) {
-            case 1:
-                Artisan::call("env:set DB_CONNECTION sqlite");
-                Artisan::call("env:set DB_HOST $hostname");
-                Artisan::call("env:set DB_PORT $port");
-                Artisan::call("env:set DB_DATABASE $database");
-                Artisan::call("env:set DB_USERNAME $username");
-                Artisan::call("env:set DB_PASSWORD $password");
-                break;
-            case 2:
-                Artisan::call("env:set DB_CONNECTION mysql");
-                Artisan::call("env:set DB_HOST $hostname");
-                Artisan::call("env:set DB_PORT $port");
-                Artisan::call("env:set DB_DATABASE $database");
-                Artisan::call("env:set DB_USERNAME $username");
-                Artisan::call("env:set DB_PASSWORD $password");
-                break;
-            case 3:
-                Artisan::call("env:set DB_CONNECTION pgsql");
-                Artisan::call("env:set DB_HOST $hostname");
-                Artisan::call("env:set DB_PORT $port");
-                Artisan::call("env:set DB_DATABASE $database");
-                Artisan::call("env:set DB_USERNAME $username");
-                Artisan::call("env:set DB_PASSWORD $password");
-                break;
-            case 4:
-                Artisan::call("env:set DB_CONNECTION sqlsrv");
-                Artisan::call("env:set DB_HOST $hostname");
-                Artisan::call("env:set DB_PORT $port");
-                Artisan::call("env:set DB_DATABASE $database");
-                Artisan::call("env:set DB_USERNAME $username");
-                Artisan::call("env:set DB_PASSWORD $password");
-                break;
-            default:
-                Artisan::call("env:set DB_CONNECTION mysql");
-                Artisan::call("env:set DB_HOST $hostname");
-                Artisan::call("env:set DB_PORT $port");
-                Artisan::call("env:set DB_DATABASE $database");
-                Artisan::call("env:set DB_USERNAME $username");
-                Artisan::call("env:set DB_PASSWORD $password");
-                break;
+        $this->info('Database Setup');
+        foreach (['DB_CONNECTION', 'DB_HOST', 'DB_PORT', 'DB_DATABASE', 'DB_USERNAME'] as $key) {
+            $config[$key] = $this->ask('- ' . $key . ' (' . env($key) . ')');
+            Artisan::call("env:set $key $config[$key]");
         }
+        $config['DB_PASSWORD'] = $this->secret('- DB_PASSWORD (' . env($key) . ')');
+        Artisan::call("env:set DB_PASSWORD $config[DB_PASSWORD]");
         $this->info('Set Database Connection Successful.');
     }
 }

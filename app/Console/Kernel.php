@@ -13,8 +13,7 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\VeyazStart::class,
-        Commands\VeyazDatabase::class
+        Commands\VeyazStart::class
     ];
 
     /**

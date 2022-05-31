@@ -36,11 +36,9 @@ Login using username `admin` and password `admin`
   php artisan command:name
 ```
 
-| Name          | Description               |
-| :------------ | :------------------------ |
-| `veyaz:start` | Setup Veyaz               |
-| `veyaz:con`   | Setup Connection Database |
-| `veyaz:db`    | Database Import           |
+| Name          | Description |
+| :------------ | :---------- |
+| `veyaz:start` | Setup Veyaz |
 
 ## Third-party Library
 
