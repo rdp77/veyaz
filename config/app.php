@@ -170,6 +170,10 @@ return [
         Laravolt\Indonesia\ServiceProvider::class,
         Sarfraznawaz2005\ServerMonitor\ServiceProvider::class,
         Spatie\Menu\Laravel\MenuServiceProvider::class,
+        Yajra\DataTables\DataTablesServiceProvider::class,
+        Yajra\DataTables\ButtonsServiceProvider::class,
+        Yajra\DataTables\FractalServiceProvider::class,
+        Yajra\DataTables\HtmlServiceProvider::class,
 
         /*
          * Application Service Providers...

@@ -25,7 +25,7 @@
         "spatie/laravel-menu": "^3.7",
         "spatie/laravel-permission": "^5.4",
         "wulfheart/pretty_routes": "^0.3.0",
-        "yajra/laravel-datatables-oracle": "~9.0"
+        "yajra/laravel-datatables": "1.5"
     },
     "require-dev": {
         "facade/ignition": "^2.5",
