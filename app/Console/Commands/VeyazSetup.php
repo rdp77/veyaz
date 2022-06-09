@@ -4,9 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Log;
 
-class VeyazStart extends Command
+class VeyazSetup extends Command
 {
     private static $template = '
 <fg=blue>
@@ -30,14 +29,14 @@ Made with <fg=green>love</> by the community. Be a part of it!
      *
      * @var string
      */
-    protected $signature = 'veyaz:start';
+    protected $signature = 'veyaz:setup';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Start template function';
+    protected $description = 'Setup template function';
 
     /**
      * Create a new command instance.
