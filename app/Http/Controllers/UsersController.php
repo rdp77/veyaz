@@ -6,6 +6,7 @@ use App\Http\Controllers\Core\MainController;
 use App\Http\Requests\UsersRequest;
 use App\Models\Template\ActivityList;
 use App\Models\User;
+use App\Services\UserService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -62,25 +63,15 @@ class UsersController extends Controller
         return view('pages.backend.data.users.createUsers');
     }
 
-    public function store(UsersRequest $req)
+    public function store(UsersRequest $req, UserService $userService)
     {
-        $validated = $req->validated();
-        $performedOn = User::create([
-            'name' => $validated['name'],
-            'username' => $validated['username'],
-            'email' => $validated['email'],
-            'password' => Hash::make($validated['password']),
-            'is_admin' => false,
-            'created_by' => Auth::user()->name,
-            'updated_by' => '',
-            'deleted_by' => ''
-        ]);
+        $performedOn = $userService->createUser($req->validated());
 
         // Create Log
         $this->MainController->createLog(
             $req->header('user-agent'),
             $req->ip(),
-            $this->getStatus(1),
+            $this->getStatus(3),
             true,
             User::find($performedOn->id)
         );
@@ -94,26 +85,20 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
-        return view('pages.backend.data.users.updateUsers', ['user' => $user]);
+        return view('pages.backend.data.users.updateUsers', [
+            'user' => $user
+        ]);
     }
 
-    public function update($id, UsersRequest $req)
+    public function update($id, UsersRequest $req, UserService $userService)
     {
-        $createdBy = User::find($id)->created_by;
-
-        User::where('id', $id)
-            ->update([
-                'name' => $req->name,
-                'username' => $req->username,
-                'created_by' => $createdBy,
-                'updated_by' => Auth::user()->name
-            ]);
+        $userService->updateUser($id, $req->validated());
 
         // Create Log
         $this->MainController->createLog(
             $req->header('user-agent'),
             $req->ip(),
-            $this->getStatus(2),
+            $this->getStatus(4),
             true,
             User::find($id)
         );
@@ -124,19 +109,15 @@ class UsersController extends Controller
         ]);
     }
 
-    public function destroy(Request $req, $id)
+    public function destroy(Request $req, $id, UserService $userService)
     {
-        $user = User::find($id);
-        $user->deleted_by = Auth::user()->name;
-        $user->save();
-
-        User::destroy($id);
+        $userService->deleteUser($id);
 
         // Create Log
         $this->MainController->createLog(
             $req->header('user-agent'),
             $req->ip(),
-            $this->getStatus(3),
+            $this->getStatus(5),
             false
         );
 
@@ -161,21 +142,15 @@ class UsersController extends Controller
         return view('pages.backend.data.users.recycleUsers');
     }
 
-    public function restore($id, Request $req)
+    public function restore($id, Request $req, UserService $userService)
     {
-        User::onlyTrashed()
-            ->where('id', $id)
-            ->restore();
-
-        $user = User::find($id);
-        $user->deleted_by = '';
-        $user->save();
+        $userService->restoreUser($id);
 
         // Create Log
         $this->MainController->createLog(
             $req->header('user-agent'),
             $req->ip(),
-            $this->getStatus(4),
+            $this->getStatus(6),
             true,
             User::find($id)
         );
@@ -183,11 +158,15 @@ class UsersController extends Controller
         return Response::json(['status' => 'success']);
     }
 
-    public function delete($id, Request $req)
+    public function restoreAll()
     {
-        User::onlyTrashed()
-            ->where('id', $id)
-            ->forceDelete();
+        User::onlyTrashed()->restore();
+        return Response::json(['status' => 'success']);
+    }
+
+    public function delete($id, Request $req, UserService $userService)
+    {
+        $userService->deleteUserRecycle($id);
 
         // Create Log
         $this->MainController->createLog(
@@ -200,19 +179,18 @@ class UsersController extends Controller
         return Response::json(['status' => 'success']);
     }
 
-    public function deleteAll(Request $req)
+    public function deleteAll(Request $req, UserService $userService)
     {
-        $user = User::onlyTrashed()
-            ->forceDelete();
+        $userService->deleteAllUserRecycle();
 
-        if ($user == 0) {
-            return Response::json([
-                'status' => 'error',
-                'data' => "Tidak ada data di recycle bin"
-            ]);
-        } else {
-            $user;
-        }
+        // if ($user == 0) {
+        //     return Response::json([
+        //         'status' => 'error',
+        //         'data' => "Tidak ada data di recycle bin"
+        //     ]);
+        // } else {
+        //     $user;
+        // }
 
         // Create Log
         $this->MainController->createLog(

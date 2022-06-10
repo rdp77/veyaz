@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 
 class VeyazSetup extends Command
 {
@@ -57,8 +58,10 @@ Made with <fg=green>love</> by the community. Be a part of it!
     {
         $this->env();
         $this->connection();
+        $this->checkConnection();
         $this->key();
         $this->clear();
+        $this->checkDatabaseExists();
         $this->migrate();
         $this->line(self::$template);
     }
@@ -100,5 +103,35 @@ Made with <fg=green>love</> by the community. Be a part of it!
         $config['DB_PASSWORD'] = $this->secret('- DB_PASSWORD (' . env($key) . ')');
         Artisan::call("env:set DB_PASSWORD $config[DB_PASSWORD]");
         $this->info('Set Database Connection Successful.');
+    }
+
+    function checkConnection()
+    {
+        $this->info('Checking Database Connection');
+        try {
+            DB::connection()->getPdo();
+            $this->info('Database Connection Successful to ' . DB::connection()->getDatabaseName());
+        } catch (\Exception $e) {
+            $this->error('Database Connection Failed.');
+        }
+    }
+
+    function createDatabase()
+    {
+        $databaseName = env('DB_DATABASE');
+        DB::statement("CREATE DATABASE $databaseName");
+        $this->info('Database created successfully.');
+    }
+
+    function checkDatabaseExists()
+    {
+        $databaseName = env('DB_DATABASE');
+        $databaseExists = DB::select("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '$databaseName'");
+        if (!empty($databaseExists)) {
+            $this->info('Database already exists.');
+            return true;
+        }
+        $this->createDatabase();
+        return false;
     }
 }

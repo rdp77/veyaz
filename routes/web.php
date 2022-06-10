@@ -30,10 +30,12 @@ Route::get('/debug-sentry', function () {
 Route::get('/server-monitor', [DashboardController::class, 'serverMonitor'])
     ->name('dashboard.server-monitor');
 Route::prefix('server-monitor')->group(function () {
-    Route::get('refresh', [MainController::class, 'serverMonitorRefresh'])
-        ->name('dashboard.server-monitor.refresh');
-    Route::get('refresh-all', [MainController::class, 'serverMonitorRefreshAll'])
-        ->name('dashboard.server-monitor.refreshAll');
+    Route::controller(MainController::class)->group(function () {
+        Route::get('refresh', 'serverMonitorRefresh')
+            ->name('dashboard.server-monitor.refresh');
+        Route::get('refresh-all', 'serverMonitorRefreshAll')
+            ->name('dashboard.server-monitor.refreshAll');
+    });
 });
 
 require __DIR__ . '/auth.php';
