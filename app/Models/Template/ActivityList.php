@@ -23,6 +23,9 @@ class ActivityList extends Model
         'type_id'
     ];
 
+    /**
+     * Get the Activity Type that owns the Activity List.
+     */
     public function activityType()
     {
         return $this->belongsTo(ActivityType::class, 'type_id');

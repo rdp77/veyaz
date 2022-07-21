@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Core\MainController;
 use App\Http\Requests\UsersRequest;
-use App\Models\Template\ActivityList;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
@@ -28,11 +27,11 @@ class UsersController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the users dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param  \Illuminate\Http\Request $req
+     * @return mixed
      */
-
     public function index(Request $req)
     {
         if ($req->ajax()) {
@@ -58,11 +57,23 @@ class UsersController extends Controller
         return view('pages.backend.data.users.indexUsers');
     }
 
+    /**
+     * Show the users dashboard.
+     *
+     * @return \Illuminate\View\View
+     */
     public function create()
     {
         return view('pages.backend.data.users.createUsers');
     }
 
+    /**
+     * Store a new user.
+     *
+     * @param  App\Http\Requests\UsersRequest $req
+     * @param  \App\Services\UserService $userService
+     * @return \Illuminate\Http\Response
+     */
     public function store(UsersRequest $req, UserService $userService)
     {
         $performedOn = $userService->createUser($req->validated());
@@ -82,6 +93,11 @@ class UsersController extends Controller
         ]);
     }
 
+    /**
+     * Show the users dashboard.
+     *
+     * @return mixed
+     */
     public function edit($id)
     {
         $user = User::find($id);
@@ -90,6 +106,14 @@ class UsersController extends Controller
         ]);
     }
 
+    /**
+     * Update the given user.
+     *
+     * @param  string  $id
+     * @param  App\Http\Requests\UsersRequest $req
+     * @param  \App\Services\UserService $userService     
+     * @return \Illuminate\Http\Response
+     */
     public function update($id, UsersRequest $req, UserService $userService)
     {
         $userService->updateUser($id, $req->validated());
@@ -109,6 +133,14 @@ class UsersController extends Controller
         ]);
     }
 
+    /**
+     * Delete the given user.
+     *
+     * @param  \Illuminate\Http\Request $req
+     * @param  string  $id
+     * @param  \App\Services\UserService $userService     
+     * @return \Illuminate\Http\Response
+     */
     public function destroy(Request $req, $id, UserService $userService)
     {
         $userService->deleteUser($id);
@@ -124,6 +156,12 @@ class UsersController extends Controller
         return Response::json(['status' => 'success']);
     }
 
+    /**
+     * Show the recycle users.
+     *
+     * @param  \Illuminate\Http\Request $req
+     * @return mixed
+     */
     public function recycle(Request $req)
     {
         if ($req->ajax()) {
@@ -142,6 +180,14 @@ class UsersController extends Controller
         return view('pages.backend.data.users.recycleUsers');
     }
 
+    /**
+     * Restore the given user.
+     *
+     * @param  string  $id
+     * @param  \Illuminate\Http\Request $req
+     * @param  \App\Services\UserService $userService     
+     * @return \Illuminate\Http\Response
+     */
     public function restore($id, Request $req, UserService $userService)
     {
         $userService->restoreUser($id);
@@ -158,12 +204,25 @@ class UsersController extends Controller
         return Response::json(['status' => 'success']);
     }
 
+    /**
+     * Restore all users.
+     *     
+     * @return \Illuminate\Http\Response
+     */
     public function restoreAll()
     {
         User::onlyTrashed()->restore();
         return Response::json(['status' => 'success']);
     }
 
+    /**
+     * delete permanently the given user.
+     *   
+     * @param  string  $id
+     * @param  \Illuminate\Http\Request $req 
+     * @param  \App\Services\UserService $userService      
+     * @return \Illuminate\Http\Response
+     */
     public function delete($id, Request $req, UserService $userService)
     {
         $userService->deleteUserRecycle($id);
@@ -179,6 +238,13 @@ class UsersController extends Controller
         return Response::json(['status' => 'success']);
     }
 
+    /**
+     * delete permanently all users.
+     *     
+     * @param  \Illuminate\Http\Request $req    
+     * @param  \App\Services\UserService $userService    
+     * @return \Illuminate\Http\Response
+     */
     public function deleteAll(Request $req, UserService $userService)
     {
         $userService->deleteAllUserRecycle();
@@ -203,6 +269,13 @@ class UsersController extends Controller
         return Response::json(['status' => 'success']);
     }
 
+    /**
+     * Resetting password the given user.
+     *
+     * @param  string  $id    
+     * @param  \Illuminate\Http\Request $req
+     * @return \Illuminate\View\View|object
+     */
     function reset($id, Request $req)
     {
         User::where('id', $id)
@@ -226,6 +299,12 @@ class UsersController extends Controller
             ]);
     }
 
+    /**
+     * Change name the given user.
+     *
+     * @param  \Illuminate\Http\Request $req
+     * @return \Illuminate\View\View|object
+     */
     public function changeName(Request $req)
     {
         $this->validate($req, [
@@ -254,13 +333,13 @@ class UsersController extends Controller
             ]);
     }
 
+    /**
+     * Show the change password.
+     *
+     * @return \Illuminate\View\View
+     */
     public function changePassword()
     {
         return view('auth.forgot-password');
-    }
-
-    protected function getStatus($type, $custom = false, $message = null)
-    {
-        return $custom ? $message : ActivityList::find($type)->name;
     }
 }

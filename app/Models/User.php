@@ -42,6 +42,11 @@ class User extends Authenticatable
         'is_admin' => 'boolean'
     ];
 
+    /**
+     * Get user role attributes.
+     *
+     * @return string
+     */
     public function getRolesAttributes(): string
     {
         if ($this->isAdmin == true) {

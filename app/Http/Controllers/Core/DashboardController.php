@@ -26,11 +26,10 @@ class DashboardController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @return \Illuminate\View\View|object
      */
-
     public function index()
     {
         $log = Activity::limit(7)
@@ -47,6 +46,12 @@ class DashboardController extends Controller
         ]);
     }
 
+    /**
+     * Show the log dashboard.
+     *
+     * @param  \Illuminate\Http\Request $req
+     * @return \Illuminate\View\View
+     */
     public function log(Request $req)
     {
         if ($req->ajax()) {
@@ -72,6 +77,12 @@ class DashboardController extends Controller
         return view('pages.backend.log.IndexLog');
     }
 
+    /**
+     * Show the log dashboard.
+     *
+     * @param  \Illuminate\Http\Request $req
+     * @return \Illuminate\View\View|object
+     */
     public function serverMonitor(Request $req)
     {
         $checkResults = $this->serverMonitor->getChecks();
@@ -81,5 +92,15 @@ class DashboardController extends Controller
             'checkResults',
             'lastRun'
         ));
+    }
+
+    /**
+     * Show the document page.
+     *
+     * @param  \Illuminate\Http\Request $req
+     * @return \Illuminate\View\View|object
+     */
+    public function doc()
+    {
     }
 }

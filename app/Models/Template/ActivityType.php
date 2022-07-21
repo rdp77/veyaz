@@ -22,6 +22,9 @@ class ActivityType extends Model
         'name'
     ];
 
+    /**
+     * Get the Activity List for the Activity Type.
+     */
     public function activityList()
     {
         return $this->hasMany(ActivityList::class, 'type_id');

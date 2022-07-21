@@ -19,13 +19,20 @@ use App\Http\Controllers\Core\MainController;
 Route::get('/', function () {
     return view('home');
 });
+
 // Backend
-Route::get('/dashboard', [DashboardController::class, 'index'])
-    ->name('dashboard');
+Route::controller(DashboardController::class)->group(function () {
+    Route::get('/dashboard', 'index')
+        ->name('dashboard');
+    Route::get('/doc', 'doc')
+        ->name('documentation');
+});
+
 // Debug
 Route::get('/debug-sentry', function () {
     throw new Exception('My first Sentry error!');
 });
+
 // Server Monitor
 Route::get('/server-monitor', [DashboardController::class, 'serverMonitor'])
     ->name('dashboard.server-monitor');
@@ -38,6 +45,7 @@ Route::prefix('server-monitor')->group(function () {
     });
 });
 
+// Load another route file
 require __DIR__ . '/auth.php';
 require __DIR__ . '/data/users.php';
 require __DIR__ . '/data/activity.php';

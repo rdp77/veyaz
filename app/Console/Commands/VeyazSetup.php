@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\DB;
 
 class VeyazSetup extends Command
 {
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
     private static $template = '
 <fg=blue>
 
@@ -66,24 +71,44 @@ Made with <fg=green>love</> by the community. Be a part of it!
         $this->line(self::$template);
     }
 
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
     function key()
     {
         Artisan::call("key:generate");
         $this->info('Application Key Set Successfully.');
     }
 
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
     function migrate()
     {
         Artisan::call("migrate:refresh --seed");
         $this->info('Importing Database Successful.');
     }
 
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
     function clear()
     {
         Artisan::call("optimize:clear");
         $this->info('Cache Cleared Successfully.');
     }
 
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
     function env()
     {
         // Copy .env file
@@ -93,6 +118,11 @@ Made with <fg=green>love</> by the community. Be a part of it!
         }
     }
 
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
     function connection()
     {
         $this->info('Database Setup');
@@ -105,6 +135,11 @@ Made with <fg=green>love</> by the community. Be a part of it!
         $this->info('Set Database Connection Successful.');
     }
 
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
     function checkConnection()
     {
         $this->info('Checking Database Connection');
@@ -116,6 +151,11 @@ Made with <fg=green>love</> by the community. Be a part of it!
         }
     }
 
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
     function createDatabase()
     {
         $databaseName = env('DB_DATABASE');
@@ -123,6 +163,11 @@ Made with <fg=green>love</> by the community. Be a part of it!
         $this->info('Database created successfully.');
     }
 
+    /**
+     * Execute the console command.
+     *
+     * @return boolean true if the command fails, false otherwise
+     */
     function checkDatabaseExists()
     {
         $databaseName = env('DB_DATABASE');

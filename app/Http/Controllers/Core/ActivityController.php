@@ -25,11 +25,11 @@ class ActivityController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Show the activity all dashboard.
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param  \Illuminate\Http\Request $req
+     * @return mixed
      */
-
     public function activity(Request $req)
     {
         if ($req->ajax()) {
@@ -57,6 +57,12 @@ class ActivityController extends Controller
         return view('pages.backend.log.IndexActivity');
     }
 
+    /**
+     * Show the activity list dashboard.
+     *
+     * @param  \Illuminate\Http\Request $req
+     * @return mixed
+     */
     public function list(Request $req)
     {
         $type = ActivityType::all();
@@ -75,6 +81,12 @@ class ActivityController extends Controller
         ]);
     }
 
+    /**
+     * Store a new list.
+     *
+     * @param  \App\Http\Requests\ActivityRequest $req
+     * @return \Illuminate\Http\Response
+     */
     public function listStore(ActivityRequest $req)
     {
         ActivityList::create([
@@ -83,6 +95,12 @@ class ActivityController extends Controller
         ]);
     }
 
+    /**
+     * Show the activity type dashboard.
+     *
+     * @param  \Illuminate\Http\Request $req
+     * @return mixed
+     */
     public function type(Request $req)
     {
         if ($req->ajax()) {
@@ -94,6 +112,12 @@ class ActivityController extends Controller
         return view('pages.backend.log.IndexActivityType');
     }
 
+    /**
+     * Store a new list type.
+     *
+     * @param  \App\Http\Requests\ActivityRequest $req
+     * @return \Illuminate\Http\Response
+     */
     public function typeStore(ActivityRequest $req)
     {
         ActivityType::create([

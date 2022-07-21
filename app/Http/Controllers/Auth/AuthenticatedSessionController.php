@@ -73,8 +73,8 @@ class AuthenticatedSessionController extends Controller
         return redirect('/');
     }
 
-    protected function getStatus($type)
-    {
-        return ActivityList::find($type)->name;
-    }
+    // protected function getStatus($type)
+    // {
+    //     return ActivityList::find($type)->name;
+    // }
 }

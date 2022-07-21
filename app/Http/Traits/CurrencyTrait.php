@@ -1,28 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Core;
+namespace App\Http\Traits;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 
-class CurrencyController extends Controller
+trait MainTrait
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-
     public static function getCurrency($value)
     {
         return "Rp. " . number_format($value);
