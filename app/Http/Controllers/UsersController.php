@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Core\MainController;
 use App\Http\Requests\UsersRequest;
 use App\Models\User;
 use App\Services\UserService;
@@ -20,10 +19,9 @@ class UsersController extends Controller
      *
      * @return void
      */
-    public function __construct(MainController $MainController)
+    public function __construct()
     {
         $this->middleware('auth');
-        $this->MainController = $MainController;
     }
 
     /**
@@ -79,7 +77,7 @@ class UsersController extends Controller
         $performedOn = $userService->createUser($req->validated());
 
         // Create Log
-        $this->MainController->createLog(
+        $this->createLog(
             $req->header('user-agent'),
             $req->ip(),
             $this->getStatus(3),
@@ -119,7 +117,7 @@ class UsersController extends Controller
         $userService->updateUser($id, $req->validated());
 
         // Create Log
-        $this->MainController->createLog(
+        $this->createLog(
             $req->header('user-agent'),
             $req->ip(),
             $this->getStatus(4),
@@ -146,7 +144,7 @@ class UsersController extends Controller
         $userService->deleteUser($id);
 
         // Create Log
-        $this->MainController->createLog(
+        $this->createLog(
             $req->header('user-agent'),
             $req->ip(),
             $this->getStatus(5),
@@ -193,7 +191,7 @@ class UsersController extends Controller
         $userService->restoreUser($id);
 
         // Create Log
-        $this->MainController->createLog(
+        $this->createLog(
             $req->header('user-agent'),
             $req->ip(),
             $this->getStatus(6),
@@ -228,7 +226,7 @@ class UsersController extends Controller
         $userService->deleteUserRecycle($id);
 
         // Create Log
-        $this->MainController->createLog(
+        $this->createLog(
             $req->header('user-agent'),
             $req->ip(),
             $this->getStatus(5),
@@ -259,7 +257,7 @@ class UsersController extends Controller
         // }
 
         // Create Log
-        $this->MainController->createLog(
+        $this->createLog(
             $req->header('user-agent'),
             $req->ip(),
             $this->getStatus(6),
@@ -284,7 +282,7 @@ class UsersController extends Controller
             ]);
 
         // Create Log
-        $this->MainController->createLog(
+        $this->createLog(
             $req->header('user-agent'),
             $req->ip(),
             $this->getStatus(7),
@@ -314,7 +312,7 @@ class UsersController extends Controller
         $user = User::find(Auth::user()->id);
 
         // Create Log
-        $this->MainController->createLog(
+        $this->createLog(
             $req->header('user-agent'),
             $req->ip(),
             $this->getStatus(0, true, 'Mengganti nama ' . $user->name . ' menjadi ' . $req->name),

@@ -3,9 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Core\MainController;
 use App\Http\Requests\Auth\LoginRequest;
-use App\Models\Template\ActivityList;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -17,11 +15,6 @@ class AuthenticatedSessionController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function __construct(MainController $MainController)
-    {
-        $this->MainController = $MainController;
-    }
-
     public function create()
     {
         return view('auth.login');
@@ -39,7 +32,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $this->MainController->createLog(
+        $this->createLog(
             $request->header('user-agent'),
             $request->ip(),
             $this->getStatus(1),
@@ -57,7 +50,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        $this->MainController->createLog(
+        $this->createLog(
             $request->header('user-agent'),
             $request->ip(),
             $this->getStatus(2),
@@ -72,9 +65,4 @@ class AuthenticatedSessionController extends Controller
 
         return redirect('/');
     }
-
-    // protected function getStatus($type)
-    // {
-    //     return ActivityList::find($type)->name;
-    // }
 }

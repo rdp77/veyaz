@@ -69,6 +69,18 @@ class ActivityList extends Seeder
                 'created_at' => date("Y-m-d h:i:s"),
                 'updated_at' => date("Y-m-d h:i:s"),
             ],
+            [
+                'name' => 'Menambahkan Aktivitas',
+                'type_id' => 2,
+                'created_at' => date("Y-m-d h:i:s"),
+                'updated_at' => date("Y-m-d h:i:s"),
+            ],
+            [
+                'name' => 'Menambahkan Tipe Aktivitas',
+                'type_id' => 2,
+                'created_at' => date("Y-m-d h:i:s"),
+                'updated_at' => date("Y-m-d h:i:s"),
+            ],
         ]);
     }
 }

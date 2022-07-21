@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Core;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Core\MainController;
 use App\Http\Requests\ActivityRequest;
 use App\Models\Template\ActivityList;
 use App\Models\Template\ActivityType;
@@ -18,10 +17,9 @@ class ActivityController extends Controller
      *
      * @return void
      */
-    public function __construct(MainController $MainController)
+    public function __construct()
     {
         $this->middleware('auth');
-        $this->MainController = $MainController;
     }
 
     /**
@@ -89,10 +87,19 @@ class ActivityController extends Controller
      */
     public function listStore(ActivityRequest $req)
     {
-        ActivityList::create([
+        $performedOn = ActivityList::create([
             'name' => $req->name_activity,
             'type_id' => $req->type
         ]);
+
+        // Create Log
+        $this->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            $this->getStatus(10),
+            true,
+            ActivityList::find($performedOn->id)
+        );
     }
 
     /**
@@ -120,8 +127,17 @@ class ActivityController extends Controller
      */
     public function typeStore(ActivityRequest $req)
     {
-        ActivityType::create([
+        $performedOn = ActivityType::create([
             'name' => $req->name_type
         ]);
+
+        // Create Log
+        $this->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            $this->getStatus(11),
+            true,
+            ActivityType::find($performedOn->id)
+        );
     }
 }
