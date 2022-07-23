@@ -8,21 +8,29 @@ use Illuminate\Support\Facades\Response;
 
 class UserService
 {
+    /**
+     * The model that represents with the service.
+     *
+     * @var App\Models\User
+     */
     protected User $user;
 
+    /**
+     * Create a new service instance.
+     *
+     * @return void
+     */
     public function __construct(User $user)
     {
         $this->user = $user;
     }
 
-    public function getUser(int $userId): User
-    {
-    }
-
-    public function getUsers(): array
-    {
-    }
-
+    /**
+     * Create a new user.
+     *
+     * @param  array $userData
+     * @return App\Models\User
+     */
     public function createUser(array $userData): User
     {
         return $this->user->create([
@@ -34,6 +42,13 @@ class UserService
         ]);
     }
 
+    /**
+     * Update a user.
+     *
+     * @param  int $userId
+     * @param  array $userData
+     * @return App\Models\User
+     */
     public function updateUser(int $userId, array $userData): User
     {
         $user = $this->user->findOrFail($userId);
@@ -47,6 +62,12 @@ class UserService
         return $user;
     }
 
+    /**
+     * delete a user.
+     *
+     * @param  int $userId
+     * @return bool
+     */
     public function deleteUser(int $userId): bool
     {
         $user = $this->user->findOrFail($userId);
@@ -54,6 +75,12 @@ class UserService
         return $user->delete();
     }
 
+    /**
+     * restore a user.
+     *
+     * @param  int $userId
+     * @return bool
+     */
     public function restoreUser(int $userId): bool
     {
         $user = $this->user->onlyTrashed()->findOrFail($userId);
@@ -61,10 +88,25 @@ class UserService
         return $user->restore();
     }
 
+    /**
+     * restore all users.
+     *
+     * @param  int $userId
+     * @return bool
+     */
     public function restoreAll(): bool
     {
+        $user = $this->user->onlyTrashed();
+
+        return $user->restore();
     }
 
+    /**
+     * Delete a user permanently.
+     *
+     * @param  int $userId
+     * @return bool
+     */
     public function deleteUserRecycle(int $userId): bool
     {
         $user = $this->user->onlyTrashed()->findOrFail($userId);
@@ -72,11 +114,16 @@ class UserService
         return $user->forceDelete();
     }
 
+    /**
+     * Delete all users permanently.
+     *
+     * @param  int $userId
+     * @return bool
+     */
     public function deleteAllUserRecycle(): bool
     {
         $user = $this->user->onlyTrashed();
 
-        // return $user->forceDelete();
         return $this->user->trashed() ? $user->forceDelete() :
             Response::json([
                 'status' => 'error',
@@ -84,6 +131,12 @@ class UserService
             ]);
     }
 
+    /**
+     * reset password a user.
+     *
+     * @param  int $userId
+     * @return bool
+     */
     public function resetPassword(int $userId): bool
     {
         $user = $this->user->findOrFail($userId);
@@ -93,6 +146,13 @@ class UserService
         ]);
     }
 
+    /**
+     * Change name a user.
+     *
+     * @param  int $userId
+     * @param  string $name
+     * @return bool
+     */
     public function changeName(int $userId, string $name): bool
     {
         $user = $this->user->findOrFail($userId);
@@ -102,6 +162,13 @@ class UserService
         ]);
     }
 
+    /**
+     * Change email a user.
+     *
+     * @param  int $userId
+     * @param  string $email
+     * @return bool
+     */
     public function changeEmail(int $userId, string $email): bool
     {
         $user = $this->user->findOrFail($userId);
@@ -111,6 +178,13 @@ class UserService
         ]);
     }
 
+    /**
+     * Change password a user.
+     *
+     * @param  int $userId
+     * @param  string $password
+     * @return bool
+     */
     public function changePassword(int $userId, string $password): bool
     {
         $user = $this->user->findOrFail($userId);

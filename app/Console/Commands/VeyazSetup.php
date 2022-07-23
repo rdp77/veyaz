@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\DB;
 class VeyazSetup extends Command
 {
     /**
-     * The table associated with the model.
+     * Header for the console.
      *
      * @var string
      */

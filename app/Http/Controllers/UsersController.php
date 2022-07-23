@@ -107,7 +107,7 @@ class UsersController extends Controller
     /**
      * Update the given user.
      *
-     * @param  string  $id
+     * @param  string $id
      * @param  App\Http\Requests\UsersRequest $req
      * @param  \App\Services\UserService $userService     
      * @return \Illuminate\Http\Response
@@ -135,7 +135,7 @@ class UsersController extends Controller
      * Delete the given user.
      *
      * @param  \Illuminate\Http\Request $req
-     * @param  string  $id
+     * @param  string $id
      * @param  \App\Services\UserService $userService     
      * @return \Illuminate\Http\Response
      */
@@ -181,7 +181,7 @@ class UsersController extends Controller
     /**
      * Restore the given user.
      *
-     * @param  string  $id
+     * @param  string $id
      * @param  \Illuminate\Http\Request $req
      * @param  \App\Services\UserService $userService     
      * @return \Illuminate\Http\Response
@@ -205,18 +205,29 @@ class UsersController extends Controller
     /**
      * Restore all users.
      *     
+     * @param  \Illuminate\Http\Request $req
+     * @param  \App\Services\UserService $userService     
      * @return \Illuminate\Http\Response
      */
-    public function restoreAll()
+    public function restoreAll(Request $req, UserService $userService)
     {
-        User::onlyTrashed()->restore();
+        $userService->restoreAll();
+
+        // Create Log
+        $this->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            $this->getStatus(6),
+            false
+        );
+
         return Response::json(['status' => 'success']);
     }
 
     /**
-     * delete permanently the given user.
+     * Delete permanently the given user.
      *   
-     * @param  string  $id
+     * @param  string $id
      * @param  \Illuminate\Http\Request $req 
      * @param  \App\Services\UserService $userService      
      * @return \Illuminate\Http\Response
@@ -237,7 +248,7 @@ class UsersController extends Controller
     }
 
     /**
-     * delete permanently all users.
+     * Delete permanently all users.
      *     
      * @param  \Illuminate\Http\Request $req    
      * @param  \App\Services\UserService $userService    
@@ -246,15 +257,6 @@ class UsersController extends Controller
     public function deleteAll(Request $req, UserService $userService)
     {
         $userService->deleteAllUserRecycle();
-
-        // if ($user == 0) {
-        //     return Response::json([
-        //         'status' => 'error',
-        //         'data' => "Tidak ada data di recycle bin"
-        //     ]);
-        // } else {
-        //     $user;
-        // }
 
         // Create Log
         $this->createLog(
@@ -270,7 +272,7 @@ class UsersController extends Controller
     /**
      * Resetting password the given user.
      *
-     * @param  string  $id    
+     * @param  string $id    
      * @param  \Illuminate\Http\Request $req
      * @return \Illuminate\View\View|object
      */

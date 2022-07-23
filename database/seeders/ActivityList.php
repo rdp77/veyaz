@@ -52,6 +52,12 @@ class ActivityList extends Seeder
                 'updated_at' => date("Y-m-d h:i:s"),
             ],
             [
+                'name' => 'Mengembalikan semua data pengguna',
+                'type_id' => 1,
+                'created_at' => date("Y-m-d h:i:s"),
+                'updated_at' => date("Y-m-d h:i:s"),
+            ],
+            [
                 'name' => 'Menghapus data pengguna yang telah dihapus',
                 'type_id' => 1,
                 'created_at' => date("Y-m-d h:i:s"),

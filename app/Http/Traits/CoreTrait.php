@@ -8,6 +8,13 @@ use Illuminate\Support\Facades\DB;
 
 trait CoreTrait
 {
+    /**
+     * Create random code.
+     *     
+     * @param  string $prefix
+     * @param  string $table
+     * @return string
+     */
     public function createCode($prefix, $table)
     {
         $user = Auth::user()->id;
@@ -20,6 +27,14 @@ trait CoreTrait
         return $prefix . $user . $year . $month . $index;
     }
 
+    /**
+     * Check record exist.
+     *     
+     * @param  string $table
+     * @param  string $name
+     * @param  string $column
+     * @return object|null
+     */
     public function checkDuplicate($table, $name, $column)
     {
         return DB::table($table)
@@ -27,16 +42,12 @@ trait CoreTrait
             ->first();
     }
 
-    public function validator($validator)
-    {
-        $data = array();
-        foreach ($validator as $message) {
-            array_push($data, $message);
-        }
-        return $data;
-    }
-
-    // For PostgreSQL
+    /**
+     * Get ID for PostgreSQL.
+     *     
+     * @param  string $table   
+     * @return int
+     */
     public function getID($table)
     {
         return DB::table($table)->count() == 0 ? 1 : DB::table($table)
@@ -46,6 +57,11 @@ trait CoreTrait
             ->id + 1;
     }
 
+    /**
+     * Get total ram.
+     *     
+     * @return array|object
+     */
     public function getTotalRAM()
     {
         $os = strtolower(PHP_OS);
@@ -94,6 +110,11 @@ trait CoreTrait
         }
     }
 
+    /**
+     * Get total CPU.
+     *     
+     * @return array|object
+     */
     public function getTotalCPU()
     {
         $os = strtolower(PHP_OS);
@@ -114,6 +135,11 @@ trait CoreTrait
         }
     }
 
+    /**
+     * Get total disk.
+     *     
+     * @return array|object
+     */
     public function getTotalDisk()
     {
         $total_disk = disk_total_space('/');

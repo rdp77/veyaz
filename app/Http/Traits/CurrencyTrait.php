@@ -6,11 +6,23 @@ use Illuminate\Support\Str;
 
 trait MainTrait
 {
+    /**
+     * Add prefix for ID currency.
+     *
+     * @param  string $id
+     * @return string
+     */
     public static function getCurrency($value)
     {
         return "Rp. " . number_format($value);
     }
 
+    /**
+     * Currency format to text currency ID.
+     *
+     * @param  string $id
+     * @return string
+     */
     public function currencyToText($value)
     {
         if ($value < 0) {
@@ -19,9 +31,15 @@ trait MainTrait
             $result = trim($this->denominator($value));
         }
 
-        return ucwords($result, " ") . __(' RUPIAH');
+        return Str::upper($result) . __(' RUPIAH');
     }
 
+    /**
+     * Currency format to denominator currency ID.
+     *
+     * @param  string $id
+     * @return string
+     */
     function denominator($value)
     {
         $value = abs($value);

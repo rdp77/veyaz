@@ -6,7 +6,6 @@
 <img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/rdp77/veyaz">
 <a href="https://www.codacy.com/gh/rdp77/veyaz/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rdp77/veyaz&amp;utm_campaign=Badge_Grade"><img src="https://app.codacy.com/project/badge/Grade/d998aaac69b646dd9c5b06c9b386db04"/></a>
 <a href="https://github.com/rdp77/veyaz/actions/workflows/laravel.yml"><img src="https://github.com/rdp77/veyaz/actions/workflows/laravel.yml/badge.svg" alt="License"></a>
-<img alt="Uptime Robot status" src="https://img.shields.io/uptimerobot/status/m790337652-bfb5e67991cdf56e1ddb9e4f">
 <a href="https://github.com/rdp77/veyaz/blob/master/LICENSE"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 

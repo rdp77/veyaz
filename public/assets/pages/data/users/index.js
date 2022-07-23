@@ -70,12 +70,6 @@ $(".filter_name").on("keyup", function () {
     table.search($(this).val()).draw();
 });
 
-$.ajaxSetup({
-    headers: {
-        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-    },
-});
-
 function del(id) {
     swal({
         title: "Apakah Anda Yakin?",
@@ -206,6 +200,38 @@ function restore(id) {
             });
         } else {
             swal("Data pengguna Anda tidak jadi dikembalikan!");
+        }
+    });
+}
+
+function restoreAll() {
+    swal({
+        title: "Apakah Anda Yakin?",
+        text: "Aksi ini tidak dapat dikembalikan, dan akan mengembalikan data pengguna Anda.",
+        icon: "warning",
+        buttons: true,
+        dangerMode: true,
+    }).then((willDelete) => {
+        if (willDelete) {
+            $.ajax({
+                url: "/temp/users/restore-all",
+                type: "POST",
+                success: function (data) {
+                    if (data.status == "success") {
+                        swal("Semua data pengguna berhasil dikembalikan", {
+                            icon: "success",
+                        });
+                        table.draw();
+                    } else if (data.status == "error") {
+                        iziToast.error({
+                            title: "Error",
+                            message: data.data,
+                        });
+                    }
+                },
+            });
+        } else {
+            swal("Semua data pengguna Anda tidak jadi dikembalikan!");
         }
     });
 }

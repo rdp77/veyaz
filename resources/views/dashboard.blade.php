@@ -9,8 +9,9 @@
     <div class="card-header">
         <h4>{{ __("Server Monitor") }}</h4>
         <div class="card-header-action">
-            <a href="{{ route('dashboard.server-monitor') }}" class="btn btn-danger">{{ __('pages.view') }} <i
-                    class="fas fa-chevron-right"></i></a>
+            <a href="{{ route('dashboard.server-monitor') }}" class="btn btn-danger">{{ __('pages.view') }}
+                <i class="fas fa-chevron-right"></i>
+            </a>
         </div>
     </div>
 </div>

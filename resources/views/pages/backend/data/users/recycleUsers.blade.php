@@ -20,8 +20,11 @@
 <div class="card">
     <div class="card-header">
         <div class="card-header-action">
-            <button onclick="delAll()" class="btn btn-icon icon-left btn-danger">
-                <i class="far fa-trash-alt"></i>{{ __('Hapus Semua') }}
+            <button onclick="delAll()" class="btn btn-icon icon-left btn-danger mr-2">
+                <i class="far fa-trash-alt"></i>{{ __(' Hapus Semua') }}
+            </button>
+            <button onclick="restoreAll()" class="btn btn-icon icon-left btn-primary">
+                <i class="fas fa-history"></i>{{ __(' Kembalikan Semua') }}
             </button>
         </div>
     </div>

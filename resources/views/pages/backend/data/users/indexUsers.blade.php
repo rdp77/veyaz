@@ -15,7 +15,7 @@
             <i class="far fa-edit"></i>{{ __(' Tambah Pengguna') }}
         </a>
         <a href="{{ route('users.recycle') }}" class="btn btn-icon icon-left btn-danger">
-            <i class="far fa-trash-alt"></i>{{ __('Recycle Bin') }}
+            <i class="far fa-trash-alt"></i>{{ __(' Recycle Bin') }}
         </a>
     </div>
     <div class="card-body">

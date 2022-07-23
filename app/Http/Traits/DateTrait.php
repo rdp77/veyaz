@@ -4,6 +4,12 @@ namespace App\Http\Traits;
 
 trait DateTrait
 {
+    /**
+     * Change month ID to EN.
+     *
+     * @param  string $dates 
+     * @return string
+     */
     public function changeMonthIdToEn($dates)
     {
         $dateLocale = $dates;
@@ -43,6 +49,12 @@ trait DateTrait
         return $year . '-' . $month . '-' . $day;
     }
 
+    /**
+     * Change date ID to EN.
+     *
+     * @param  string $dates 
+     * @return string
+     */
     public function getDate($date)
     {
         $dateLocale = $date;
