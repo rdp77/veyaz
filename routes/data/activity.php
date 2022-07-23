@@ -15,19 +15,27 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// Logs Users
 Route::get('/log', [DashboardController::class, 'log'])
     ->name('dashboard.log');
-Route::get('/activity', [ActivityController::class, 'activity'])
-    ->name('activity');
-Route::prefix('activity')->group(function () {
-    Route::name('activity.')->group(function () {
-        Route::get('list', [ActivityController::class, 'list'])
-            ->name('list.index');
-        Route::post('list', [ActivityController::class, 'listStore'])
-            ->name('list.store');
-        Route::get('type', [ActivityController::class, 'type'])
-            ->name('type.index');
-        Route::post('type', [ActivityController::class, 'typeStore'])
-            ->name('type.store');
+Route::controller(ActivityController::class)->group(function () {
+    // Logs All Users
+    Route::get('/activity', 'activity')
+        ->name('activity');
+    Route::prefix('activity')->group(function () {
+        Route::name('activity.')->group(function () {
+            // Activity logs all users
+            Route::get('list', 'list')
+                ->name('list.index');
+            // Create a new activity logs
+            Route::post('list', 'listStore')
+                ->name('list.store');
+            // Activity type all users
+            Route::get('type', 'type')
+                ->name('type.index');
+            // Create a new activity type logs
+            Route::post('type', 'typeStore')
+                ->name('type.store');
+        });
     });
 });

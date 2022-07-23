@@ -15,31 +15,37 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['prefix' => 'data'], function () {
-    Route::resource('users', UsersController::class)
-        ->except([
-            'show',
-        ]);
-});
-
-Route::group(['prefix' => 'temp'], function () {
-    Route::get('/users', [UsersController::class, 'recycle'])
-        ->name('users.recycle');
-    Route::group(['prefix' => 'users'], function () {
-        Route::get('/restore/{id}', [UsersController::class, 'restore'])
-            ->name('users.restore');;
-        Route::delete('/delete/{id}', [UsersController::class, 'delete']);
-        Route::delete('/delete-all', [UsersController::class, 'deleteAll']);
+Route::controller(UsersController::class)->group(function () {
+    // Create, read, update, edit and delete users
+    Route::group(['prefix' => 'data'], function () {
+        Route::resource('users', UsersController::class)
+            ->except([
+                'show',
+            ]);
     });
+
+    // Recycle Users
+    Route::group(['prefix' => 'temp'], function () {
+        Route::get('/users', 'recycle')
+            ->name('users.recycle');
+        Route::group(['prefix' => 'users'], function () {
+            Route::get('/restore/{id}', 'restore')
+                ->name('users.restore');
+            Route::delete('/delete/{id}', 'delete');
+            Route::delete('/delete-all', 'deleteAll');
+        });
+    });
+
+    // Users Password
+    Route::post('/users/reset/{id}', 'reset')
+        ->name('users.reset');
+    Route::get('/change-password', 'changePassword')
+        ->name('users.password');
+
+    // Users Name
+    Route::get('/change-name', 'changeName');
 });
 
 // Users Password
-Route::post('/users/reset/{id}', [UsersController::class, 'reset'])
-    ->name('users.reset');
-Route::get('/change-password', [UsersController::class, 'changePassword'])
-    ->name('users.password');
 Route::post('/reset', [NewPasswordController::class, 'changePassword'])
     ->name('changePassword');
-
-// Users Name
-Route::get('/change-name', [UsersController::class, 'changeName']);
