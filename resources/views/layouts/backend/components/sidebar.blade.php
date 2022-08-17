@@ -1,10 +1,10 @@
 <div class="main-sidebar">
     <aside id="sidebar-wrapper">
         <div class="sidebar-brand">
-            <a href="{{ url('/') }}">{{ __('pages.title') }}</a>
+            <a href="{{ url('/') }}">{{ $title }}</a>
         </div>
         <div class="sidebar-brand sidebar-brand-sm">
-            <a href="{{ url('/') }}">{{ __('pages.brand') }}</a>
+            <a href="{{ url('/') }}">{{ $short_title }}</a>
         </div>
         <ul class="sidebar-menu">
             <li class="menu-header">{{ __('Menu Utama') }}</li>

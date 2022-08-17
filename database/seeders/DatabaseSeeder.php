@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             VillagesSeeder::class,
             ActivityType::class,
             ActivityList::class,
+            Settings::class
         ]);
     }
 }

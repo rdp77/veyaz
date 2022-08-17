@@ -26,6 +26,8 @@ Route::controller(DashboardController::class)->group(function () {
         ->name('dashboard');
     Route::get('/doc', 'doc')
         ->name('documentation');
+    Route::get('/settings', 'settings')
+        ->name('settings');
 });
 
 // Debug

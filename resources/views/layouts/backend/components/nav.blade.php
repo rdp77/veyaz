@@ -31,6 +31,9 @@
                 <a href="{{ route('users.password') }}" class="dropdown-item has-icon">
                     <i class="fas fa-key"></i> {{ __('Ganti Password') }}
                 </a>
+                <a href="{{ route('settings') }}" class="dropdown-item has-icon">
+                    <i class="fas fa-cog"></i> {{ __('Pengaturan') }}
+                </a>
                 <div class="dropdown-divider"></div>
                 <a href="{{ route('logout') }}" onclick="event.preventDefault();
                               document.getElementById('logout-form').submit();"

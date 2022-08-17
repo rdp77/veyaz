@@ -103,4 +103,15 @@ class DashboardController extends Controller
     public function doc()
     {
     }
+
+    /**
+     * Show the settings page.
+     *
+     * @param  \Illuminate\Http\Request $req
+     * @return \Illuminate\View\View|object
+     */
+    public function settings(Request $req)
+    {
+        return view('pages.backend.core.settings');
+    }
 }
