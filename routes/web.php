@@ -30,11 +30,6 @@ Route::controller(DashboardController::class)->group(function () {
         ->name('settings');
 });
 
-// Debug
-Route::get('/debug-sentry', function () {
-    throw new Exception('My first Sentry error!');
-});
-
 // Server Monitor
 Route::get('/server-monitor', [DashboardController::class, 'serverMonitor'])
     ->name('dashboard.server-monitor');

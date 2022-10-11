@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Traits;
+namespace App\Traits;
 
 use Illuminate\Support\Str;
 
-trait MainTrait
+trait CurrencyTrait
 {
     /**
      * Add prefix for ID currency.

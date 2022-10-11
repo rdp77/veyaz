@@ -1,5 +1,5 @@
 |           Name           |                           Source                           |
-| :----------------------: | :--------------------------------------------------------: |
+|:------------------------:|:----------------------------------------------------------:|
 |          Stisla          |              https://github.com/stisla/stisla              |
 |          jQuery          |              https://github.com/jquery/jquery              |
 |          Moment          |             https://github.com/moment/moment/              |
@@ -28,7 +28,7 @@
 |     Laravel iziToast     |        https://github.com/AppsLab-KE/lara-izitoast         |
 |      Server Monitor      |     https://github.com/sarfraznawaz2005/servermonitor      |
 |       Laravel Menu       |           https://github.com/spatie/laravel-menu           |
-| Laravel env:set Command  |     https://github.com/ImLiam/laravel-env-set-command      |
+| Laravel env:set Command  |      https://github.com/cswni/laravel-env-set-command      |
 |    Laravel Telescope     |            https://github.com/laravel/telescope            |
 |         Migrator         |          https://github.com/rezaamini-ir/migrator          |
 |   Laravel Activity Log   |       https://github.com/spatie/laravel-activitylog        |

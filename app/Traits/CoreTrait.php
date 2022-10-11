@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Traits;
+namespace App\Traits;
 
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -10,7 +10,7 @@ trait CoreTrait
 {
     /**
      * Create random code.
-     *     
+     *
      * @param  string $prefix
      * @param  string $table
      * @return string
@@ -29,7 +29,7 @@ trait CoreTrait
 
     /**
      * Check record exist.
-     *     
+     *
      * @param  string $table
      * @param  string $name
      * @param  string $column
@@ -44,8 +44,8 @@ trait CoreTrait
 
     /**
      * Get ID for PostgreSQL.
-     *     
-     * @param  string $table   
+     *
+     * @param  string $table
      * @return int
      */
     public function getID($table)
@@ -59,7 +59,7 @@ trait CoreTrait
 
     /**
      * Get total ram.
-     *     
+     *
      * @return array|object
      */
     public function getTotalRAM()
@@ -112,7 +112,7 @@ trait CoreTrait
 
     /**
      * Get total CPU.
-     *     
+     *
      * @return array|object
      */
     public function getTotalCPU()
@@ -137,7 +137,7 @@ trait CoreTrait
 
     /**
      * Get total disk.
-     *     
+     *
      * @return array|object
      */
     public function getTotalDisk()

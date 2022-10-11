@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Http\Traits;
+namespace App\Traits;
 
 trait DateTrait
 {
     /**
      * Change month ID to EN.
      *
-     * @param  string $dates 
+     * @param  string $dates
      * @return string
      */
     public function changeMonthIdToEn($dates)
@@ -52,7 +52,7 @@ trait DateTrait
     /**
      * Change date ID to EN.
      *
-     * @param  string $dates 
+     * @param  string $dates
      * @return string
      */
     public function getDate($date)
