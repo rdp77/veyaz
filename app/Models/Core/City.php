@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Models\Template;
+namespace App\Models\Core;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Province extends Model
+class City extends Model
 {
     use HasFactory;
 
@@ -14,7 +14,7 @@ class Province extends Model
      *
      * @var string
      */
-    protected $table = 'indonesia_provinces';
+    protected $table = 'indonesia_cities';
 
     /**
      * The attributes that are mass assignable.
@@ -22,6 +22,7 @@ class Province extends Model
      * @var array
      */
     protected $fillable = [
+        'province_id',
         'name',
         'meta',
         'created_at',
@@ -30,11 +31,11 @@ class Province extends Model
 
     // public function Member()
     // {
-    //     return $this->hasMany(Member::class, 'province', 'id');
+    //     return $this->hasMany(Member::class, 'regency', 'id');
     // }
 
     // public function User()
     // {
-    //     return $this->hasMany(User::class, 'province', 'id');
+    //     return $this->hasMany(User::class, 'regency', 'id');
     // }
 }

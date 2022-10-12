@@ -3,9 +3,9 @@
 namespace App\Http\Controllers\Core;
 
 use App\Http\Controllers\Controller;
-use App\Models\Template\City;
-use App\Models\Template\District;
-use App\Models\Template\Village;
+use App\Models\Core\City;
+use App\Models\Core\District;
+use App\Models\Core\Village;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Sarfraznawaz2005\ServerMonitor\ServerMonitor;

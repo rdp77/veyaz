@@ -13,16 +13,16 @@ class VeyazSetup extends Command
      *
      * @var string
      */
-    private static $template = '
+    private static string $template = '
 <fg=blue>
 
 ██╗   ██╗███████╗██╗   ██╗ █████╗ ███████╗
 ██║   ██║██╔════╝╚██╗ ██╔╝██╔══██╗╚══███╔╝
-██║   ██║█████╗   ╚████╔╝ ███████║  ███╔╝ 
-╚██╗ ██╔╝██╔══╝    ╚██╔╝  ██╔══██║ ███╔╝  
+██║   ██║█████╗   ╚████╔╝ ███████║  ███╔╝
+╚██╗ ██╔╝██╔══╝    ╚██╔╝  ██╔══██║ ███╔╝
  ╚████╔╝ ███████╗   ██║   ██║  ██║███████╗
   ╚═══╝  ╚══════╝   ╚═╝   ╚═╝  ╚═╝╚══════╝
-                                                                                                                               
+
 </>
 Congratulations! You successfully set up your <fg=green>Veyaz</> template!
 <fg=cyan>Documentation</>: (Coming Soon)
@@ -45,21 +45,11 @@ Made with <fg=green>love</> by the community. Be a part of it!
     protected $description = 'Setup template function';
 
     /**
-     * Create a new command instance.
+     * Execute the console command.
      *
      * @return void
      */
-    public function __construct()
-    {
-        parent::__construct();
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return int
-     */
-    public function handle()
+    public function handle(): void
     {
         $this->env();
         $this->connection();

@@ -36,7 +36,5 @@
     @include('layouts.components.footer')
     <script src="{{ asset('assets/pages/index.js') }}"></script>
     @yield('script')
-    @include('vendor.lara-izitoast.toast')
 </body>
 
-</html>

@@ -11,13 +11,13 @@ trait CoreTrait
     /**
      * Create random code.
      *
-     * @param  string $prefix
-     * @param  string $table
+     * @param string $prefix
+     * @param string $table
      * @return string
      */
-    public function createCode($prefix, $table)
+    public function createCode(string $prefix, string $table): string
     {
-        $user = Auth::user()->id;
+        $user = Auth::id();
         $month = Carbon::now()->format('m');
         $year = Carbon::now()->format('y');
         $index = DB::table($table)->max('id') + 1;

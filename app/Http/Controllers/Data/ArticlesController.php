@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 use App\Http\Controllers\Core\MainController;
 use App\Http\Requests\UsersRequest;
-use App\Models\Template\ActivityList;
+use App\Models\Core\ActivityList;
 use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;

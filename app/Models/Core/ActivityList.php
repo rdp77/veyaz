@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Models\Template;
+namespace App\Models\Core;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Settings extends Model
+class ActivityList extends Model
 {
     /**
      * The table associated with the model.
      *
      * @var string
      */
-    protected $table = 'settings';
+    protected $table = 'activity_list';
 
     /**
      * The attributes that are mass assignable.
@@ -20,16 +20,14 @@ class Settings extends Model
      */
     protected $fillable = [
         'name',
-        'value',
-        'is_active'
+        'type_id'
     ];
 
     /**
-     * The attributes that should be cast.
-     *
-     * @var array
+     * Get the Activity Type that owns the Activity List.
      */
-    protected $casts = [
-        'is_active' => 'boolean',
-    ];
+    public function activityType()
+    {
+        return $this->belongsTo(ActivityType::class, 'type_id');
+    }
 }

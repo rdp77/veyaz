@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Core;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ActivityRequest;
-use App\Models\Template\ActivityList;
-use App\Models\Template\ActivityType;
+use App\Models\Core\ActivityList;
+use App\Models\Core\ActivityType;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 use Spatie\Activitylog\Models\Activity;

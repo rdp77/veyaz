@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Template\Settings;
+use App\Models\Core\Settings;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
@@ -18,7 +18,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        // Register Telescope services 
+        // Register Telescope services
         if ($this->app->environment('local')) {
             $this->app->register(\Laravel\Telescope\TelescopeServiceProvider::class);
             $this->app->register(TelescopeServiceProvider::class);
@@ -32,8 +32,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Set Carbon localized
-        Carbon::setLocale(config('app.locale'));
         // HTTPS Force Redirect
         if (App::environment() !== 'local') {
             URL::forceScheme('https');

@@ -1,7 +1,6 @@
 <?php
 
 return [
-    // Load Settings with default values
     'title' => 'Veyaz',
     'short_title' => 'WEA',
     'description' => 'Laravel Template',

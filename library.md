@@ -25,7 +25,6 @@
 |          Sentry          |            https://github.com/getsentry/sentry             |
 |     jQuery Selectric     |       https://github.com/lcdsantos/jQuery-Selectric        |
 |    Laravel DataTables    |        https://github.com/yajra/laravel-datatables         |
-|     Laravel iziToast     |        https://github.com/AppsLab-KE/lara-izitoast         |
 |      Server Monitor      |     https://github.com/sarfraznawaz2005/servermonitor      |
 |       Laravel Menu       |           https://github.com/spatie/laravel-menu           |
 | Laravel env:set Command  |      https://github.com/cswni/laravel-env-set-command      |
