@@ -1,14 +1,6 @@
 |           Name           |                           Source                           |
 |:------------------------:|:----------------------------------------------------------:|
 |          Stisla          |              https://github.com/stisla/stisla              |
-|          jQuery          |              https://github.com/jquery/jquery              |
-|          Moment          |             https://github.com/moment/moment/              |
-|          Popper          |          https://github.com/popperjs/popper-core           |
-|        DataTables        |          https://github.com/DataTables/DataTables          |
-|        Nicescroll        |       https://github.com/inuyaksa/jquery.nicescroll        |
-|       Sweet Alert        |             https://github.com/t4t5/sweetalert             |
-|         iziToast         |          https://github.com/marcelodolza/iziToast          |
-|         Dropzone         |            https://github.com/dropzone/dropzone            |
 |        NProgress         |           https://github.com/rstacruz/nprogress            |
 | Material Floating Button |   https://github.com/nobitagit/material-floating-button    |
 |    Date Range Picker     |       https://github.com/dangrossman/daterangepicker       |
@@ -27,10 +19,9 @@
 |    Laravel DataTables    |        https://github.com/yajra/laravel-datatables         |
 |      Server Monitor      |     https://github.com/sarfraznawaz2005/servermonitor      |
 |       Laravel Menu       |           https://github.com/spatie/laravel-menu           |
-| Laravel env:set Command  |      https://github.com/cswni/laravel-env-set-command      |
+| Laravel env:set Command  |     https://github.com/rdp77/laravel-env-set-command/      |
 |    Laravel Telescope     |            https://github.com/laravel/telescope            |
 |         Migrator         |          https://github.com/rezaamini-ir/migrator          |
 |   Laravel Activity Log   |       https://github.com/spatie/laravel-activitylog        |
-|      Pretty Routes       |         https://github.com/Wulfheart/pretty-routes         |
 |      Laravel Tinker      |             https://github.com/laravel/tinker              |
 |        Money PHP         |             https://github.com/moneyphp/money              |

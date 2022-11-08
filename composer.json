@@ -12,6 +12,7 @@
         "livewire/livewire": "^2.10",
         "milon/barcode": "^9.0",
         "moneyphp/money": "^3.3",
+        "rdp77/laravel-env-set-command": "1.4.0",
         "renatomarinho/laravel-page-speed": "^2.0",
         "rezaamini-ir/migrator": "^1.5",
         "sarfraznawaz2005/servermonitor": "^3.1",

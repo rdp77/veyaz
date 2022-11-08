@@ -42,6 +42,8 @@ class User extends Authenticatable
         'is_admin' => 'boolean'
     ];
 
+    private mixed $isAdmin;
+
     /**
      * Get user role attributes.
      *
@@ -49,10 +51,10 @@ class User extends Authenticatable
      */
     public function getRolesAttributes(): string
     {
-        if ($this->isAdmin == true) {
+        if ($this->isAdmin) {
             return 'Admin';
-        } else {
-            return 'User';
         }
+
+        return 'User';
     }
 }

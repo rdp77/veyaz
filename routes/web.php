@@ -15,12 +15,12 @@ use App\Http\Controllers\Core\MainController;
 |
 */
 
-// Front End
+// Home routes
 Route::get('/', function () {
     return view('home');
 });
 
-// Backend
+// Dashboard Routes
 Route::controller(DashboardController::class)->group(function () {
     Route::get('/dashboard', 'index')
         ->name('dashboard');
