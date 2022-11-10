@@ -17,7 +17,7 @@ use App\Http\Controllers\Core\MainController;
 
 // Home routes
 Route::get('/', function () {
-    return view('home');
+    return view('welcome');
 });
 
 // Dashboard Routes
@@ -43,6 +43,5 @@ Route::prefix('server-monitor')->group(function () {
 });
 
 // Load another route file
-require __DIR__ . '/auth.php';
 require __DIR__ . '/data/users.php';
 require __DIR__ . '/data/activity.php';

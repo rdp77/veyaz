@@ -1,101 +1,59 @@
-@extends('layouts.auth')
-@section('title', __('pages.title').__(' | ').__('title.register'))
+<x-guest-layout>
+    <div id="auth-left">
+        <div class="auth-logo">
+            <a href="index.html"><img src="{{ asset('/images/logo/logo.png') }}" alt="Logo"></a>
+        </div>
+        <h1 class="auth-title">Sign Up</h1>
+        <p class="auth-subtitle mb-5">Input your data to register to our website.</p>
 
-@section('content')
-<form method="POST" action="{{ route('register') }}" class="needs-validation">
-    @csrf
-    <div class="form-group">
-        <label for="username">{{ __('pages.name') }}</label>
-        <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" tabindex="1"
-            value="{{ old('name') }}" required autocomplete="name" autofocus>
-        @if(Session::has('error'))
-        <div class="invalid-feedback">
-            {{ Session::get('error') }}
-        </div>
-        @endif
-        @error('name')
-        <div class="invalid-feedback">
-            {{ $message }}
-        </div>
-        @enderror
-    </div>
+        <form action="" method="POST">
+            @csrf
+            <div class="form-group position-relative has-icon-left mb-4">
+                <input type="text" class="form-control form-control-xl" name="name" placeholder="Fullname">
+                <div class="form-control-icon">
+                    <i class="bi bi-person"></i>
+                </div>
+            </div>
+            <div class="form-group position-relative has-icon-left mb-4">
+                <input type="email" class="form-control form-control-xl" name="email" placeholder="Email">
+                <div class="form-control-icon">
+                    <i class="bi bi-envelope"></i>
+                </div>
+            </div>
+            <div class="form-group position-relative has-icon-left mb-4">
+                <input type="password" class="form-control form-control-xl" name="password" placeholder="Password">
+                <div class="form-control-icon">
+                    <i class="bi bi-shield-lock"></i>
+                </div>
+            </div>
+            <div class="form-group position-relative has-icon-left mb-4">
+                <input type="password" class="form-control form-control-xl" name="password_confirmation" placeholder="Confirm Password">
+                <div class="form-control-icon">
+                    <i class="bi bi-shield-lock"></i>
+                </div>
+            </div>
+            @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
+                <div class="mt-4">
+                    <x-jet-label for="terms">
+                        <div class="flex items-center">
+                            <x-jet-checkbox name="terms" id="terms"/>
 
-    <div class="form-group">
-        <label for="username">{{ __('auth.username') }}</label>
-        <input id="username" type="text" class="form-control @error('username') is-invalid @enderror" name="username"
-            tabindex="2" value="{{ old('username') }}" required autocomplete="username">
-        @if(Session::has('error'))
-        <div class="invalid-feedback">
-            {{ Session::get('error') }}
-        </div>
-        @endif
-        @error('username')
-        <div class="invalid-feedback">
-            {{ $message }}
-        </div>
-        @enderror
-    </div>
-
-    <div class="row">
-        <div class="form-group col-6">
-            <div class="d-block">
-                <label for="email" class="control-label">{{ __('Email') }}</label>
-            </div>
-            <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email"
-                tabindex="3" required autocomplete="email">
-            @error('email')
-            <div class="invalid-feedback">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-        <div class="form-group col-6">
-            <label for="phone" class="control-label">{{ __('auth.phone') }}</label>
-            <input id="phone" type="text" class="form-control" name="phone" required>
-            @error('phone')
-            <div class="invalid-feedback">
-                {{ $message }}
-            </div>
-            @enderror
+                            <div class="ml-2">
+                                {!! __('I agree to the :terms_of_service and :privacy_policy', [
+                                        'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="underline text-sm text-gray-600 hover:text-gray-900">'.__('Terms of Service').'</a>',
+                                        'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="underline text-sm text-gray-600 hover:text-gray-900">'.__('Privacy Policy').'</a>',
+                                ]) !!}
+                            </div>
+                        </div>
+                    </x-jet-label>
+                </div>
+            @endif
+            <button class="btn btn-primary btn-block btn-lg shadow-lg mt-5">Sign Up</button>
+        </form>
+        <div class="text-center mt-5 text-lg fs-4">
+            <p class='text-gray-600'>Already have an account? <a href="{{ route('login') }}"
+                    class="font-bold">Log
+                    in</a>.</p>
         </div>
     </div>
-
-    <div class="row">
-        <div class="form-group col-6">
-            <div class="d-block">
-                <label for="password" class="control-label">{{ __('auth.password') }}</label>
-            </div>
-            <input id="password" type="password" class="form-control @error('password') is-invalid @enderror"
-                name="password" tabindex="3" required autocomplete="current-password">
-            @error('password')
-            <div class="invalid-feedback">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-        <div class="form-group col-6">
-            <label for="password-confirm" class="control-label">{{ __('Ulangi Password') }}</label>
-            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required
-                autocomplete="new-password">
-            @error('password_confirmation')
-            <div class="invalid-feedback">
-                {{ $message }}
-            </div>
-            @enderror
-        </div>
-    </div>
-
-    <div class="form-group">
-        <div class="custom-control custom-checkbox">
-            <input type="checkbox" name="agree" class="custom-control-input" id="agree">
-            <label class="custom-control-label" for="agree">{{ __('auth.terms') }}</label>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <button type="submit" class="btn btn-primary btn-lg btn-block" tabindex="4">
-            {{ __('auth.register') }}
-        </button>
-    </div>
-</form>
-@endsection
+</x-guest-layout>

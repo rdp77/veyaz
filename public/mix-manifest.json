@@ -1,4 +1,7 @@
 {
-    "/assets/style.css": "/assets/style.css?id=23454b027c0de4d99878",
-    "/assets/scripts.js": "/assets/scripts.js?id=f5b7cf306a148bd9c532"
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
+    "/css/pages/auth.css": "/css/pages/auth.css",
+    "/css/app-dark.css": "/css/app-dark.css",
+    "/css/bootstrap.css": "/css/bootstrap.css"
 }
