@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Core;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Core\MainController;
 use App\Models\User;
+use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
-use Sarfraznawaz2005\ServerMonitor\ServerMonitor;
 use Spatie\Activitylog\Models\Activity;
 
 class DashboardController extends Controller
@@ -18,11 +19,10 @@ class DashboardController extends Controller
      *
      * @return void
      */
-    public function __construct(MainController $MainController, ServerMonitor $serverMonitor)
+    public function __construct(MainController $MainController)
     {
         $this->middleware('auth');
         $this->MainController = $MainController;
-        $this->serverMonitor = $serverMonitor;
     }
 
     /**
@@ -78,26 +78,9 @@ class DashboardController extends Controller
     }
 
     /**
-     * Show the log dashboard.
-     *
-     * @param  \Illuminate\Http\Request $req
-     * @return \Illuminate\View\View|object
-     */
-    public function serverMonitor(Request $req)
-    {
-        $checkResults = $this->serverMonitor->getChecks();
-        $lastRun = $this->serverMonitor->getLastCheckedTime();
-
-        return view('pages.backend.server.indexServer', compact(
-            'checkResults',
-            'lastRun'
-        ));
-    }
-
-    /**
      * Show the document page.
      *
-     * @param  \Illuminate\Http\Request $req
+     * @param Request $req
      * @return \Illuminate\View\View|object
      */
     public function doc()
@@ -107,7 +90,7 @@ class DashboardController extends Controller
     /**
      * Show the settings page.
      *
-     * @param  \Illuminate\Http\Request $req
+     * @param Request $req
      * @return \Illuminate\View\View|object
      */
     public function settings(Request $req)

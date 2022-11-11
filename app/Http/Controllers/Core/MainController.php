@@ -8,7 +8,6 @@ use App\Models\Core\District;
 use App\Models\Core\Village;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
-use Sarfraznawaz2005\ServerMonitor\ServerMonitor;
 
 class MainController extends Controller
 {
@@ -17,10 +16,9 @@ class MainController extends Controller
      *
      * @return void
      */
-    public function __construct(ServerMonitor $serverMonitor)
+    public function __construct()
     {
         $this->middleware('auth');
-        $this->serverMonitor = $serverMonitor;
     }
 
     /**
@@ -63,25 +61,5 @@ class MainController extends Controller
             ->get(["name", "id"]);
 
         return Response::json($data);
-    }
-
-    /**
-     * refresh all service monitor.
-     *
-     * @return array
-     */
-    public function serverMonitorRefreshAll(): array
-    {
-        return $this->serverMonitor->runChecks();
-    }
-
-    /**
-     * refresh specified service monitor.
-     *
-     * @return array
-     */
-    public function serverMonitorRefresh(): array
-    {
-        return $this->serverMonitor->runCheck(request()->check);
     }
 }
