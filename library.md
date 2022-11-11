@@ -12,16 +12,12 @@
 |          Cleave          |             https://github.com/nosir/cleave.js             |
 |       Laravel Mix        |         https://github.com/JeffreyWay/laravel-mix          |
 |    Laravel Page Speed    |    https://github.com/renatomarinho/laravel-page-speed     |
-|      Laravel Breeze      |             https://github.com/laravel/breeze              |
 |    Barcode Generator     |              https://github.com/milon/barcode              |
-|          Sentry          |            https://github.com/getsentry/sentry             |
 |     jQuery Selectric     |       https://github.com/lcdsantos/jQuery-Selectric        |
 |    Laravel DataTables    |        https://github.com/yajra/laravel-datatables         |
-|      Server Monitor      |     https://github.com/sarfraznawaz2005/servermonitor      |
 |       Laravel Menu       |           https://github.com/spatie/laravel-menu           |
 | Laravel env:set Command  |     https://github.com/rdp77/laravel-env-set-command/      |
 |    Laravel Telescope     |            https://github.com/laravel/telescope            |
-|         Migrator         |          https://github.com/rezaamini-ir/migrator          |
 |   Laravel Activity Log   |       https://github.com/spatie/laravel-activitylog        |
 |      Laravel Tinker      |             https://github.com/laravel/tinker              |
 |        Money PHP         |             https://github.com/moneyphp/money              |
