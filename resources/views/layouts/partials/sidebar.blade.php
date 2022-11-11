@@ -3,5 +3,7 @@
     <!-- Add Sidebar Menu Items Here -->
 
     <x-maz-sidebar-item name="Dashboard" :link="route('dashboard')" icon="bi bi-grid-fill"></x-maz-sidebar-item>
+    <x-maz-sidebar-item-has-sub name="Master" icon="bi bi-stack"></x-maz-sidebar-item-has-sub>
+    
     
 </x-maz-sidebar>
