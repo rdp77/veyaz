@@ -3,11 +3,11 @@
 namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Validation\ValidationException;
-use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Validation\ValidationException;
 
 class ActivityRequest extends FormRequest
 {
@@ -35,7 +35,7 @@ class ActivityRequest extends FormRequest
         } elseif (Request::route()->getName() == 'activity.list.store') {
             $rules = [
                 'name_activity' => ['required', 'string', 'max:255'],
-                'type' => ['required']
+                'type' => ['required'],
             ];
         }
 

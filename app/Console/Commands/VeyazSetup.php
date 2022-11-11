@@ -30,6 +30,7 @@ Congratulations! You successfully set up your <fg=green>Veyaz</> template!
 <fg=cyan>Give a star</>: https://github.com/rdp77/veyaz
 Made with <fg=green>love</> by the community. Be a part of it!
 ';
+
     /**
      * The name and signature of the console command.
      *
@@ -66,9 +67,9 @@ Made with <fg=green>love</> by the community. Be a part of it!
      *
      * @return mixed
      */
-    function key()
+    public function key()
     {
-        Artisan::call("key:generate");
+        Artisan::call('key:generate');
         $this->info('Application Key Set Successfully.');
     }
 
@@ -77,9 +78,9 @@ Made with <fg=green>love</> by the community. Be a part of it!
      *
      * @return mixed
      */
-    function migrate()
+    public function migrate()
     {
-        Artisan::call("migrate:refresh --seed");
+        Artisan::call('migrate:refresh --seed');
         $this->info('Importing Database Successful.');
     }
 
@@ -88,9 +89,9 @@ Made with <fg=green>love</> by the community. Be a part of it!
      *
      * @return mixed
      */
-    function clear()
+    public function clear()
     {
-        Artisan::call("optimize:clear");
+        Artisan::call('optimize:clear');
         $this->info('Cache Cleared Successfully.');
     }
 
@@ -99,10 +100,10 @@ Made with <fg=green>love</> by the community. Be a part of it!
      *
      * @return mixed
      */
-    function env()
+    public function env()
     {
         // Copy .env file
-        if (!file_exists(base_path('.env'))) {
+        if (! file_exists(base_path('.env'))) {
             copy(base_path('.env.example'), base_path('.env'));
             $this->info('Environment File Created Successful.');
         }
@@ -113,14 +114,14 @@ Made with <fg=green>love</> by the community. Be a part of it!
      *
      * @return mixed
      */
-    function connection()
+    public function connection()
     {
         $this->info('Database Setup');
         foreach (['DB_CONNECTION', 'DB_HOST', 'DB_PORT', 'DB_DATABASE', 'DB_USERNAME'] as $key) {
-            $config[$key] = $this->ask('- ' . $key . ' (' . env($key) . ')');
+            $config[$key] = $this->ask('- '.$key.' ('.env($key).')');
             Artisan::call("env:set $key $config[$key]");
         }
-        $config['DB_PASSWORD'] = $this->secret('- DB_PASSWORD (' . env($key) . ')');
+        $config['DB_PASSWORD'] = $this->secret('- DB_PASSWORD ('.env($key).')');
         Artisan::call("env:set DB_PASSWORD $config[DB_PASSWORD]");
         $this->info('Set Database Connection Successful.');
     }
@@ -130,12 +131,12 @@ Made with <fg=green>love</> by the community. Be a part of it!
      *
      * @return mixed
      */
-    function checkConnection()
+    public function checkConnection()
     {
         $this->info('Checking Database Connection');
         try {
             DB::connection()->getPdo();
-            $this->info('Database Connection Successful to ' . DB::connection()->getDatabaseName());
+            $this->info('Database Connection Successful to '.DB::connection()->getDatabaseName());
         } catch (\Exception $e) {
             $this->error('Database Connection Failed.');
         }
@@ -146,7 +147,7 @@ Made with <fg=green>love</> by the community. Be a part of it!
      *
      * @return mixed
      */
-    function createDatabase()
+    public function createDatabase()
     {
         $databaseName = env('DB_DATABASE');
         DB::statement("CREATE DATABASE $databaseName");
@@ -156,17 +157,19 @@ Made with <fg=green>love</> by the community. Be a part of it!
     /**
      * Execute the console command.
      *
-     * @return boolean true if the command fails, false otherwise
+     * @return bool true if the command fails, false otherwise
      */
-    function checkDatabaseExists()
+    public function checkDatabaseExists()
     {
         $databaseName = env('DB_DATABASE');
         $databaseExists = DB::select("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '$databaseName'");
-        if (!empty($databaseExists)) {
+        if (! empty($databaseExists)) {
             $this->info('Database already exists.');
+
             return true;
         }
         $this->createDatabase();
+
         return false;
     }
 }

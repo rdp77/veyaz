@@ -5,8 +5,6 @@ namespace App\Http\Controllers\Core;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Core\MainController;
 use App\Models\User;
-use Exception;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
@@ -42,14 +40,14 @@ class DashboardController extends Controller
         return view('dashboard', [
             'log' => $log,
             'users' => $users,
-            'logCount' => $logCount
+            'logCount' => $logCount,
         ]);
     }
 
     /**
      * Show the log dashboard.
      *
-     * @param  \Illuminate\Http\Request $req
+     * @param  \Illuminate\Http\Request  $req
      * @return \Illuminate\View\View
      */
     public function log(Request $req)
@@ -74,6 +72,7 @@ class DashboardController extends Controller
                 ->rawColumns(['added_at', 'ip', 'user_agent'])
                 ->make(true);
         }
+
         return view('pages.backend.log.IndexLog');
     }
 
@@ -98,3 +97,4 @@ class DashboardController extends Controller
         return view('pages.backend.core.settings');
     }
 }
+

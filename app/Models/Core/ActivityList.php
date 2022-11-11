@@ -20,7 +20,7 @@ class ActivityList extends Model
      */
     protected $fillable = [
         'name',
-        'type_id'
+        'type_id',
     ];
 
     /**

@@ -55,7 +55,7 @@ class LoginRequest extends FormRequest
             throw ValidationException::withMessages([
                 'user' => __('Users Not Found'),
             ]);
-        } else if (!$user || !Hash::check($this->password, $user->password)) {
+        } elseif (! $user || ! Hash::check($this->password, $user->password)) {
             RateLimiter::hit($this->throttleKey());
 
             throw ValidationException::withMessages([
@@ -77,7 +77,7 @@ class LoginRequest extends FormRequest
      */
     public function ensureIsNotRateLimited()
     {
-        if (!RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
+        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
             return;
         }
 
@@ -100,6 +100,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey()
     {
-        return Str::lower($this->input('email')) . '|' . $this->ip();
+        return Str::lower($this->input('email')).'|'.$this->ip();
     }
 }

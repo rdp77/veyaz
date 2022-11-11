@@ -7,6 +7,7 @@ use Illuminate\View\Component;
 class MazAlert extends Component
 {
     public $on;
+
     public $color;
 
     /**

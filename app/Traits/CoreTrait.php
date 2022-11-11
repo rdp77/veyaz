@@ -11,8 +11,8 @@ trait CoreTrait
     /**
      * Create random code.
      *
-     * @param string $prefix
-     * @param string $table
+     * @param  string  $prefix
+     * @param  string  $table
      * @return string
      */
     public function createCode(string $prefix, string $table): string
@@ -24,15 +24,15 @@ trait CoreTrait
 
         $index = str_pad($index, 3, '0', STR_PAD_LEFT);
 
-        return $prefix . $user . $year . $month . $index;
+        return $prefix.$user.$year.$month.$index;
     }
 
     /**
      * Check record exist.
      *
-     * @param  string $table
-     * @param  string $name
-     * @param  string $column
+     * @param  string  $table
+     * @param  string  $name
+     * @param  string  $column
      * @return object|null
      */
     public function checkDuplicate($table, $name, $column)
@@ -45,7 +45,7 @@ trait CoreTrait
     /**
      * Get ID for PostgreSQL.
      *
-     * @param  string $table
+     * @param  string  $table
      * @return int
      */
     public function getID($table)
@@ -76,16 +76,16 @@ trait CoreTrait
             $usedmemInGB = $totalmemInGB - $freememInGB;
             $memory = number_format(100 - ($getfree * 100 / $getTotal), 2);
 
-            return array(
-                "memory" => $memory,
-                "total_ram" => round(number_format($totalmemInGB)),
-                "used_memory_in_gb" => round(number_format($usedmemInGB))
-            );
+            return [
+                'memory' => $memory,
+                'total_ram' => round(number_format($totalmemInGB)),
+                'used_memory_in_gb' => round(number_format($usedmemInGB)),
+            ];
         } else {
             $free = shell_exec('free');
             $free = (string) trim($free);
             $free_arr = explode("\n", $free);
-            $mem = explode(" ", $free_arr[1]);
+            $mem = explode(' ', $free_arr[1]);
             $mem = array_filter($mem);
             $mem = array_merge($mem);
             $usedmem = $mem[2];
@@ -95,7 +95,7 @@ trait CoreTrait
             $fh = fopen('/proc/meminfo', 'r');
             $mem = 0;
             while ($line = fgets($fh)) {
-                $pieces = array();
+                $pieces = [];
                 if (preg_match('/^MemTotal:\s+(\d+)\skB$/', $line, $pieces)) {
                     $mem = $pieces[1];
                     break;
@@ -104,9 +104,9 @@ trait CoreTrait
             fclose($fh);
             $totalram = number_format($mem / 1048576, 2);
 
-            return array(
-                "memory" => $memory, "total_ram" => $totalram, "used_memory_in_gb" => $usedmemInGB
-            );
+            return [
+                'memory' => $memory, 'total_ram' => $totalram, 'used_memory_in_gb' => $usedmemInGB,
+            ];
         }
     }
 
@@ -121,17 +121,18 @@ trait CoreTrait
         $windows = '/win/i';
         if (preg_match_all($windows, $os) == 1) {
             exec('wmic cpu get LoadPercentage', $p);
-            return array(
-                "load" => $p[1] . '% / 100%', "load_width" => $p[1] . '%'
-            );
+
+            return [
+                'load' => $p[1].'% / 100%', 'load_width' => $p[1].'%',
+            ];
         } else {
             $cpu_loaded = sys_getloadavg();
             $load_width = $cpu_loaded[0];
-            $load = $cpu_loaded[0] . '% / 100%';
+            $load = $cpu_loaded[0].'% / 100%';
 
-            return array(
-                "load" => $load, "load_width" => $load_width
-            );
+            return [
+                'load' => $load, 'load_width' => $load_width,
+            ];
         }
     }
 
@@ -153,10 +154,10 @@ trait CoreTrait
 
         $diskuse = round(100 - ($use_disk));
 
-        return array(
-            "diskuse" => $diskuse,
-            "total_disk_size" => round($total_disk_size) . __(' GB'),
-            "disk_used_size" => round($disk_used_size) . __(' GB')
-        );
+        return [
+            'diskuse' => $diskuse,
+            'total_disk_size' => round($total_disk_size).__(' GB'),
+            'disk_used_size' => round($disk_used_size).__(' GB'),
+        ];
     }
 }

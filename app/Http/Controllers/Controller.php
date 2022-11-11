@@ -17,9 +17,9 @@ class Controller extends BaseController
     /**
      * Get status Activity.
      *
-     * @param  integer $type
-     * @param  boolean $custom
-     * @param  string $message
+     * @param  int  $type
+     * @param  bool  $custom
+     * @param  string  $message
      * @return string
      */
     protected function getStatus($type, $custom = false, $message = null)
@@ -30,11 +30,11 @@ class Controller extends BaseController
     /**
      * Store a new log.
      *
-     * @param  string $header
-     * @param  string $ip
-     * @param  string $action
-     * @param  boolean $withPerformedOn
-     * @param  \Illuminate\Database\Eloquent\Model $performedOn
+     * @param  string  $header
+     * @param  string  $ip
+     * @param  string  $action
+     * @param  bool  $withPerformedOn
+     * @param  \Illuminate\Database\Eloquent\Model  $performedOn
      * @return \Illuminate\Http\Response
      */
     public function createLog($header, $ip, $action, $withPerformedOn = false, $performedOn = null)
@@ -46,7 +46,7 @@ class Controller extends BaseController
                 ->withProperties([
                     'url' => URL::full(),
                     'ip' => $ip,
-                    'user_agent' => $header
+                    'user_agent' => $header,
                 ])
                 ->log($action);
         } else {
@@ -55,7 +55,7 @@ class Controller extends BaseController
                 ->withProperties([
                     'url' => URL::full(),
                     'ip' => $ip,
-                    'user_agent' => $header
+                    'user_agent' => $header,
                 ])
                 ->log($action);
         }

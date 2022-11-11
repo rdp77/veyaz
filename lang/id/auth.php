@@ -28,5 +28,5 @@ return [
     'password' => 'Kata Sandi',
     'phone' => 'No Telepon',
     'changePassword' => 'Ganti Kata Sandi',
-    'terms' => 'Saya setuju dengan syarat dan ketentuan'
+    'terms' => 'Saya setuju dengan syarat dan ketentuan',
 ];

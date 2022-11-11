@@ -4,8 +4,8 @@ namespace App\DataTables\Logs;
 
 use Spatie\Activitylog\Models\Activity;
 // use Yajra\DataTables\Facades\DataTables;
-use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Html\Builder;
+use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
 class LogDataTable extends DataTable
@@ -14,7 +14,6 @@ class LogDataTable extends DataTable
      * Build DataTable class.
      *
      * @param  mixed  $query  Results from query() method.
-     *
      * @return \Yajra\DataTables\DataTableAbstract
      */
     public function dataTable($query)
@@ -26,7 +25,7 @@ class LogDataTable extends DataTable
                 return $model->id;
             })
             ->editColumn('subject_id', function (Activity $model) {
-                if (!isset($model->subject)) {
+                if (! isset($model->subject)) {
                     return '';
                 }
 
@@ -56,7 +55,6 @@ class LogDataTable extends DataTable
      * Get query source of dataTable.
      *
      * @param  Activity  $model
-     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Activity $model)
@@ -90,21 +88,21 @@ class LogDataTable extends DataTable
             ->responsive()
             ->autoWidth(false)
             ->parameters([
-                'scrollX'      => true,
+                'scrollX' => true,
                 'drawCallback' => 'function() { KTMenu.createInstances(); }',
             ])
             ->addTableClass('align-middle table-row-dashed fs-6 gy-5')
             ->addAction([
                 'defaultContent' => '',
-                'data'           => 'action',
-                'name'           => 'action',
-                'title'          => 'Action',
-                'render'         => null,
-                'orderable'      => false,
-                'searchable'     => false,
-                'exportable'     => false,
-                'printable'      => true,
-                'footer'         => '',
+                'data' => 'action',
+                'name' => 'action',
+                'title' => 'Action',
+                'render' => null,
+                'orderable' => false,
+                'searchable' => false,
+                'exportable' => false,
+                'printable' => true,
+                'footer' => '',
             ])
             ->ajax(route('users.data'));
     }
@@ -140,6 +138,6 @@ class LogDataTable extends DataTable
      */
     protected function filename()
     {
-        return 'DataLogs_' . date('YmdHis');
+        return 'DataLogs_'.date('YmdHis');
     }
 }

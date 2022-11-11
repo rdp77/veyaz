@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Models\Core\Settings;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;

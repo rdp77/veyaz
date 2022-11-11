@@ -149,7 +149,7 @@ return [
 
     'attributes' => [
         'name' => 'Nama',
-        'username' => 'Nama Pengguna'
+        'username' => 'Nama Pengguna',
     ],
 
 ];

@@ -25,9 +25,9 @@ class ActivityService
 
     /**
      * delete permanently all users.
-     *     
-     * @param  \Illuminate\Http\Request $req    
-     * @param  \App\Services\UserService $userService    
+     *
+     * @param  \Illuminate\Http\Request  $req
+     * @param  \App\Services\UserService  $userService
      * @return \Illuminate\Http\Response
      */
     public function createUser(array $userData): User

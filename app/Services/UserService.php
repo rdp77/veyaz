@@ -28,7 +28,7 @@ class UserService
     /**
      * Create a new user.
      *
-     * @param  array $userData
+     * @param  array  $userData
      * @return App\Models\User
      */
     public function createUser(array $userData): User
@@ -38,15 +38,15 @@ class UserService
             'username' => $userData['username'],
             'email' => $userData['email'],
             'password' => Hash::make($userData['password']),
-            'is_admin' => false
+            'is_admin' => false,
         ]);
     }
 
     /**
      * Update a user.
      *
-     * @param  int $userId
-     * @param  array $userData
+     * @param  int  $userId
+     * @param  array  $userData
      * @return App\Models\User
      */
     public function updateUser(int $userId, array $userData): User
@@ -56,7 +56,7 @@ class UserService
         $user->update([
             'name' => $userData['name'],
             'username' => $userData['username'],
-            'email' => $userData['email']
+            'email' => $userData['email'],
         ]);
 
         return $user;
@@ -65,7 +65,7 @@ class UserService
     /**
      * delete a user.
      *
-     * @param  int $userId
+     * @param  int  $userId
      * @return bool
      */
     public function deleteUser(int $userId): bool
@@ -78,7 +78,7 @@ class UserService
     /**
      * restore a user.
      *
-     * @param  int $userId
+     * @param  int  $userId
      * @return bool
      */
     public function restoreUser(int $userId): bool
@@ -91,7 +91,7 @@ class UserService
     /**
      * restore all users.
      *
-     * @param  int $userId
+     * @param  int  $userId
      * @return bool
      */
     public function restoreAll(): bool
@@ -104,7 +104,7 @@ class UserService
     /**
      * Delete a user permanently.
      *
-     * @param  int $userId
+     * @param  int  $userId
      * @return bool
      */
     public function deleteUserRecycle(int $userId): bool
@@ -117,7 +117,7 @@ class UserService
     /**
      * Delete all users permanently.
      *
-     * @param  int $userId
+     * @param  int  $userId
      * @return bool
      */
     public function deleteAllUserRecycle(): bool
@@ -127,14 +127,14 @@ class UserService
         return $this->user->trashed() ? $user->forceDelete() :
             Response::json([
                 'status' => 'error',
-                'data' => "Tidak ada data di recycle bin"
+                'data' => 'Tidak ada data di recycle bin',
             ]);
     }
 
     /**
      * reset password a user.
      *
-     * @param  int $userId
+     * @param  int  $userId
      * @return bool
      */
     public function resetPassword(int $userId): bool
@@ -149,8 +149,8 @@ class UserService
     /**
      * Change name a user.
      *
-     * @param  int $userId
-     * @param  string $name
+     * @param  int  $userId
+     * @param  string  $name
      * @return bool
      */
     public function changeName(int $userId, string $name): bool
@@ -165,8 +165,8 @@ class UserService
     /**
      * Change email a user.
      *
-     * @param  int $userId
-     * @param  string $email
+     * @param  int  $userId
+     * @param  string  $email
      * @return bool
      */
     public function changeEmail(int $userId, string $email): bool
@@ -181,8 +181,8 @@ class UserService
     /**
      * Change password a user.
      *
-     * @param  int $userId
-     * @param  string $password
+     * @param  int  $userId
+     * @param  string  $password
      * @return bool
      */
     public function changePassword(int $userId, string $password): bool
