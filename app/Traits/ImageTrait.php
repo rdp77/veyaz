@@ -26,9 +26,8 @@ trait ImageTrait
     protected array $updatedFields = [];
 
     /**
-     * @param Model $model
-     * @param Request $request
-     *
+     * @param  Model  $model
+     * @param  Request  $request
      * @return void
      */
     protected function storeImages(Model $model, Request $request): void
@@ -52,10 +51,9 @@ trait ImageTrait
     }
 
     /**
-     * @param Model $model
-     * @param Request $request
-     * @param string $key
-     *
+     * @param  Model  $model
+     * @param  Request  $request
+     * @param  string  $key
      * @return void
      */
     protected function storeImage(Model $model, Request $request, string $key = 'image'): void
@@ -75,11 +73,10 @@ trait ImageTrait
     }
 
     /**
-     * @param string $field
-     * @param string $path
-     * @param Request $request
-     * @param string|null $previous
-     *
+     * @param  string  $field
+     * @param  string  $path
+     * @param  Request  $request
+     * @param  string|null  $previous
      * @return void
      */
     protected function handleUpload(string $field, string $path, Request $request, string $previous = null): void

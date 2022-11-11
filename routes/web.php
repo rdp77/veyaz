@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Core\DashboardController;
 use App\Http\Controllers\Core\MainController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,5 +43,5 @@ Route::prefix('server-monitor')->group(function () {
 });
 
 // Load another route file
-require __DIR__ . '/data/users.php';
-require __DIR__ . '/data/activity.php';
+require __DIR__.'/data/users.php';
+require __DIR__.'/data/activity.php';

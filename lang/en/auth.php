@@ -28,5 +28,5 @@ return [
     'password' => 'Password',
     'phone' => 'Phone',
     'changePassword' => 'Change Password',
-    'terms' => 'I agree with the terms and conditions'
+    'terms' => 'I agree with the terms and conditions',
 ];

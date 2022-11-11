@@ -7,8 +7,8 @@ use App\Http\Requests\ActivityRequest;
 use App\Models\Core\ActivityList;
 use App\Models\Core\ActivityType;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
 use Spatie\Activitylog\Models\Activity;
+use Yajra\DataTables\DataTables;
 
 class ActivityController extends Controller
 {
@@ -25,17 +25,18 @@ class ActivityController extends Controller
     /**
      * Show the activity all dashboard.
      *
-     * @param  \Illuminate\Http\Request $req
+     * @param  \Illuminate\Http\Request  $req
      * @return mixed
      */
     public function activity(Request $req)
     {
         if ($req->ajax()) {
             $data = Activity::all();
+
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('added_at', function ($row) {
-                    return date("d-M-Y H:m", strtotime($row->created_at));
+                    return date('d-M-Y H:m', strtotime($row->created_at));
                 })
                 ->addColumn('url', function ($row) {
                     return $row->getExtraProperty('url');
@@ -52,13 +53,14 @@ class ActivityController extends Controller
                 ->rawColumns(['added_at', 'ip', 'user_agent', 'user'])
                 ->make(true);
         }
+
         return view('pages.backend.log.IndexActivity');
     }
 
     /**
      * Show the activity list dashboard.
      *
-     * @param  \Illuminate\Http\Request $req
+     * @param  \Illuminate\Http\Request  $req
      * @return mixed
      */
     public function list(Request $req)
@@ -66,6 +68,7 @@ class ActivityController extends Controller
         $type = ActivityType::all();
         if ($req->ajax()) {
             $data = ActivityList::all();
+
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('type', function ($row) {
@@ -74,22 +77,23 @@ class ActivityController extends Controller
                 ->rawColumns(['type'])
                 ->make(true);
         }
+
         return view('pages.backend.log.IndexActivityList', [
-            'type' => $type
+            'type' => $type,
         ]);
     }
 
     /**
      * Store a new list.
      *
-     * @param  \App\Http\Requests\ActivityRequest $req
+     * @param  \App\Http\Requests\ActivityRequest  $req
      * @return \Illuminate\Http\Response
      */
     public function listStore(ActivityRequest $req)
     {
         $performedOn = ActivityList::create([
             'name' => $req->name_activity,
-            'type_id' => $req->type
+            'type_id' => $req->type,
         ]);
 
         // Create Log
@@ -105,30 +109,32 @@ class ActivityController extends Controller
     /**
      * Show the activity type dashboard.
      *
-     * @param  \Illuminate\Http\Request $req
+     * @param  \Illuminate\Http\Request  $req
      * @return mixed
      */
     public function type(Request $req)
     {
         if ($req->ajax()) {
             $data = ActivityType::all();
+
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->make(true);
         }
+
         return view('pages.backend.log.IndexActivityType');
     }
 
     /**
      * Store a new list type.
      *
-     * @param  \App\Http\Requests\ActivityRequest $req
+     * @param  \App\Http\Requests\ActivityRequest  $req
      * @return \Illuminate\Http\Response
      */
     public function typeStore(ActivityRequest $req)
     {
         $performedOn = ActivityType::create([
-            'name' => $req->name_type
+            'name' => $req->name_type,
         ]);
 
         // Create Log

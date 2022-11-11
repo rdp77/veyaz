@@ -26,7 +26,6 @@ return [
     'username' => 'admin',
     'password' => 'admin',
 
-
     /*
     |--------------------------------------------------------------------------
     | Production Environment Name
@@ -54,10 +53,10 @@ return [
         'server' => [
             \Sarfraznawaz2005\ServerMonitor\Checks\Server\RequiredPhpExtensionsAreInstalled::class,
             \Sarfraznawaz2005\ServerMonitor\Checks\Server\DiskSpaceEnough::class => [
-                'fail_percentage' => 90
+                'fail_percentage' => 90,
             ],
             \Sarfraznawaz2005\ServerMonitor\Checks\Server\AvgCpuUsage::class => [
-                'fail_percentage' => 90
+                'fail_percentage' => 90,
             ],
 
             \Sarfraznawaz2005\ServerMonitor\Checks\Server\CheckPhpIniValues::class => [
@@ -66,7 +65,7 @@ return [
                     'memory_limit' => '512M',
                     'display_errors' => '1',
                     'error_reporting' => '32767',
-                ]
+                ],
             ],
 
             /*
@@ -103,7 +102,7 @@ return [
             */
 
             \Sarfraznawaz2005\ServerMonitor\Checks\Server\SslCertificateValid::class => [
-                'url' => env('APP_URL')
+                'url' => env('APP_URL'),
             ],
 
             \Sarfraznawaz2005\ServerMonitor\Checks\Server\ServersArePingable::class => [
@@ -111,15 +110,15 @@ return [
                     [
                         'host' => env('APP_URL'),
                         'port' => null,
-                        'timeout' => 5
+                        'timeout' => 5,
                     ],
-                ]
+                ],
             ],
 
             \Sarfraznawaz2005\ServerMonitor\Checks\Server\HttpStatusCode::class => [
                 'sites' => [
                     'google' => ['url' => env('APP_URL'), 'expected_code' => 200],
-                ]
+                ],
             ],
 
         ],
@@ -138,17 +137,16 @@ return [
                     'paths' => [
                         storage_path(),
                         base_path('bootstrap/cache'),
-                    ]
+                    ],
                 ],
                 \Sarfraznawaz2005\ServerMonitor\Checks\Application\DatabaseCanBeAccessed::class,
                 \Sarfraznawaz2005\ServerMonitor\Checks\Application\MigrationsAreUpToDate::class,
                 \Sarfraznawaz2005\ServerMonitor\Checks\Application\ComposerDependenciesUpToDate::class => [
                     // Path to composer binary
-                    'binary_path' => 'composer'
+                    'binary_path' => 'composer',
                 ],
 
                 \Sarfraznawaz2005\ServerMonitor\Checks\Application\StorageDirectoryIsLinked::class,
-
 
                 \Sarfraznawaz2005\ServerMonitor\Checks\Application\CorrectEnvValues::class => [
                     'checks' => [
@@ -158,7 +156,7 @@ return [
                                 'env' => 'local',
                                 'debug' => true,
                                 'url' => env('APP_URL'),
-                            ]
+                            ],
                         ],
                         'production' => [
                             'path' => config_path('app.php'),
@@ -166,7 +164,7 @@ return [
                                 'env' => 'production',
                                 'debug' => false,
                                 'url' => env('APP_URL'),
-                            ]
+                            ],
                         ],
                         'production' => [
                             'path' => config_path('app.php'),
@@ -174,11 +172,10 @@ return [
                                 'env' => 'prod',
                                 'debug' => false,
                                 'url' => env('APP_URL'),
-                            ]
+                            ],
                         ],
-                    ]
+                    ],
                 ],
-
 
                 /*
                 // requires "sensiolabs/security-checker" package.
@@ -252,8 +249,8 @@ return [
                     'restarted_within' => 300
                 ],
                 */
-            ]
-        ]
+            ],
+        ],
     ],
 
     /*

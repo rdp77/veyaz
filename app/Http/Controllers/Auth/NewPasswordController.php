@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Core\DashboardController;
+use App\Models\User;
 use Illuminate\Auth\Events\PasswordReset;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Password;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rules;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 
 class NewPasswordController extends Controller
 {
@@ -84,7 +84,7 @@ class NewPasswordController extends Controller
             return redirect()->route('users.password')
                 ->with([
                     'status' => 'Username sebelumnya tidak sama silahkan cek kembali',
-                    'type' => 'error'
+                    'type' => 'error',
                 ]);
         }
 
@@ -107,7 +107,7 @@ class NewPasswordController extends Controller
             return redirect()->route('users.password')
                 ->with([
                     'status' => 'Password sebelumnya tidak sama silahkan cek kembali',
-                    'type' => 'error'
+                    'type' => 'error',
                 ]);
         }
     }

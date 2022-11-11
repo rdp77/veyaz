@@ -2,20 +2,19 @@
 
 namespace App\Observers;
 
-
 use App\Models\Core\ActivityList;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\URL;
 
-class AbstractObserver{
+class AbstractObserver
+{
     /**
      * Get status Activity.
      *
-     * @param  integer $type
-     * @param  boolean $custom
-     * @param  string $message
+     * @param  int  $type
+     * @param  bool  $custom
+     * @param  string  $message
      * @return string
      */
     protected function getStatus(int $type, bool $custom = false, $message = null): ?string
@@ -26,11 +25,11 @@ class AbstractObserver{
     /**
      * Store a new log.
      *
-     * @param  string $header
-     * @param  string $ip
-     * @param  string $action
-     * @param  boolean $withPerformedOn
-     * @param  Model $performedOn
+     * @param  string  $header
+     * @param  string  $ip
+     * @param  string  $action
+     * @param  bool  $withPerformedOn
+     * @param  Model  $performedOn
      * @return \Spatie\Activitylog\Contracts\Activity
      */
     public function createLog(string $header, string $ip, string $action, $withPerformedOn = false, $performedOn = null): \Spatie\Activitylog\Contracts\Activity
@@ -42,7 +41,7 @@ class AbstractObserver{
                 ->withProperties([
                     'url' => URL::full(),
                     'ip' => $ip,
-                    'user_agent' => $header
+                    'user_agent' => $header,
                 ])
                 ->log($action);
         } else {
@@ -51,7 +50,7 @@ class AbstractObserver{
                 ->withProperties([
                     'url' => URL::full(),
                     'ip' => $ip,
-                    'user_agent' => $header
+                    'user_agent' => $header,
                 ])
                 ->log($action);
         }

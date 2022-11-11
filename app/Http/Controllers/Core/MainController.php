@@ -26,13 +26,13 @@ class MainController extends Controller
     /**
      * Get city list by province.
      *
-     * @param  \Illuminate\Http\Request $req
+     * @param  \Illuminate\Http\Request  $req
      * @return \Illuminate\Http\Response
      */
     public function getCity(Request $req)
     {
-        $data['city'] = City::where("province_id", $req->province_id)
-            ->get(["name", "id"]);
+        $data['city'] = City::where('province_id', $req->province_id)
+            ->get(['name', 'id']);
 
         return Response::json($data);
     }
@@ -40,13 +40,13 @@ class MainController extends Controller
     /**
      * Get district list by city.
      *
-     * @param  \Illuminate\Http\Request $req
+     * @param  \Illuminate\Http\Request  $req
      * @return \Illuminate\Http\Response
      */
     public function getDistrict(Request $req)
     {
-        $data['district'] = District::where("city_id", $req->city_id)
-            ->get(["name", "id"]);
+        $data['district'] = District::where('city_id', $req->city_id)
+            ->get(['name', 'id']);
 
         return Response::json($data);
     }
@@ -54,13 +54,13 @@ class MainController extends Controller
     /**
      * Get village list by district.
      *
-     * @param  \Illuminate\Http\Request $req
+     * @param  \Illuminate\Http\Request  $req
      * @return \Illuminate\Http\Response
      */
     public function getVillage(Request $req)
     {
-        $data['village'] = Village::where("district_id", $req->district_id)
-            ->get(["name", "id"]);
+        $data['village'] = Village::where('district_id', $req->district_id)
+            ->get(['name', 'id']);
 
         return Response::json($data);
     }
