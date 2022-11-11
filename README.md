@@ -23,7 +23,7 @@ Because it uses Laravel migrations feature it can use any type of DBMS as long a
 
 1. Clone repository with the command `git clone https://github.com/rdp77/veyaz.git`
 2. Installing package form Composer with command `composer install`
-3. Installing package module node js with command `node install` (Optional)
+3. Installing package module node js with command `npm install` (Optional) => `pnpm install` `yarn install` 
 4. Run command `php artisan veyaz:setup` to setup the project
 5. Running web application using commands `php artisan serve` or running manually with web server.
 
