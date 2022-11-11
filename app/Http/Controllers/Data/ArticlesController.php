@@ -3,18 +3,11 @@
 namespace App\Http\Controllers\Data;
 
 use App\Http\Controllers\Controller;
-
 use App\Http\Controllers\Core\MainController;
 use App\Http\Requests\UsersRequest;
 use App\Models\Core\ActivityList;
-use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Response;
-use Illuminate\Support\Facades\Redirect;
-use Yajra\DataTables\DataTables;
 
 class ArticlesController extends Controller
 {
@@ -34,7 +27,6 @@ class ArticlesController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-
     public function index(Request $req)
     {
     }

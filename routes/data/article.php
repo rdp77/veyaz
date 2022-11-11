@@ -28,7 +28,7 @@ Route::group(['prefix' => 'temp'], function () {
         ->name('users.recycle');
     Route::group(['prefix' => 'users'], function () {
         Route::get('/restore/{id}', [UsersController::class, 'restore'])
-            ->name('users.restore');;
+            ->name('users.restore');
         Route::delete('/delete/{id}', [UsersController::class, 'delete']);
         Route::delete('/delete-all', [UsersController::class, 'deleteAll']);
     });

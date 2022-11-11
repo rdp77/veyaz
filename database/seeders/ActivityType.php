@@ -17,13 +17,13 @@ class ActivityType extends Seeder
         DB::table('activity_type')->insert([
             [
                 'name' => 'Users',
-                'created_at' => date("Y-m-d h:i:s"),
-                'updated_at' => date("Y-m-d h:i:s"),
+                'created_at' => date('Y-m-d h:i:s'),
+                'updated_at' => date('Y-m-d h:i:s'),
             ],
             [
                 'name' => 'Activity',
-                'created_at' => date("Y-m-d h:i:s"),
-                'updated_at' => date("Y-m-d h:i:s"),
+                'created_at' => date('Y-m-d h:i:s'),
+                'updated_at' => date('Y-m-d h:i:s'),
             ],
         ]);
     }

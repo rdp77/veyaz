@@ -21,7 +21,7 @@ class Settings extends Model
     protected $fillable = [
         'name',
         'value',
-        'is_active'
+        'is_active',
     ];
 
     /**

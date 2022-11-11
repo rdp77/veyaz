@@ -8,7 +8,6 @@ use App\Models\Core\District;
 use App\Models\Core\Village;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
-use Sarfraznawaz2005\ServerMonitor\ServerMonitor;
 
 class MainController extends Controller
 {
@@ -17,22 +16,21 @@ class MainController extends Controller
      *
      * @return void
      */
-    public function __construct(ServerMonitor $serverMonitor)
+    public function __construct()
     {
         $this->middleware('auth');
-        $this->serverMonitor = $serverMonitor;
     }
 
     /**
      * Get city list by province.
      *
-     * @param  \Illuminate\Http\Request $req
+     * @param  \Illuminate\Http\Request  $req
      * @return \Illuminate\Http\Response
      */
     public function getCity(Request $req)
     {
-        $data['city'] = City::where("province_id", $req->province_id)
-            ->get(["name", "id"]);
+        $data['city'] = City::where('province_id', $req->province_id)
+            ->get(['name', 'id']);
 
         return Response::json($data);
     }
@@ -40,13 +38,13 @@ class MainController extends Controller
     /**
      * Get district list by city.
      *
-     * @param  \Illuminate\Http\Request $req
+     * @param  \Illuminate\Http\Request  $req
      * @return \Illuminate\Http\Response
      */
     public function getDistrict(Request $req)
     {
-        $data['district'] = District::where("city_id", $req->city_id)
-            ->get(["name", "id"]);
+        $data['district'] = District::where('city_id', $req->city_id)
+            ->get(['name', 'id']);
 
         return Response::json($data);
     }
@@ -54,34 +52,14 @@ class MainController extends Controller
     /**
      * Get village list by district.
      *
-     * @param  \Illuminate\Http\Request $req
+     * @param  \Illuminate\Http\Request  $req
      * @return \Illuminate\Http\Response
      */
     public function getVillage(Request $req)
     {
-        $data['village'] = Village::where("district_id", $req->district_id)
-            ->get(["name", "id"]);
+        $data['village'] = Village::where('district_id', $req->district_id)
+            ->get(['name', 'id']);
 
         return Response::json($data);
-    }
-
-    /**
-     * refresh all service monitor.
-     *
-     * @return array
-     */
-    public function serverMonitorRefreshAll(): array
-    {
-        return $this->serverMonitor->runChecks();
-    }
-
-    /**
-     * refresh specified service monitor.
-     *
-     * @return array
-     */
-    public function serverMonitorRefresh(): array
-    {
-        return $this->serverMonitor->runCheck(request()->check);
     }
 }

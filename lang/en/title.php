@@ -14,5 +14,5 @@ return [
     */
 
     'login' => 'Login',
-    'register' => 'Register'
+    'register' => 'Register',
 ];

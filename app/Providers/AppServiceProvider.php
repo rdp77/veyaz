@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use App\Models\Core\Settings;
-use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\View;
@@ -36,7 +35,7 @@ class AppServiceProvider extends ServiceProvider
         if (App::environment() !== 'local') {
             URL::forceScheme('https');
         }
-        // Share data with all views
+//        // Share data with all views
         View::share([
             'title' => Settings::where('name', 'Title')->first()->value ?? config('veyaz.title'),
             'short_title' => Settings::where('name', 'Short Title')->first()->value ?? config('veyaz.short_title'),

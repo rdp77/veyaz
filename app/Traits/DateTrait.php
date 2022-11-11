@@ -7,7 +7,7 @@ trait DateTrait
     /**
      * Change month ID to EN.
      *
-     * @param  string $dates
+     * @param  string  $dates
      * @return string
      */
     public function changeMonthIdToEn($dates)
@@ -16,9 +16,9 @@ trait DateTrait
 
         $separateString = explode(' ', $dateLocale);
 
-        $day    = $separateString[0];
-        $month  = $separateString[1];
-        $year   = $separateString[2];
+        $day = $separateString[0];
+        $month = $separateString[1];
+        $year = $separateString[2];
 
         if ($month == 'Januari') {
             $month = '01';
@@ -46,13 +46,13 @@ trait DateTrait
             $month = '12';
         }
 
-        return $year . '-' . $month . '-' . $day;
+        return $year.'-'.$month.'-'.$day;
     }
 
     /**
      * Change date ID to EN.
      *
-     * @param  string $dates
+     * @param  string  $dates
      * @return string
      */
     public function getDate($date)
@@ -60,11 +60,11 @@ trait DateTrait
         $dateLocale = $date;
 
         $separateString = explode(' ', $dateLocale);
-        $day    = $separateString[0];
-        $monthLocale  = $separateString[1];
-        $year   = $separateString[2];
-        $month   = $this->changeMonthIdToEn($monthLocale);
+        $day = $separateString[0];
+        $monthLocale = $separateString[1];
+        $year = $separateString[2];
+        $month = $this->changeMonthIdToEn($monthLocale);
 
-        return $year . '-' . $month . '-' . $day;
+        return $year.'-'.$month.'-'.$day;
     }
 }
