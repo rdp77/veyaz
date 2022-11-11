@@ -17,9 +17,9 @@ class User extends Seeder
     {
         DB::table('users')->insert([
             [
-                'name' => 'Wreative',
+                'name' => 'Anonymous Admin',
                 'username' => 'admin',
-                'email' => 'contact@wreative.com',
+                'email' => 'admin@gmail.com',
                 'password' => Hash::make('admin'),
                 'is_admin' => true,
                 'created_at' => date("Y-m-d h:i:s"),
