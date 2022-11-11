@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Core;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Core\MainController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Yajra\DataTables\DataTables;
 use Spatie\Activitylog\Models\Activity;
+use Yajra\DataTables\DataTables;
 
 class DashboardController extends Controller
 {
@@ -55,10 +54,11 @@ class DashboardController extends Controller
         if ($req->ajax()) {
             $data = Activity::where('causer_id', Auth::user()->id)
                 ->get();
+
             return Datatables::of($data)
                 ->addIndexColumn()
                 ->addColumn('added_at', function ($row) {
-                    return date("d-M-Y H:m", strtotime($row->created_at));
+                    return date('d-M-Y H:m', strtotime($row->created_at));
                 })
                 ->addColumn('url', function ($row) {
                     return $row->getExtraProperty('url');
@@ -79,7 +79,7 @@ class DashboardController extends Controller
     /**
      * Show the document page.
      *
-     * @param Request $req
+     * @param  Request  $req
      * @return \Illuminate\View\View|object
      */
     public function doc()
@@ -89,7 +89,7 @@ class DashboardController extends Controller
     /**
      * Show the settings page.
      *
-     * @param Request $req
+     * @param  Request  $req
      * @return \Illuminate\View\View|object
      */
     public function settings(Request $req)
@@ -97,4 +97,3 @@ class DashboardController extends Controller
         return view('pages.backend.core.settings');
     }
 }
-
