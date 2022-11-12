@@ -2,7 +2,6 @@
 
 namespace App\Http;
 
-use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -24,7 +23,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
         \RenatoMarinho\LaravelPageSpeed\Middleware\ElideAttributes::class,
         \RenatoMarinho\LaravelPageSpeed\Middleware\InsertDNSPrefetch::class,
-        \RenatoMarinho\LaravelPageSpeed\Middleware\CollapseWhitespace::class, // Note: This middleware invokes "RemoveComments::class" before it runs.
+        \RenatoMarinho\LaravelPageSpeed\Middleware\CollapseWhitespace::class,
     ];
 
     /**

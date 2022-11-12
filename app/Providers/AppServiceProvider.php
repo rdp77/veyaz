@@ -36,12 +36,12 @@ class AppServiceProvider extends ServiceProvider
             URL::forceScheme('https');
         }
 //        // Share data with all views
-        View::share([
-            'title' => Settings::where('name', 'Title')->first()->value ?? config('veyaz.title'),
-            'short_title' => Settings::where('name', 'Short Title')->first()->value ?? config('veyaz.short_title'),
-            'description' => Settings::where('name', 'Description')->first()->value ?? config('veyaz.description'),
-            'logo' => Settings::where('name', 'Logo')->first()->value ?? config('veyaz.logo'),
-            'default_photo_profile' => Settings::where('name', 'Default Photo Profile')->first()->value ?? config('veyaz.default_photo_profile'),
-        ]);
+//        View::share([
+//            'title' => Settings::where('name', 'Title')->first()->value ?? config('veyaz.title'),
+//            'short_title' => Settings::where('name', 'Short Title')->first()->value ?? config('veyaz.short_title'),
+//            'description' => Settings::where('name', 'Description')->first()->value ?? config('veyaz.description'),
+//            'logo' => Settings::where('name', 'Logo')->first()->value ?? config('veyaz.logo'),
+//            'default_photo_profile' => Settings::where('name', 'Default Photo Profile')->first()->value ?? config('veyaz.default_photo_profile'),
+//        ]);
     }
 }

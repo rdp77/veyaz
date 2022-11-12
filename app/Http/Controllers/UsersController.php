@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UsersRequest;
 use App\Models\User;
+use App\Services\DataService;
 use App\Services\UserService;
+use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -27,8 +30,9 @@ class UsersController extends Controller
     /**
      * Show the users dashboard.
      *
-     * @param  \Illuminate\Http\Request  $req
+     * @param Request $req
      * @return mixed
+     * @throws Exception
      */
     public function index(Request $req)
     {
@@ -38,14 +42,14 @@ class UsersController extends Controller
             return Datatables::of($data)
                 ->addColumn('action', function ($row) {
                     $actionBtn = '<div class="btn-group">';
-                    $actionBtn .= '<a onclick="reset('.$row->id.')" class="btn btn-primary text-white" style="cursor:pointer;">Reset Password</a>';
+                    $actionBtn .= '<a onclick="reset(' . $row->id . ')" class="btn btn-primary text-white" style="cursor:pointer;">Reset Password</a>';
                     $actionBtn .= '<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
                             data-toggle="dropdown">
                             <span class="sr-only">Toggle Dropdown</span>
                         </button>';
                     $actionBtn .= '<div class="dropdown-menu">
-                            <a class="dropdown-item" href="'.route('users.edit', $row->id).'">Edit</a>';
-                    $actionBtn .= '<a onclick="del('.$row->id.')" class="dropdown-item" style="cursor:pointer;">Hapus</a>';
+                            <a class="dropdown-item" href="' . route('users.edit', $row->id) . '">Edit</a>';
+                    $actionBtn .= '<a onclick="del(' . $row->id . ')" class="dropdown-item" style="cursor:pointer;">Hapus</a>';
                     $actionBtn .= '</div></div>';
 
                     return $actionBtn;
@@ -58,26 +62,16 @@ class UsersController extends Controller
     }
 
     /**
-     * Show the users dashboard.
-     *
-     * @return \Illuminate\View\View
-     */
-    public function create()
-    {
-        return view('pages.backend.data.users.createUsers');
-    }
-
-    /**
      * Store a new user.
      *
-     * @param  App\Http\Requests\UsersRequest  $req
-     * @param  \App\Services\UserService  $userService
-     * @return \Illuminate\Http\Response
+     * @param UsersRequest $req
+     * @param DataService $dataService
+     * @return JsonResponse
      */
-    public function store(UsersRequest $req, UserService $userService)
+    public function store(UsersRequest $req, DataService $dataService)
     {
-        $performedOn = $userService->createUser($req->validated());
-
+//        $performedOn = $userService->createUser($req->validated());
+        $performedOn = $dataService->create($req->validated(), new User());
         // Create Log
         $this->createLog(
             $req->header('user-agent'),
@@ -96,6 +90,16 @@ class UsersController extends Controller
     /**
      * Show the users dashboard.
      *
+     * @return \Illuminate\View\View
+     */
+    public function create()
+    {
+        return view('pages.backend.data.users.createUsers');
+    }
+
+    /**
+     * Show the users dashboard.
+     *
      * @return mixed
      */
     public function edit($id)
@@ -108,11 +112,182 @@ class UsersController extends Controller
     }
 
     /**
+     * Delete the given user.
+     *
+     * @param Request $req
+     * @param string $id
+     * @param UserService $userService
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $req, $id, UserService $userService)
+    {
+        $userService->deleteUser($id);
+
+        // Create Log
+        $this->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            $this->getStatus(5),
+            false
+        );
+
+        return Response::json(['status' => 'success']);
+    }
+
+    /**
+     * Show the recycle users.
+     *
+     * @param Request $req
+     * @return mixed
+     */
+    public function recycle(Request $req)
+    {
+        if ($req->ajax()) {
+            $data = User::onlyTrashed()->get();
+
+            return Datatables::of($data)
+                ->addColumn('action', function ($row) {
+                    $actionBtn = '<button onclick="restore(' . $row->id . ')" class="btn btn btn-primary
+                btn-action mb-1 mt-1 mr-1">Kembalikan</button>';
+                    $actionBtn .= '<button onclick="delRecycle(' . $row->id . ')" class="btn btn-danger
+                    btn-action mb-1 mt-1">Hapus</button>';
+
+                    return $actionBtn;
+                })
+                ->rawColumns(['action'])
+                ->make(true);
+        }
+
+        return view('pages.backend.data.users.recycleUsers');
+    }
+
+    /**
+     * Restore the given user.
+     *
+     * @param string $id
+     * @param Request $req
+     * @param UserService $userService
+     * @return \Illuminate\Http\Response
+     */
+    public function restore($id, Request $req, UserService $userService)
+    {
+        $userService->restoreUser($id);
+
+        // Create Log
+        $this->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            $this->getStatus(6),
+            true,
+            User::find($id)
+        );
+
+        return Response::json(['status' => 'success']);
+    }
+
+    /**
+     * Restore all users.
+     *
+     * @param Request $req
+     * @param UserService $userService
+     * @return \Illuminate\Http\Response
+     */
+    public function restoreAll(Request $req, UserService $userService)
+    {
+        $userService->restoreAll();
+
+        // Create Log
+        $this->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            $this->getStatus(6),
+            false
+        );
+
+        return Response::json(['status' => 'success']);
+    }
+
+    /**
+     * Delete permanently the given user.
+     *
+     * @param string $id
+     * @param Request $req
+     * @param UserService $userService
+     * @return \Illuminate\Http\Response
+     */
+    public function delete($id, Request $req, UserService $userService)
+    {
+        $userService->deleteUserRecycle($id);
+
+        // Create Log
+        $this->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            $this->getStatus(5),
+            false
+        );
+
+        return Response::json(['status' => 'success']);
+    }
+
+    /**
+     * Delete permanently all users.
+     *
+     * @param Request $req
+     * @param UserService $userService
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteAll(Request $req, UserService $userService)
+    {
+        $userService->deleteAllUserRecycle();
+
+        // Create Log
+        $this->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            $this->getStatus(6),
+            false
+        );
+
+        return Response::json(['status' => 'success']);
+    }
+
+    /**
+     * Resetting password the given user.
+     *
+     * @param string $id
+     * @param Request $req
+     * @return \Illuminate\View\View|object
+     */
+    public function reset($id, Request $req)
+    {
+        User::where('id', $id)
+            ->update([
+                'password' => Hash::make(1234567890),
+            ]);
+
+        // Create Log
+        $this->createLog(
+            $req->header('user-agent'),
+            $req->ip(),
+            $this->getStatus(7),
+            true,
+            User::find($id)
+        );
+
+        return Redirect::route('users.index')
+            ->with([
+                'status' => 'Password untuk pengguna ' . User::find($id)->name . ' telah diganti menjadi \'1234567890\'',
+                'type' => 'success',
+            ]);
+    }
+
+    /**
      * Update the given user.
      *
-     * @param  string  $id
-     * @param  App\Http\Requests\UsersRequest  $req
-     * @param  \App\Services\UserService  $userService
+     * @param string $id
+     * @param App\Http\Requests\UsersRequest $req
+     * @param UserService $userService
      * @return \Illuminate\Http\Response
      */
     public function update($id, UsersRequest $req, UserService $userService)
@@ -135,180 +310,9 @@ class UsersController extends Controller
     }
 
     /**
-     * Delete the given user.
-     *
-     * @param  \Illuminate\Http\Request  $req
-     * @param  string  $id
-     * @param  \App\Services\UserService  $userService
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Request $req, $id, UserService $userService)
-    {
-        $userService->deleteUser($id);
-
-        // Create Log
-        $this->createLog(
-            $req->header('user-agent'),
-            $req->ip(),
-            $this->getStatus(5),
-            false
-        );
-
-        return Response::json(['status' => 'success']);
-    }
-
-    /**
-     * Show the recycle users.
-     *
-     * @param  \Illuminate\Http\Request  $req
-     * @return mixed
-     */
-    public function recycle(Request $req)
-    {
-        if ($req->ajax()) {
-            $data = User::onlyTrashed()->get();
-
-            return Datatables::of($data)
-                ->addColumn('action', function ($row) {
-                    $actionBtn = '<button onclick="restore('.$row->id.')" class="btn btn btn-primary 
-                btn-action mb-1 mt-1 mr-1">Kembalikan</button>';
-                    $actionBtn .= '<button onclick="delRecycle('.$row->id.')" class="btn btn-danger 
-                    btn-action mb-1 mt-1">Hapus</button>';
-
-                    return $actionBtn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-
-        return view('pages.backend.data.users.recycleUsers');
-    }
-
-    /**
-     * Restore the given user.
-     *
-     * @param  string  $id
-     * @param  \Illuminate\Http\Request  $req
-     * @param  \App\Services\UserService  $userService
-     * @return \Illuminate\Http\Response
-     */
-    public function restore($id, Request $req, UserService $userService)
-    {
-        $userService->restoreUser($id);
-
-        // Create Log
-        $this->createLog(
-            $req->header('user-agent'),
-            $req->ip(),
-            $this->getStatus(6),
-            true,
-            User::find($id)
-        );
-
-        return Response::json(['status' => 'success']);
-    }
-
-    /**
-     * Restore all users.
-     *
-     * @param  \Illuminate\Http\Request  $req
-     * @param  \App\Services\UserService  $userService
-     * @return \Illuminate\Http\Response
-     */
-    public function restoreAll(Request $req, UserService $userService)
-    {
-        $userService->restoreAll();
-
-        // Create Log
-        $this->createLog(
-            $req->header('user-agent'),
-            $req->ip(),
-            $this->getStatus(6),
-            false
-        );
-
-        return Response::json(['status' => 'success']);
-    }
-
-    /**
-     * Delete permanently the given user.
-     *
-     * @param  string  $id
-     * @param  \Illuminate\Http\Request  $req
-     * @param  \App\Services\UserService  $userService
-     * @return \Illuminate\Http\Response
-     */
-    public function delete($id, Request $req, UserService $userService)
-    {
-        $userService->deleteUserRecycle($id);
-
-        // Create Log
-        $this->createLog(
-            $req->header('user-agent'),
-            $req->ip(),
-            $this->getStatus(5),
-            false
-        );
-
-        return Response::json(['status' => 'success']);
-    }
-
-    /**
-     * Delete permanently all users.
-     *
-     * @param  \Illuminate\Http\Request  $req
-     * @param  \App\Services\UserService  $userService
-     * @return \Illuminate\Http\Response
-     */
-    public function deleteAll(Request $req, UserService $userService)
-    {
-        $userService->deleteAllUserRecycle();
-
-        // Create Log
-        $this->createLog(
-            $req->header('user-agent'),
-            $req->ip(),
-            $this->getStatus(6),
-            false
-        );
-
-        return Response::json(['status' => 'success']);
-    }
-
-    /**
-     * Resetting password the given user.
-     *
-     * @param  string  $id
-     * @param  \Illuminate\Http\Request  $req
-     * @return \Illuminate\View\View|object
-     */
-    public function reset($id, Request $req)
-    {
-        User::where('id', $id)
-            ->update([
-                'password' => Hash::make(1234567890),
-            ]);
-
-        // Create Log
-        $this->createLog(
-            $req->header('user-agent'),
-            $req->ip(),
-            $this->getStatus(7),
-            true,
-            User::find($id)
-        );
-
-        return Redirect::route('users.index')
-            ->with([
-                'status' => 'Password untuk pengguna '.User::find($id)->name.' telah diganti menjadi \'1234567890\'',
-                'type' => 'success',
-            ]);
-    }
-
-    /**
      * Change name the given user.
      *
-     * @param  \Illuminate\Http\Request  $req
+     * @param Request $req
      * @return \Illuminate\View\View|object
      */
     public function changeName(Request $req)
@@ -323,7 +327,7 @@ class UsersController extends Controller
         $this->createLog(
             $req->header('user-agent'),
             $req->ip(),
-            $this->getStatus(0, true, 'Mengganti nama '.$user->name.' menjadi '.$req->name),
+            $this->getStatus(0, true, 'Mengganti nama ' . $user->name . ' menjadi ' . $req->name),
             true,
             $user
         );
@@ -334,7 +338,7 @@ class UsersController extends Controller
 
         return Redirect::route('dashboard')
             ->with([
-                'status' => 'Nama berhasil diganti dari '.$oldName.' menjadi '.$req->name,
+                'status' => 'Nama berhasil diganti dari ' . $oldName . ' menjadi ' . $req->name,
                 'type' => 'success',
             ]);
     }

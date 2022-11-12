@@ -13,7 +13,7 @@
     <body>
         <div id="app">
             @include('layouts.partials.sidebar')
-            
+
             <div id="main" class='layout-navbar'>
                 @include('layouts.partials.header')
                 <div id="main-content">

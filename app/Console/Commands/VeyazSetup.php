@@ -65,45 +65,12 @@ Made with <fg=green>love</> by the community. Be a part of it!
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
-    public function key()
-    {
-        Artisan::call('key:generate');
-        $this->info('Application Key Set Successfully.');
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function migrate()
-    {
-        Artisan::call('migrate:refresh --seed');
-        $this->info('Importing Database Successful.');
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function clear()
-    {
-        Artisan::call('optimize:clear');
-        $this->info('Cache Cleared Successfully.');
-    }
-
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function env()
+    public function env(): void
     {
         // Copy .env file
-        if (! file_exists(base_path('.env'))) {
+        if (!file_exists(base_path('.env'))) {
             copy(base_path('.env.example'), base_path('.env'));
             $this->info('Environment File Created Successful.');
         }
@@ -112,16 +79,16 @@ Made with <fg=green>love</> by the community. Be a part of it!
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
-    public function connection()
+    public function connection(): void
     {
         $this->info('Database Setup');
         foreach (['DB_CONNECTION', 'DB_HOST', 'DB_PORT', 'DB_DATABASE', 'DB_USERNAME'] as $key) {
-            $config[$key] = $this->ask('- '.$key.' ('.env($key).')');
+            $config[$key] = $this->ask('- ' . $key . ' (' . env($key) . ')');
             Artisan::call("env:set $key $config[$key]");
         }
-        $config['DB_PASSWORD'] = $this->secret('- DB_PASSWORD ('.env($key).')');
+        $config['DB_PASSWORD'] = $this->secret('- DB_PASSWORD (' . env($key) . ')');
         Artisan::call("env:set DB_PASSWORD $config[DB_PASSWORD]");
         $this->info('Set Database Connection Successful.');
     }
@@ -129,14 +96,14 @@ Made with <fg=green>love</> by the community. Be a part of it!
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
-    public function checkConnection()
+    public function checkConnection(): void
     {
         $this->info('Checking Database Connection');
         try {
             DB::connection()->getPdo();
-            $this->info('Database Connection Successful to '.DB::connection()->getDatabaseName());
+            $this->info('Database Connection Successful to ' . DB::connection()->getDatabaseName());
         } catch (\Exception $e) {
             $this->error('Database Connection Failed.');
         }
@@ -145,9 +112,52 @@ Made with <fg=green>love</> by the community. Be a part of it!
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return void
      */
-    public function createDatabase()
+    public function key(): void
+    {
+        Artisan::call('key:generate');
+        $this->info('Application Key Set Successfully.');
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return void
+     */
+    public function clear(): void
+    {
+        Artisan::call('optimize:clear');
+        $this->info('Cache Cleared Successfully.');
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return bool true if the command fails, false otherwise
+     */
+    public function checkDatabaseExists(): bool
+    {
+        $databaseName = env('DB_DATABASE');
+        $databaseExists = DB::select(
+            "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA
+                   WHERE SCHEMA_NAME = '$databaseName'");
+        if (!empty($databaseExists)) {
+            $this->info('Database already exists.');
+
+            return true;
+        }
+        $this->createDatabase();
+
+        return false;
+    }
+
+    /**
+     * Execute the console command.
+     *
+     * @return void
+     */
+    public function createDatabase(): void
     {
         $databaseName = env('DB_DATABASE');
         DB::statement("CREATE DATABASE $databaseName");
@@ -157,19 +167,11 @@ Made with <fg=green>love</> by the community. Be a part of it!
     /**
      * Execute the console command.
      *
-     * @return bool true if the command fails, false otherwise
+     * @return void
      */
-    public function checkDatabaseExists()
+    public function migrate(): void
     {
-        $databaseName = env('DB_DATABASE');
-        $databaseExists = DB::select("SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '$databaseName'");
-        if (! empty($databaseExists)) {
-            $this->info('Database already exists.');
-
-            return true;
-        }
-        $this->createDatabase();
-
-        return false;
+        Artisan::call('migrate:refresh --seed');
+        $this->info('Importing Database Successful.');
     }
 }
