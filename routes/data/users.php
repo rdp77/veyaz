@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\UsersController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,7 +44,3 @@ Route::controller(UsersController::class)->group(function () {
     // Users Name
     Route::get('/change-name', 'changeName');
 });
-
-// Users Password
-Route::post('/reset', [NewPasswordController::class, 'changePassword'])
-    ->name('changePassword');

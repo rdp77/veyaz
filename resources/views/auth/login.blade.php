@@ -2,7 +2,7 @@
 
     <div id="auth-left">
         <div class="auth-logo">
-            <a href="index.html"><img src="{{ asset('/images/logo/logo.svg') }}" alt="Logo"></a>
+            <a href="{{ url('/') }}"><img src="{{ asset('/images/logo/logo.svg') }}" alt="Logo"></a>
         </div>
         <h1 class="auth-title">Log in.</h1>
         <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p>
@@ -19,16 +19,23 @@
         @endif
         <form action="{{ route('login') }}" method="POST">
             @csrf
+            <div class="alert alert-info">
+                Demo Credentials: <br>
+                Email: admin@localhost <br>
+                Username : admin
+            </div>
             <div class="form-group position-relative has-icon-left mb-4">
-                <input class="form-control form-control-xl" type="email" name="email" placeholder="Email"
-                       value="{{ old('email') }}">
+                <input class="form-control form-control-xl" type="text" name="username" placeholder="Email or Username"
+                       value="admin"
+                       {{--value="{{ old('email') }}"--}}
+                       >
                 <div class="form-control-icon">
                     <i class="bi bi-person"></i>
                 </div>
             </div>
             <div class="form-group position-relative has-icon-left mb-4">
                 <input type="password" class="form-control form-control-xl" name="password" placeholder="Password"
-                       placeholder="Password">
+                       value="admin">
                 <div class="form-control-icon">
                     <i class="bi bi-shield-lock"></i>
                 </div>

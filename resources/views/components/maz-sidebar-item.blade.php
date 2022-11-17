@@ -1,12 +1,9 @@
-@props(['active', 'icon', 'link', 'name'])
-
+@props(['icon', 'link', 'name', 'routeName'])
 @php
-$classes = ($active ?? false)
-            ? 'sidebar-item  active'
-            : 'sidebar-item';
+    $isActive = \App\Helpers\SidebarHelper::setActive($routeName);
 @endphp
 
-<li class="sidebar-item">
+<li @class(['sidebar-item',$isActive])>
     <a href="{{ $link }}" class='sidebar-link'>
         <i class="{{ $icon }}"></i>
         <span>{{ $name }}</span>

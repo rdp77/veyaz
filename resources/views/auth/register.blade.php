@@ -1,7 +1,7 @@
 <x-guest-layout>
     <div id="auth-left">
         <div class="auth-logo">
-            <a href="index.html"><img src="{{ asset('/images/logo/logo.png') }}" alt="Logo"></a>
+            <a href="{{ url('/') }}"><img src="{{ asset('/images/logo/logo.svg') }}" alt="Logo"></a>
         </div>
         <h1 class="auth-title">Sign Up</h1>
         <p class="auth-subtitle mb-5">Input your data to register to our website.</p>
@@ -12,6 +12,12 @@
                 <input type="text" class="form-control form-control-xl" name="name" placeholder="Fullname">
                 <div class="form-control-icon">
                     <i class="bi bi-person"></i>
+                </div>
+            </div>
+            <div class="form-group position-relative has-icon-left mb-4">
+                <input type="text" class="form-control form-control-xl" name="username" placeholder="Username">
+                <div class="form-control-icon">
+                    <i class="bi bi-postcard"></i>
                 </div>
             </div>
             <div class="form-group position-relative has-icon-left mb-4">

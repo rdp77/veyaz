@@ -1,10 +1,15 @@
-@props(['active', 'icon', 'name'])
+@props(['icon', 'name', 'routeName'])
 
-{{--@php--}}
-{{--    $classes = ($active ?? false)--}}
-{{--                ? 'sidebar-item  active'--}}
-{{--                : 'sidebar-item';--}}
-{{--@endphp--}}
+@php
+//    $routeName = [
+//        'users' =>[
+//            'users.index',
+//            'users.create',
+//            'users.edit',
+//            'users.show',
+//        ],];
+//    logger($routeName);
+@endphp
 
 <li
     class="sidebar-item has-sub ">

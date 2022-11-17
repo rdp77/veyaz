@@ -58,7 +58,7 @@ class UsersController extends Controller
                 ->make(true);
         }
 
-        return view('pages.backend.data.users.indexUsers');
+        return view('dashboard');
     }
 
     /**
