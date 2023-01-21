@@ -4,7 +4,7 @@ namespace App\Entities;
 use DateTime;
 use LaravelCommon\App\Entities\BaseEntity;
 
-class User extends BaseEntity
+class MyUser extends BaseEntity
 {
 	protected ?string $name = null;
 	protected ?string $username = null;
@@ -25,7 +25,7 @@ class User extends BaseEntity
 	 * @param string name
 	 * @return self
 	 */
-	public function setName(string $name): User
+	public function setName(string $name): MyUser
 	{
 		$this->name = $name;
 		return $this;
@@ -47,7 +47,7 @@ class User extends BaseEntity
 	 * @param string username
 	 * @return self
 	 */
-	public function setUsername(string $username): User
+	public function setUsername(string $username): MyUser
 	{
 		$this->username = $username;
 		return $this;
@@ -69,7 +69,7 @@ class User extends BaseEntity
 	 * @param string email
 	 * @return self
 	 */
-	public function setEmail(string $email): User
+	public function setEmail(string $email): MyUser
 	{
 		$this->email = $email;
 		return $this;
@@ -91,7 +91,7 @@ class User extends BaseEntity
 	 * @param ?DateTime emailVerifiedAt
 	 * @return self
 	 */
-	public function setEmailVerifiedAt(?DateTime $emailVerifiedAt): User
+	public function setEmailVerifiedAt(?DateTime $emailVerifiedAt): MyUser
 	{
 		$this->emailVerifiedAt = $emailVerifiedAt;
 		return $this;
@@ -113,7 +113,7 @@ class User extends BaseEntity
 	 * @param string password
 	 * @return self
 	 */
-	public function setPassword(string $password): User
+	public function setPassword(string $password): MyUser
 	{
 		$this->password = $password;
 		return $this;
@@ -135,7 +135,7 @@ class User extends BaseEntity
 	 * @param ? twoFactorSecret
 	 * @return self
 	 */
-	public function setTwoFactorSecret(?string $twoFactorSecret): User
+	public function setTwoFactorSecret(?string $twoFactorSecret): MyUser
 	{
 		$this->twoFactorSecret = $twoFactorSecret;
 		return $this;
@@ -157,7 +157,7 @@ class User extends BaseEntity
 	 * @param ? twoFactorRecoveryCodes
 	 * @return self
 	 */
-	public function setTwoFactorRecoveryCodes(?string $twoFactorRecoveryCodes): User
+	public function setTwoFactorRecoveryCodes(?string $twoFactorRecoveryCodes): MyUser
 	{
 		$this->twoFactorRecoveryCodes = $twoFactorRecoveryCodes;
 		return $this;
@@ -179,7 +179,7 @@ class User extends BaseEntity
 	 * @param ?DateTime twoFactorConfirmedAt
 	 * @return self
 	 */
-	public function setTwoFactorConfirmedAt(?DateTime $twoFactorConfirmedAt): User
+	public function setTwoFactorConfirmedAt(?DateTime $twoFactorConfirmedAt): MyUser
 	{
 		$this->twoFactorConfirmedAt = $twoFactorConfirmedAt;
 		return $this;
@@ -201,7 +201,7 @@ class User extends BaseEntity
 	 * @param ?string rememberToken
 	 * @return self
 	 */
-	public function setRememberToken(?string $rememberToken): User
+	public function setRememberToken(?string $rememberToken): MyUser
 	{
 		$this->rememberToken = $rememberToken;
 		return $this;
@@ -223,7 +223,7 @@ class User extends BaseEntity
 	 * @param ?int currentTeamId
 	 * @return self
 	 */
-	public function setCurrentTeamId(?int $currentTeamId): User
+	public function setCurrentTeamId(?int $currentTeamId): MyUser
 	{
 		$this->currentTeamId = $currentTeamId;
 		return $this;
@@ -245,7 +245,7 @@ class User extends BaseEntity
 	 * @param ?string profilePhotoPath
 	 * @return self
 	 */
-	public function setProfilePhotoPath(?string $profilePhotoPath): User
+	public function setProfilePhotoPath(?string $profilePhotoPath): MyUser
 	{
 		$this->profilePhotoPath = $profilePhotoPath;
 		return $this;
@@ -267,7 +267,7 @@ class User extends BaseEntity
 	 * @param int scope
 	 * @return self
 	 */
-	protected function setScope(Scope $scope): User
+	protected function setScope(Scope $scope): MyUser
 	{
 		$this->scope = $scope;
 		return $this;

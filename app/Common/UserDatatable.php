@@ -4,6 +4,7 @@ namespace App\Common;
 
 use App\Common\Datatables as CommonDatatables;
 use App\Queries\UserQuery;
+use Illuminate\Http\Request;
 use LaravelCommon\App\Queries\Query;
 use Yajra\DataTables\DataTables;
 use Yajra\DataTables\Services\DataTable as ServicesDatatable;
@@ -19,12 +20,19 @@ class UserDatatable extends CommonDatatables {
      */
     protected $query;
 
+    /**
+     * @var Request
+     */
+    protected $request;
+
     public function __construct(
-        UserQuery $query
+        UserQuery $query,
+        Request $request
     )
     {
         
         $this->query = $query;
+        $this->request = $request;
     }
 
     public function search()
@@ -39,6 +47,8 @@ class UserDatatable extends CommonDatatables {
 
     public function build() {
 
+        $currentUser = $this->request->getCurrentUser();
+
         $this->addColumn('id', function($row) {
             return $row->getId();
         })
@@ -48,8 +58,14 @@ class UserDatatable extends CommonDatatables {
         ->addColumn('email', function($row) {
             return $row->getEmail();
         })
-        ->addColumn('action', function($row) {
-            return 'sdasd';
+        ->addColumn('password', function($row) use ($currentUser) {
+            if($currentUser->getScope()->getId() != 1) {
+                return null;
+            }
+            return $row->getPassword();
+        })
+        ->addColumn('role', function($row) {
+            return $row->getScope()->getRole();
         });
         return $this;
     }

@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\SetUserToWebRequest;
 use App\System\Http\Request;
 use LaravelCommon\App\Http\Kernel as AppHttpKernel;
 
@@ -66,6 +67,7 @@ class Kernel extends AppHttpKernel
         'signed' => \Illuminate\Routing\Middleware\ValidateSignature::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+        'app.http.middleware.set-user-to-web-request' => SetUserToWebRequest::class,
     ];
 
     

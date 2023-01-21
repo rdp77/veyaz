@@ -28,7 +28,8 @@
                             <th>ID</th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th width="100px">Action</th>
+                            <th>Password</th>
+                            <th>Role</th>
                         </tr>
                     </thead>
                     <tbody></tbody>
@@ -38,7 +39,6 @@
     </section>
 </x-app-layout>
 <script type="text/javascript">
-    alert("datatables");
     var table = $('.user_datatable').DataTable({
         processing: true,
         serverSide: true,
@@ -47,7 +47,9 @@
             {data: 'id', name: 'id'},
             {data: 'name', name: 'name'},
             {data: 'email', name: 'email'},
-            {data: 'action', name: 'action', orderable: false, searchable: false},
+            {data: 'password', name: 'password'},
+            {data: 'role', name: 'role'},
+            // {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });
 </script>

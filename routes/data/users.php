@@ -20,7 +20,7 @@ Route::controller(UsersController::class)->group(function () {
         Route::resource('users', UsersController::class)
             ->except([
                 'show',
-            ]);
+            ])->middleware('app.http.middleware.set-user-to-web-request');
     });
 
     // Recycle Users

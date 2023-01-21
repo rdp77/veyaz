@@ -3,7 +3,7 @@
 namespace App\ViewModels;
 
 use App\Entities\Scope;
-use App\Entities\User;
+use App\Entities\MyUser;
 use App\ViewModels\ScopeViewModel;
 use LaravelCommon\ViewModels\AbstractViewModel;
 use stdClass;
@@ -16,7 +16,7 @@ class UserViewModel extends AbstractViewModel
     protected $isAutoAddResource = true;
 
     /**
-     * @var User $entity
+     * @var MyUser $entity
      */
     protected $entity;
 

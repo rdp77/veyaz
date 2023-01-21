@@ -2,7 +2,7 @@
 
 namespace App\Queries;
 
-use App\Entities\User;
+use App\Entities\MyUser;
 use App\ViewModels\UserCollection;
 use LaravelCommon\App\Queries\Query;
 
@@ -10,7 +10,7 @@ class UserQuery extends Query
 {
     public function identity()
     {
-        return User::class;
+        return MyUser::class;
     }
 
     public function collectionClass()
@@ -19,10 +19,10 @@ class UserQuery extends Query
     }
 
     /**
-     * @param User $user
+     * @param MyUser $user
      * @return self
      */
-    public function whereUserNot(User $user): UserQuery
+    public function whereUserNot(MyUser $user): UserQuery
     {
         
         $table = $this->getIdentityTable();

@@ -3,10 +3,10 @@
 namespace App\Http\Middleware;
 
 use App\Providers\RouteServiceProvider;
+use App\Repositories\UserRepository;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use LaravelCommon\App\Repositories\UserRepository;
 
 class SetUserToWebRequest
 {

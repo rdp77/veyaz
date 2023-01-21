@@ -2,7 +2,7 @@
 
 namespace App\System\Http;
 
-use App\Entities\User;
+use App\Entities\MyUser;
 use LaravelCommon\System\Http\Request as HttpRequest;
 
 class Request extends HttpRequest
@@ -10,16 +10,16 @@ class Request extends HttpRequest
     /**
      * Undocumented variable
      *
-     * @var ?User
+     * @var ?MyUser
      */
-    protected ?User $user = null;
+    protected ?MyUser $user = null;
 
     /**
      * Get User of user
      *
-     * @return ?User
+     * @return ?MyUser
      */
-    public function getCurrentUser(): ?User
+    public function getCurrentUser(): ?MyUser
     {
         return $this->user;
     }
@@ -27,10 +27,10 @@ class Request extends HttpRequest
     /**
      * Undocumented function
      *
-     * @param User $User
+     * @param MyUser $User
      * @return self
      */
-    public function setCurrentUser(User $user): Request
+    public function setCurrentUser(MyUser $user): Request
     {
         $this->user = $user;
         return $this;

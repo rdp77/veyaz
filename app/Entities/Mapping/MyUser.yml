@@ -1,4 +1,4 @@
-App\Entities\User:
+App\Entities\MyUser:
   table: users
   primaryKey: id
   props:

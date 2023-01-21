@@ -24,6 +24,15 @@ class User extends Seeder
                 'scope_id' => 1,
                 'created_at' => date('Y-m-d h:i:s'),
                 'updated_at' => date('Y-m-d h:i:s'),
+            ], 
+            [
+                'name' => 'Guest',
+                'username' => 'guest',
+                'email' => 'guest@localhost',
+                'password' => Hash::make('guest'),
+                'scope_id' => 2,
+                'created_at' => date('Y-m-d h:i:s'),
+                'updated_at' => date('Y-m-d h:i:s'),
             ],
         ]);
     }

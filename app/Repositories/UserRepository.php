@@ -1,10 +1,11 @@
 <?php
 
-namespace LaravelCommon\App\Repositories;
+namespace App\Repositories;
 
-use App\Entities\User;
+use App\Entities\MyUser;
 use App\ViewModels\UserCollection;
 use App\ViewModels\UserViewModel;
+use LaravelCommon\App\Repositories\Repository;
 
 class UserRepository extends Repository implements
     UserRepositoryInterface
@@ -14,7 +15,7 @@ class UserRepository extends Repository implements
     */
     public function __construct()
     {
-        parent::__construct(User::class);
+        parent::__construct(MyUser::class);
     }
 
     /**
