@@ -7,7 +7,7 @@ App\Entities\MyUser:
       isEntity: false
       type: int
     scope: 
-      type: App\Entities\Scope
+      type: App\Entities\MyScope
       isEntity: true
       foreignKey: scope_id
       relationType: one_to_many
@@ -58,6 +58,10 @@ App\Entities\MyUser:
       field: current_team_id
       isEntity: false
       type: int
+    isDeleted:
+      field: is_deleted
+      isEntity: false
+      type: boolean
     profilePhotoPath:
       field: profile_photo_path
       isEntity: false

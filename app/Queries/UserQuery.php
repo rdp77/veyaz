@@ -30,6 +30,13 @@ class UserQuery extends Query
         return $this;
     }
 
+    public function whereIsDelete(bool $deleted = true) 
+    {
+        $table = $this->getIdentityTable();
+        $this->where($table . '.is_deleted', '=', $deleted);
+        return $this;
+    }
+
     public function orWhereName(string $name)
     {
         $table = $this->getIdentityTable();

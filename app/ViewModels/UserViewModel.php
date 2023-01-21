@@ -2,7 +2,7 @@
 
 namespace App\ViewModels;
 
-use App\Entities\Scope;
+use App\Entities\MyScope;
 use App\Entities\MyUser;
 use App\ViewModels\ScopeViewModel;
 use LaravelCommon\ViewModels\AbstractViewModel;
@@ -26,7 +26,7 @@ class UserViewModel extends AbstractViewModel
     public function addResource()
     {
        /**
-         * @var Scope $scope
+         * @var MyScope $scope
          */
         $scope = $this->entity->getScope();
         if (!empty($scope)) {

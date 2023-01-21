@@ -2,6 +2,7 @@
 namespace App\Entities;
 
 use DateTime;
+use Illuminate\Support\Facades\Hash;
 use LaravelCommon\App\Entities\BaseEntity;
 
 class MyUser extends BaseEntity
@@ -17,7 +18,8 @@ class MyUser extends BaseEntity
 	protected ?string $rememberToken = null;
 	protected ?int $currentTeamId = null;
 	protected ?string $profilePhotoPath = null;
-	protected ?Scope $scope = null;
+	protected ?MyScope $scope = null;
+	protected ?bool $isDeleted = false;
 
 	/**
 	 * Set name 
@@ -267,7 +269,7 @@ class MyUser extends BaseEntity
 	 * @param int scope
 	 * @return self
 	 */
-	protected function setScope(Scope $scope): MyUser
+	protected function setScope(MyScope $scope): MyUser
 	{
 		$this->scope = $scope;
 		return $this;
@@ -278,11 +280,31 @@ class MyUser extends BaseEntity
 	 *
 	 * @return Scope
 	 */
-	protected function getScope(): ?Scope 
+	protected function getScope(): ?MyScope 
 	{
 		return $this->scope;
  	}
 
 
+
+	/**
+	 * Get the value of isDeleted
+	 */ 
+	public function getIsDeleted(): bool
+	{
+		return $this->isDeleted;
+	}
+
+	/**
+	 * Set the value of isDeleted
+	 *
+	 * @return  self
+	 */ 
+	public function setIsDeleted(bool $isDeleted)
+	{
+		$this->isDeleted = $isDeleted;
+
+		return $this;
+	}
 }
         

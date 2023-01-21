@@ -3,7 +3,7 @@ namespace App\Entities;
 
 use LaravelCommon\App\Entities\BaseEntity;
 
-class Scope extends BaseEntity
+class MyScope extends BaseEntity
 {
 	protected ?string $role = null;
 	protected ?string $description = null;
@@ -14,7 +14,7 @@ class Scope extends BaseEntity
 	 * @param string role
 	 * @return self
 	 */
-	public function setRole(string $role): Scope
+	public function setRole(string $role): MyScope
 	{
 		$this->role = $role;
 		return $this;
@@ -36,7 +36,7 @@ class Scope extends BaseEntity
 	 * @param string description
 	 * @return self
 	 */
-	public function setDescription(string $description): Scope
+	public function setDescription(string $description): MyScope
 	{
 		$this->description = $description;
 		return $this;

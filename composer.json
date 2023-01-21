@@ -10,7 +10,7 @@
     "require": {
         "php": "^8.0.2",
         "andikaryanto11/laravelcommon": "dev-veyaz",
-        "andikaryanto11/laravelorm": "dev-main",
+        "andikaryanto11/laravelorm": "dev-veyaz",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
         "laravel/jetstream": "^2.1",

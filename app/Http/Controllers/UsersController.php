@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Common\UserDatatable;
+use App\Entities\MyUser;
 use App\Http\Requests\UsersRequest;
 use App\Models\User;
 use App\Queries\UserQuery;
@@ -15,7 +16,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
-use LaravelCommon\App\Repositories\UserRepository;
+use App\Repositories\ScopeRepository;
+use App\Repositories\UserRepository;
+use LaravelCommon\App\Utilities\EntityUnit;
 use Yajra\DataTables\DataTables;
 
 class UsersController extends Controller
@@ -25,6 +28,21 @@ class UsersController extends Controller
      * @var UserDatatable
      */
     protected UserDatatable $userDatatable;
+    
+    /**
+     * @var UserRepository
+     */
+    protected UserRepository $userRepository;
+
+    /**
+     * @var ScopeRepository
+     */
+    protected ScopeRepository $scopeRepository;
+
+    /**
+     * @var EntityUnit
+     */
+    protected EntityUnit $eu;
 
     /**
      * Undocumented function
@@ -32,11 +50,17 @@ class UsersController extends Controller
      * @param UserDatatable $userRepository
      */
     public function __construct(
-        UserDatatable $userDatatable 
+        UserDatatable $userDatatable,
+        UserRepository $userRepository,
+        ScopeRepository $scopeRepository,
+        EntityUnit $eu
     )
     {
         $this->middleware('auth');
         $this->userDatatable = $userDatatable;
+        $this->userRepository = $userRepository;
+        $this->scopeRepository = $scopeRepository;
+        $this->eu = $eu;
     }
 
     /**
@@ -52,33 +76,21 @@ class UsersController extends Controller
             return $this->userDatatable->populate();
         }
 
+
         return view('user.index');
     }
 
     /**
      * Store a new user.
      *
-     * @param UsersRequest $req
+     * @param Request $req
      * @param DataService $dataService
      * @return JsonResponse
      */
-    public function store(UsersRequest $req, DataService $dataService)
+    public function store(Request $req, DataService $dataService)
     {
-//        $performedOn = $userService->createUser($req->validated());
-        $performedOn = $dataService->create($req->validated(), new User());
-        // Create Log
-        $this->createLog(
-            $req->header('user-agent'),
-            $req->ip(),
-            $this->getStatus(3),
-            true,
-            User::find($performedOn->id)
-        );
 
-        return Response::json([
-            'status' => 'success',
-            'data' => 'Berhasil membuat pengguna baru',
-        ]);
+        return redirect('data/users');
     }
 
     /**
@@ -88,7 +100,8 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('pages.backend.data.users.createUsers');
+        $scopes = $this->scopeRepository->collect();
+        return view('user.add', compact('scopes'));
     }
 
     /**
@@ -98,11 +111,10 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $user = User::find($id);
+        $user = $this->userRepository->find($id);
+        $scopes = $this->scopeRepository->collect();
 
-        return view('pages.backend.data.users.updateUsers', [
-            'user' => $user,
-        ]);
+        return view('user.edit', compact('user', 'scopes'));
     }
 
     /**
@@ -211,17 +223,14 @@ class UsersController extends Controller
      */
     public function delete($id, Request $req, UserService $userService)
     {
-        $userService->deleteUserRecycle($id);
+        $resource = $req->getResource();
 
-        // Create Log
-        $this->createLog(
-            $req->header('user-agent'),
-            $req->ip(),
-            $this->getStatus(5),
-            false
-        );
+        $resource->setIsDeleted(true);
 
-        return Response::json(['status' => 'success']);
+        $this->eu->preparePersistence($resource);
+        $this->eu->flush();
+
+        return redirect('data/users');
     }
 
     /**
@@ -286,21 +295,8 @@ class UsersController extends Controller
      */
     public function update($id, UsersRequest $req, UserService $userService)
     {
-        $userService->updateUser($id, $req->validated());
-
-        // Create Log
-        $this->createLog(
-            $req->header('user-agent'),
-            $req->ip(),
-            $this->getStatus(4),
-            true,
-            User::find($id)
-        );
-
-        return Response::json([
-            'status' => 'success',
-            'data' => 'Berhasil mengubah pengguna',
-        ]);
+        
+        return redirect('data/users');
     }
 
     /**

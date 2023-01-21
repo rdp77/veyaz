@@ -1,4 +1,4 @@
-App\Entities\Scope:
+App\Entities\MyScope:
   table: scopes
   primaryKey: id
   props:

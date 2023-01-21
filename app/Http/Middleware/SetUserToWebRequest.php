@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Auth;
 class SetUserToWebRequest
 {
 
+    const NAME =  'app.http.middleware.set-user-to-web-request';
+
     protected  UserRepository $userRepository;
 
     /**

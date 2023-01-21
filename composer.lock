@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4bb186ecf8ce2a65e13de252bcbc3581",
+    "content-hash": "3096cea5e22b1821ace8d96d5bf53a65",
     "packages": [
         {
             "name": "andikaryanto11/laravelcommon",
@@ -12,7 +12,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/andikaryanto11/laravelcommon.git",
-                "reference": "7168583fe1488c16997d6ee7bc8b977888aac03d"
+                "reference": "2837b12fcb1d8111eb4b4d76f9e02ff9390e847d"
             },
             "require": {
                 "php": "^7.4|^8.0"
@@ -47,15 +47,15 @@
                 }
             ],
             "description": "Contains common class that can be used in Ci4 dependency injection of symfony",
-            "time": "2023-01-21T03:48:20+00:00"
+            "time": "2023-01-21T09:13:49+00:00"
         },
         {
             "name": "andikaryanto11/laravelorm",
-            "version": "dev-main",
+            "version": "dev-veyaz",
             "source": {
                 "type": "git",
                 "url": "https://github.com/andikaryanto11/laravelorm.git",
-                "reference": "a4c386478d3427af408a85c9287acb1ee2980972"
+                "reference": "707d7d7b0212ad1a606b747d7e52f5df67f4e917"
             },
             "require": {
                 "php": "^7.4|^8.0",
@@ -69,7 +69,6 @@
                 "phpspec/prophecy-phpunit": "^2.0",
                 "phpunit/phpunit": "^9.5.9"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
@@ -87,7 +86,7 @@
                 "laravel",
                 "laravelorm"
             ],
-            "time": "2022-10-27T21:38:32+00:00"
+            "time": "2023-01-21T08:23:16+00:00"
         },
         {
             "name": "bacon/bacon-qr-code",
