@@ -1,0 +1,26 @@
+App\Entities\Scope:
+  table: scopes
+  primaryKey: id
+  props:
+    id:
+      field: id
+      isEntity: false
+      type: int
+    role:
+      field: role
+      isEntity: false
+      type: string
+      rule: 'required|max:255'
+    description:
+      field: description
+      isEntity: false
+      type: string
+      rule: 'required|max:255'
+    createdAt:
+      field: created_at
+      isEntity: false
+      type: DateTime
+    updatedAt:
+      field: updated_at
+      isEntity: false
+      type: DateTime

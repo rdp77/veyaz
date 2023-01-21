@@ -1,0 +1,73 @@
+App\Entities\User:
+  table: users
+  primaryKey: id
+  props:
+    id:
+      field: id
+      isEntity: false
+      type: int
+    scope: 
+      type: App\Entities\Scope
+      isEntity: true
+      foreignKey: scope_id
+      relationType: one_to_many
+      inversedBy: users
+      field: scope_id
+    name:
+      field: name
+      isEntity: false
+      type: string
+      rule: 'required|max:255'
+    username:
+      field: username
+      isEntity: false
+      type: string
+      rule: 'required|max:255'
+    email:
+      field: email
+      isEntity: false
+      type: string
+      rule: 'required|max:255'
+    emailVerifiedAt:
+      field: email_verified_at
+      isEntity: false
+      type: DateTime
+    password:
+      field: password
+      isEntity: false
+      type: string
+      rule: 'required|max:255'
+    twoFactorSecret:
+      field: two_factor_secret
+      isEntity: false
+      type: ''
+    twoFactorRecoveryCodes:
+      field: two_factor_recovery_codes
+      isEntity: false
+      type: ''
+    twoFactorConfirmedAt:
+      field: two_factor_confirmed_at
+      isEntity: false
+      type: DateTime
+    rememberToken:
+      field: remember_token
+      isEntity: false
+      type: string
+      rule: 'max:100'
+    currentTeamId:
+      field: current_team_id
+      isEntity: false
+      type: int
+    profilePhotoPath:
+      field: profile_photo_path
+      isEntity: false
+      type: string
+      rule: 'max:2048'
+    createdAt:
+      field: created_at
+      isEntity: false
+      type: DateTime
+    updatedAt:
+      field: updated_at
+      isEntity: false
+      type: DateTime

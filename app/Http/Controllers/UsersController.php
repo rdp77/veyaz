@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Common\UserDatatable;
 use App\Http\Requests\UsersRequest;
 use App\Models\User;
+use App\Queries\UserQuery;
 use App\Services\DataService;
 use App\Services\UserService;
 use Exception;
@@ -13,18 +15,28 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
+use LaravelCommon\App\Repositories\UserRepository;
 use Yajra\DataTables\DataTables;
 
 class UsersController extends Controller
 {
+
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * @var UserDatatable
      */
-    public function __construct()
+    protected UserDatatable $userDatatable;
+
+    /**
+     * Undocumented function
+     *
+     * @param UserDatatable $userRepository
+     */
+    public function __construct(
+        UserDatatable $userDatatable 
+    )
     {
         $this->middleware('auth');
+        $this->userDatatable = $userDatatable;
     }
 
     /**
@@ -37,28 +49,10 @@ class UsersController extends Controller
     public function index(Request $req)
     {
         if ($req->ajax()) {
-            $data = User::where('id', '!=', Auth::user()->id)->get();
-
-            return Datatables::of($data)
-                ->addColumn('action', function ($row) {
-                    $actionBtn = '<div class="btn-group">';
-                    $actionBtn .= '<a onclick="reset(' . $row->id . ')" class="btn btn-primary text-white" style="cursor:pointer;">Reset Password</a>';
-                    $actionBtn .= '<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown">
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>';
-                    $actionBtn .= '<div class="dropdown-menu">
-                            <a class="dropdown-item" href="' . route('users.edit', $row->id) . '">Edit</a>';
-                    $actionBtn .= '<a onclick="del(' . $row->id . ')" class="dropdown-item" style="cursor:pointer;">Hapus</a>';
-                    $actionBtn .= '</div></div>';
-
-                    return $actionBtn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
+            return $this->userDatatable->populate();
         }
 
-        return view('dashboard');
+        return view('user.index');
     }
 
     /**

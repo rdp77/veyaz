@@ -9,6 +9,8 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
+        "andikaryanto11/laravelcommon": "dev-veyaz",
+        "andikaryanto11/laravelorm": "dev-main",
         "guzzlehttp/guzzle": "^7.2",
         "laravel/framework": "^9.19",
         "laravel/jetstream": "^2.1",
@@ -69,6 +71,16 @@
         "preferred-install": "dist",
         "sort-packages": true
     },
+    "repositories": [
+        {
+            "url": "https://github.com/andikaryanto11/laravelorm.git",
+            "type": "git"
+        },
+        {
+            "url": "https://github.com/andikaryanto11/laravelcommon.git",
+            "type": "git"
+        }
+    ],
     "minimum-stability": "dev",
     "prefer-stable": true
 }
