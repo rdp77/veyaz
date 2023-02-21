@@ -173,6 +173,7 @@ return [
         Yajra\DataTables\ButtonsServiceProvider::class,
         Yajra\DataTables\FractalServiceProvider::class,
         Yajra\DataTables\HtmlServiceProvider::class,
+        Spatie\Permission\PermissionServiceProvider::class,
 
         /*
          * Application Service Providers...

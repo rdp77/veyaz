@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UsersRequest;
+use App\Models\Role;
 use App\Models\User;
 use App\Services\DataService;
 use App\Services\UserService;
@@ -36,6 +36,7 @@ class UsersController extends Controller
      */
     public function index(Request $req)
     {
+        $data = User::all();
         if ($req->ajax()) {
             $data = User::where('id', '!=', Auth::user()->id)->get();
 
@@ -57,8 +58,7 @@ class UsersController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-
-        return view('dashboard');
+        return view('users.index', ['data' => $data]);
     }
 
     /**
@@ -68,23 +68,39 @@ class UsersController extends Controller
      * @param DataService $dataService
      * @return JsonResponse
      */
-    public function store(UsersRequest $req, DataService $dataService)
+    public function store(Request $req, DataService $dataService)
     {
-//        $performedOn = $userService->createUser($req->validated());
-        $performedOn = $dataService->create($req->validated(), new User());
-        // Create Log
-        $this->createLog(
-            $req->header('user-agent'),
-            $req->ip(),
-            $this->getStatus(3),
-            true,
-            User::find($performedOn->id)
-        );
-
-        return Response::json([
-            'status' => 'success',
-            'data' => 'Berhasil membuat pengguna baru',
+        $role = Role::find($req->role);
+        $req->validate([
+            'username' => ['required'],
+            'email' => ['required'],
+            'role' => ['required'],
+            'password' => ['required', 'min:8', 'confirmed']
         ]);
+//        $performedOn = $userService->createUser($req->validated());
+        // $performedOn = $dataService->create($req->validated(), new User());
+        try {
+            $performedOn = User::create([
+                'name' => $req->name,
+                'username' => $req->username,
+                'email' => $req->email,
+                'password' => Hash::make($req->password)
+            ]);
+            $role = Role::find($req->role);
+            if($performedOn) $performedOn->assignRole($role->name);
+            // Create Log
+            $this->createLog(
+                $req->header('user-agent'),
+                $req->ip(),
+                $this->getStatus(3),
+                true,
+                User::find($performedOn->id)
+            );
+    
+            return redirect()->back()->with('createUser', 'Sucessfully Created New User');
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     /**
@@ -94,7 +110,8 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('pages.backend.data.users.createUsers');
+        $role = Role::all();
+        return view('users.create', ['role' => $role]);
     }
 
     /**
@@ -105,9 +122,11 @@ class UsersController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
+        $role = Role::all();
 
-        return view('pages.backend.data.users.updateUsers', [
+        return view('users.edit', [
             'user' => $user,
+            'role' => $role
         ]);
     }
 
@@ -131,7 +150,7 @@ class UsersController extends Controller
             false
         );
 
-        return Response::json(['status' => 'success']);
+        return redirect()->back()->with('deleteUser', "success delete user");
     }
 
     /**
@@ -290,23 +309,34 @@ class UsersController extends Controller
      * @param UserService $userService
      * @return \Illuminate\Http\Response
      */
-    public function update($id, UsersRequest $req, UserService $userService)
+    public function update($id, Request $req, UserService $userService)
     {
-        $userService->updateUser($id, $req->validated());
+        $user = User::find($id);
+        $role = Role::find($req->role);
 
-        // Create Log
-        $this->createLog(
-            $req->header('user-agent'),
-            $req->ip(),
-            $this->getStatus(4),
-            true,
-            User::find($id)
-        );
 
-        return Response::json([
-            'status' => 'success',
-            'data' => 'Berhasil mengubah pengguna',
-        ]);
+        try {
+            $user->update([
+                'name' => $req->name,
+                'username' => $req->username,
+                'email' => $req->email
+            ]);
+            $user->removeRole($user->roles[0]->name);
+            $user->assignRole($role->name);
+    
+            // Create Log
+            $this->createLog(
+                $req->header('user-agent'),
+                $req->ip(),
+                $this->getStatus(4),
+                true,
+                User::find($id)
+            );
+    
+            return redirect()->back()->with('updateUser', "Successfully Updated User");
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     /**
@@ -348,8 +378,51 @@ class UsersController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function changePassword()
+    public function changePassword($id)
     {
-        return view('auth.forgot-password');
+        $user = User::find($id);
+
+        return view('users.change-password', ['user' => $user]);
+    }
+
+    public function updatePassword($id, Request $req)
+    {
+        $user = User::findOrFail($id);
+
+        $req->validate([
+            'existing_password' => ['required'],
+            'password' => ['required', 'min:8', 'confirmed']
+        ]);
+
+        try {
+
+            if(Hash::check($req->existing_password, $user->password)) {
+                $user->update([
+                    'password' => Hash::make($req->password)
+                ]);
+
+                return redirect()->back()->with('updatePassword', 'Password is updated');
+            }else {
+                return redirect()->back()->with('errorExistingPassword', 'Existing password is incorrect.');;
+            }
+
+        } catch (\Throwable $th) {
+            dd($th);
+        }
+
+    }
+
+    public function getPassword()
+    {
+        $user = Auth::user();
+        if($user->hasRole('Admin')){
+            return response()->json([
+                'password' => $user->getAuthPassword()
+            ]);
+        }
+
+        return response()->json([
+            'message' => 'Unauthorized'
+        ], 401);
     }
 }

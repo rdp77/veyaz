@@ -21,6 +21,8 @@ Route::controller(UsersController::class)->group(function () {
             ->except([
                 'show',
             ]);
+        Route::get('users/change-password/{id}', [UsersController::class, 'changePassword'])->name('users.change-password');
+        Route::put('users/change-password/{id}', [UsersController::class, 'updatePassword'])->name('users.updatePassword');
     });
 
     // Recycle Users
