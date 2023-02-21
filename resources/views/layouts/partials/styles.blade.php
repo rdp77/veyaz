@@ -10,6 +10,7 @@
 <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 <link rel="stylesheet" href="{{ mix('css/app-dark.css') }}">
 
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.2/css/dataTables.bootstrap5.min.css">
 
 @livewireStyles
 

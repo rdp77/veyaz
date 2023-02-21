@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DataTables\UsersDataTable;
 use App\Http\Requests\UsersRequest;
 use App\Models\User;
 use App\Services\DataService;
@@ -34,44 +35,22 @@ class UsersController extends Controller
      * @return mixed
      * @throws Exception
      */
-    public function index(Request $req)
+    public function index(UsersDataTable $dataTable)
     {
-        if ($req->ajax()) {
-            $data = User::where('id', '!=', Auth::user()->id)->get();
-
-            return Datatables::of($data)
-                ->addColumn('action', function ($row) {
-                    $actionBtn = '<div class="btn-group">';
-                    $actionBtn .= '<a onclick="reset(' . $row->id . ')" class="btn btn-primary text-white" style="cursor:pointer;">Reset Password</a>';
-                    $actionBtn .= '<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown">
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>';
-                    $actionBtn .= '<div class="dropdown-menu">
-                            <a class="dropdown-item" href="' . route('users.edit', $row->id) . '">Edit</a>';
-                    $actionBtn .= '<a onclick="del(' . $row->id . ')" class="dropdown-item" style="cursor:pointer;">Hapus</a>';
-                    $actionBtn .= '</div></div>';
-
-                    return $actionBtn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-
-        return view('dashboard');
+        return $dataTable->render('user.index', ['trashed' => false]);
     }
 
     /**
      * Store a new user.
      *
      * @param UsersRequest $req
-     * @param DataService $dataService
+     * @param UserService $userService
      * @return JsonResponse
      */
-    public function store(UsersRequest $req, DataService $dataService)
+    public function store(UsersRequest $req, UserService $userService)
     {
 //        $performedOn = $userService->createUser($req->validated());
-        $performedOn = $dataService->create($req->validated(), new User());
+        $performedOn = $userService->createUser($req->validated());
         // Create Log
         $this->createLog(
             $req->header('user-agent'),
@@ -81,10 +60,7 @@ class UsersController extends Controller
             User::find($performedOn->id)
         );
 
-        return Response::json([
-            'status' => 'success',
-            'data' => 'Berhasil membuat pengguna baru',
-        ]);
+        return to_route('users.index')->with('status', 'Berhasil tambah user');
     }
 
     /**
@@ -94,7 +70,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('pages.backend.data.users.createUsers');
+        return view('user.create');
     }
 
     /**
@@ -106,7 +82,7 @@ class UsersController extends Controller
     {
         $user = User::find($id);
 
-        return view('pages.backend.data.users.updateUsers', [
+        return view('user.edit', [
             'user' => $user,
         ]);
     }
@@ -131,7 +107,7 @@ class UsersController extends Controller
             false
         );
 
-        return Response::json(['status' => 'success']);
+        return to_route('users.index')->with('status', 'Berhasil hapus user');
     }
 
     /**
@@ -142,23 +118,9 @@ class UsersController extends Controller
      */
     public function recycle(Request $req)
     {
-        if ($req->ajax()) {
-            $data = User::onlyTrashed()->get();
+        $dataTable = app(UsersDataTable::class, ['trashed' => true]);
 
-            return Datatables::of($data)
-                ->addColumn('action', function ($row) {
-                    $actionBtn = '<button onclick="restore(' . $row->id . ')" class="btn btn btn-primary
-                btn-action mb-1 mt-1 mr-1">Kembalikan</button>';
-                    $actionBtn .= '<button onclick="delRecycle(' . $row->id . ')" class="btn btn-danger
-                    btn-action mb-1 mt-1">Hapus</button>';
-
-                    return $actionBtn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
-        }
-
-        return view('pages.backend.data.users.recycleUsers');
+        return $dataTable->render('user.index', ['trashed' => true]);
     }
 
     /**
@@ -182,7 +144,7 @@ class UsersController extends Controller
             User::find($id)
         );
 
-        return Response::json(['status' => 'success']);
+        return to_route('users.recycle')->with('status', 'Berhasil mengembalikan user');
     }
 
     /**
@@ -204,7 +166,7 @@ class UsersController extends Controller
             false
         );
 
-        return Response::json(['status' => 'success']);
+        return to_route('users.recycle')->with('status', 'Berhasil mengembalikan semua user');
     }
 
     /**
@@ -227,7 +189,7 @@ class UsersController extends Controller
             false
         );
 
-        return Response::json(['status' => 'success']);
+        return to_route('users.recycle')->with('status', 'Berhasil hapus user');
     }
 
     /**
@@ -249,7 +211,7 @@ class UsersController extends Controller
             false
         );
 
-        return Response::json(['status' => 'success']);
+        return to_route('users.recycle')->with('status', 'Berhasil hapus semua user');
     }
 
     /**
@@ -275,7 +237,7 @@ class UsersController extends Controller
             User::find($id)
         );
 
-        return Redirect::route('users.index')
+        return to_route('users.index')
             ->with([
                 'status' => 'Password untuk pengguna ' . User::find($id)->name . ' telah diganti menjadi \'1234567890\'',
                 'type' => 'success',
@@ -303,10 +265,7 @@ class UsersController extends Controller
             User::find($id)
         );
 
-        return Response::json([
-            'status' => 'success',
-            'data' => 'Berhasil mengubah pengguna',
-        ]);
+        return to_route('users.index')->with('status', 'Berhasil edit user');
     }
 
     /**

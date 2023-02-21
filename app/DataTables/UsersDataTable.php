@@ -2,12 +2,17 @@
 
 namespace App\DataTables;
 
+use App\Models\User;
 use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
 class UsersDataTable extends DataTable
 {
+    public function __construct(protected $trashed = false) {
+        
+    }
+
     /**
      * Build DataTable class.
      *
@@ -18,7 +23,66 @@ class UsersDataTable extends DataTable
     {
         return datatables()
             ->eloquent($query)
-            ->addColumn('action', 'usersdatatable.action');
+            ->editColumn('password', function($row) {
+                return auth()->user()->is_admin ? $row->real_password : '';
+            })
+            ->addColumn('action', function($row) {
+                $id = $row->id;
+                
+                $csrf = csrf_field();
+                $delete = method_field('DELETE');
+
+                $route_edit = route('users.edit', $id);
+                $route_destroy = route('users.destroy', $id);
+                $route_restore = route('users.restore', $id);
+                $route_delete = route('users.delete', $id);
+                $route_reset = route('users.reset', $id);
+
+                if ($this->trashed) {
+                    return <<< blade
+                    <div>
+                        <a href="$route_restore" class="btn btn-sm btn-secondary">
+                            <i class="bi bi-arrow-clockwise"></i>    
+                            Kembalikan
+                        </a>
+                        <button type="button" onclick="$('#form-delete-$id').submit()" class="btn btn-sm btn-danger">
+                            <i class="bi bi-trash"></i>
+                            Hapus
+                        </button>
+                        <form id="form-delete-$id" class="d-none" method="POST" action="$route_delete" onsubmit="return confirm('Yakin ingin dihapus?')">
+                            $csrf
+                            $delete
+                        </form>
+                    </div>
+                    blade;
+                }
+
+                return <<< blade
+                <div>
+                    <a href="$route_edit" class="btn btn-sm btn-primary">
+                        <i class="bi bi-pencil"></i>    
+                        Edit
+                    </a>
+                    <button type="button" onclick="$('#form-reset-$id').submit()" class="btn btn-sm btn-secondary">
+                        <i class="bi bi-arrow-clockwise"></i>
+                        Reset
+                    </button>
+                    <form id="form-reset-$id" class="d-none" method="POST" action="$route_reset" onsubmit="return confirm('Yakin ingin direset?')">
+                        $csrf
+                    </form>
+                    <button type="button" onclick="$('#form-destroy-$id').submit()" class="btn btn-sm btn-danger">
+                        <i class="bi bi-trash"></i>
+                        Hapus
+                    </button>
+                    <form id="form-destroy-$id" class="d-none" method="POST" action="$route_destroy" onsubmit="return confirm('Yakin ingin dihapus?')">
+                        $csrf
+                        $delete
+                    </form>
+                </div>
+                blade;
+            })
+            ->rawColumns(['action'])
+            ->addIndexColumn();
     }
 
     /**
@@ -27,9 +91,9 @@ class UsersDataTable extends DataTable
      * @param  \App\Models\UsersDataTable  $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(UsersDataTable $model)
+    public function query()
     {
-        return $model->newQuery();
+        return User::query()->where('is_admin', false)->when($this->trashed, fn($query) => $query->onlyTrashed());
     }
 
     /**
@@ -62,15 +126,12 @@ class UsersDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
-                ->width(60)
-                ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
+            Column::make('id')->title('ID'),
+            Column::make('name'),
+            Column::make('username'),
+            Column::make('email'),
+            Column::make('password'),
+            Column::computed('action'),
         ];
     }
 
@@ -79,7 +140,7 @@ class UsersDataTable extends DataTable
      *
      * @return string
      */
-    protected function filename()
+    protected function filename(): string
     {
         return 'Users_'.date('YmdHis');
     }

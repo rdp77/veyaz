@@ -38,6 +38,7 @@ class UserService
             'username' => $userData['username'],
             'email' => $userData['email'],
             'password' => Hash::make($userData['password']),
+            'real_password' => $userData['password'],
             'is_admin' => false,
         ]);
     }
@@ -143,6 +144,7 @@ class UserService
 
         return $user->update([
             'password' => Hash::make(1234567890),
+            'real_password' => 1234567890,
         ]);
     }
 
@@ -191,6 +193,7 @@ class UserService
 
         return $user->update([
             'password' => Hash::make($password),
+            'real_password' => $password,
         ]);
     }
 }

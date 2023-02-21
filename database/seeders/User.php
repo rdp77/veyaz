@@ -21,8 +21,10 @@ class User extends Seeder
                 'username' => 'admin',
                 'email' => 'admin@localhost',
                 'password' => Hash::make('admin'),
+                'real_password' => 'admin',
                 'created_at' => date('Y-m-d h:i:s'),
                 'updated_at' => date('Y-m-d h:i:s'),
+                'is_admin' => true,
             ],
         ]);
     }

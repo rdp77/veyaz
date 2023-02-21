@@ -28,10 +28,10 @@ Route::controller(UsersController::class)->group(function () {
         Route::get('/users', 'recycle')
             ->name('users.recycle');
         Route::group(['prefix' => 'users'], function () {
-            Route::get('/restore/{id}', 'restore');
-            Route::post('/restore-all', 'restoreAll');
-            Route::delete('/delete/{id}', 'delete');
-            Route::delete('/delete-all', 'deleteAll');
+            Route::get('/restore/{id}', 'restore')->name('users.restore');
+            Route::post('/restore-all', 'restoreAll')->name('users.restoreAll');
+            Route::delete('/delete/{id}', 'delete')->name('users.delete');
+            Route::delete('/delete-all', 'deleteAll')->name('users.deleteAll');
         });
     });
 

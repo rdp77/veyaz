@@ -14,14 +14,7 @@ class DataService
      */
     protected Model $model;
 
-    /**
-     * delete permanently all users.
-     *
-     * @param array $data
-     * @param Model $model
-     * @return Response
-     */
-    public function create(array $data, Model $model): Response
+    public function create(array $data, Model $model): Model
     {
         return $model->create($data);
     }
