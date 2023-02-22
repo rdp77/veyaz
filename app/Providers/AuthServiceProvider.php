@@ -3,6 +3,8 @@
 namespace App\Providers;
 
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
+use App\Models\Role;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,6 +15,9 @@ class AuthServiceProvider extends ServiceProvider
      */
     protected $policies = [
         // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+
+        'Role' => 'App\PoliciesRolePolicy'
+
     ];
 
     /**
@@ -24,6 +29,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+
+        // daftarkan policy Anda di sini
+        Gate::resource('RolePolicy', 'App\Policies\RolePolicy');
     }
 }

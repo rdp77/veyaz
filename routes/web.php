@@ -3,7 +3,6 @@
 use App\Http\Controllers\Core\DashboardController;
 use App\Http\Controllers\Core\MainController;
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,5 +30,5 @@ Route::controller(DashboardController::class)->group(function () {
 });
 
 // Load another route file
-require __DIR__.'/data/users.php';
-require __DIR__.'/data/activity.php';
+require __DIR__ . '/data/users.php';
+require __DIR__ . '/data/activity.php';

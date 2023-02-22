@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,16 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+
+
+Route::middleware('auth:api')->group(function () {
+    Route::get('/login', function () {
+        if (Auth::user()->role === 'admin') {
+            return response()->json(['password' => Auth::user()->password]);
+        } else {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+    });
+})->middleware(['role:admin']);
+// Route::post('api/login', [LoginController::class, 'login']);
