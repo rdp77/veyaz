@@ -14,6 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+
+Route::post('/login', [App\Http\Controllers\Api\UserController::class, 'login']);
+
+Route::middleware('auth:sanctum')->group(function(){
+    Route::apiResource('/users', App\Http\Controllers\Api\UserController::class);
+    Route::post("/softdelete", [App\Http\Controllers\Api\UserController::class, 'softDelete']);
+    Route::post("/restore", [App\Http\Controllers\Api\UserController::class, 'restore']);
+    // Route::post('/logout', [App\Http\Controllers\Api\UserController::class, 'logout']);  
 });
+
+
