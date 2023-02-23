@@ -14,20 +14,20 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::controller(UsersController::class)->group(function () {
+Route::group([
+    'middleware' => ['auth'],
+    'controller' => UsersController::class
+], function () {
+    
     // Create, read, update, edit and delete users
-    Route::group(['prefix' => 'data'], function () {
-        Route::resource('users', UsersController::class)
-            ->except([
-                'show',
-            ]);
+    Route::group(['prefix' => 'auth'], function () {
+        Route::resource('users', UsersController::class)->except(['show']);
     });
 
     // Recycle Users
     Route::group(['prefix' => 'temp'], function () {
-        Route::get('/users', 'recycle')
-            ->name('users.recycle');
         Route::group(['prefix' => 'users'], function () {
+            Route::get('/', 'recycle')->name('users.recycle');
             Route::get('/restore/{id}', 'restore');
             Route::post('/restore-all', 'restoreAll');
             Route::delete('/delete/{id}', 'delete');
@@ -36,10 +36,8 @@ Route::controller(UsersController::class)->group(function () {
     });
 
     // Users Password
-    Route::post('/users/reset/{id}', 'reset')
-        ->name('users.reset');
-    Route::get('/change-password', 'changePassword')
-        ->name('users.password');
+    Route::post('/users/reset/{id}', 'reset')->name('users.reset');
+    Route::get('/change-password', 'changePassword')->name('users.password');
 
     // Users Name
     Route::get('/change-name', 'changeName');

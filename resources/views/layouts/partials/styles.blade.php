@@ -14,3 +14,5 @@
 @livewireStyles
 
 {{ $style ?? '' }}
+
+@stack('styles')

@@ -1,4 +1,5 @@
 <script src="{{ mix('js/app.js') }}"></script>
+<script src="{{ mix('js/ajax-form-submitter.js') }}"></script>
 
 {{--<script src="{{ asset('/extensions/perfect-scrollbar/perfect-scrollbar.min.js') }}"></script>--}}
 {{--<script src="{{ asset('/extensions/tinymce/tinymce.min.js') }}"></script>--}}
@@ -9,3 +10,5 @@
 @livewireScripts
 
 {{ $script ?? ''}}
+
+@stack('scripts')

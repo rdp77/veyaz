@@ -185,6 +185,11 @@ return [
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
 
+        /** 
+         * Laravel Role Permissions
+         */
+        Spatie\Permission\PermissionServiceProvider::class,
+
     ],
 
     /*

@@ -19,10 +19,7 @@
                 <div id="main-content">
 
                     <div class="page-heading">
-                        <div class="page-title">
-                            {{ $header }}
-                        </div>
-                        {{ $slot }}
+                        @yield('content')
                     </div>
 
                     @include('layouts.partials.footer')

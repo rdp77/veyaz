@@ -24,7 +24,10 @@ class UsersController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('permission:user-read|user-create|user-edit|user-delete', ['only' => ['index', 'recycle']]);
+        $this->middleware('permission:user-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:user-edit', ['only' => ['edit', 'update']]);
+        $this->middleware('permission:user-delete', ['only' => ['destroy']]);
     }
 
     /**
@@ -37,28 +40,10 @@ class UsersController extends Controller
     public function index(Request $req)
     {
         if ($req->ajax()) {
-            $data = User::where('id', '!=', Auth::user()->id)->get();
-
-            return Datatables::of($data)
-                ->addColumn('action', function ($row) {
-                    $actionBtn = '<div class="btn-group">';
-                    $actionBtn .= '<a onclick="reset(' . $row->id . ')" class="btn btn-primary text-white" style="cursor:pointer;">Reset Password</a>';
-                    $actionBtn .= '<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown">
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>';
-                    $actionBtn .= '<div class="dropdown-menu">
-                            <a class="dropdown-item" href="' . route('users.edit', $row->id) . '">Edit</a>';
-                    $actionBtn .= '<a onclick="del(' . $row->id . ')" class="dropdown-item" style="cursor:pointer;">Hapus</a>';
-                    $actionBtn .= '</div></div>';
-
-                    return $actionBtn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
+            
         }
 
-        return view('dashboard');
+        return view('pages.auth.users.index');
     }
 
     /**
