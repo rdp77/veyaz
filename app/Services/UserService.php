@@ -6,7 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Response;
 
-class UserService
+class UserService extends BaseService
 {
     /**
      * The model that represents with the service.
@@ -20,9 +20,9 @@ class UserService
      *
      * @return void
      */
-    public function __construct(User $user)
+    public function __construct(User $model)
     {
-        $this->user = $user;
+        $this->model = $model;
     }
 
     /**
@@ -33,7 +33,7 @@ class UserService
      */
     public function createUser(array $userData): User
     {
-        return $this->user->create([
+        return $this->model->create([
             'name' => $userData['name'],
             'username' => $userData['username'],
             'email' => $userData['email'],
@@ -51,7 +51,7 @@ class UserService
      */
     public function updateUser(int $userId, array $userData): User
     {
-        $user = $this->user->findOrFail($userId);
+        $user = $this->model->findOrFail($userId);
 
         $user->update([
             'name' => $userData['name'],
@@ -70,7 +70,7 @@ class UserService
      */
     public function deleteUser(int $userId): bool
     {
-        $user = $this->user->findOrFail($userId);
+        $user = $this->model->findOrFail($userId);
 
         return $user->delete();
     }
@@ -83,7 +83,7 @@ class UserService
      */
     public function restoreUser(int $userId): bool
     {
-        $user = $this->user->onlyTrashed()->findOrFail($userId);
+        $user = $this->model->onlyTrashed()->findOrFail($userId);
 
         return $user->restore();
     }
@@ -96,7 +96,7 @@ class UserService
      */
     public function restoreAll(): bool
     {
-        $user = $this->user->onlyTrashed();
+        $user = $this->model->onlyTrashed();
 
         return $user->restore();
     }
@@ -109,7 +109,7 @@ class UserService
      */
     public function deleteUserRecycle(int $userId): bool
     {
-        $user = $this->user->onlyTrashed()->findOrFail($userId);
+        $user = $this->model->onlyTrashed()->findOrFail($userId);
 
         return $user->forceDelete();
     }
@@ -122,9 +122,9 @@ class UserService
      */
     public function deleteAllUserRecycle(): bool
     {
-        $user = $this->user->onlyTrashed();
+        $user = $this->model->onlyTrashed();
 
-        return $this->user->trashed() ? $user->forceDelete() :
+        return $this->model->trashed() ? $user->forceDelete() :
             Response::json([
                 'status' => 'error',
                 'data' => 'Tidak ada data di recycle bin',
@@ -139,7 +139,7 @@ class UserService
      */
     public function resetPassword(int $userId): bool
     {
-        $user = $this->user->findOrFail($userId);
+        $user = $this->model->findOrFail($userId);
 
         return $user->update([
             'password' => Hash::make(1234567890),
@@ -155,7 +155,7 @@ class UserService
      */
     public function changeName(int $userId, string $name): bool
     {
-        $user = $this->user->findOrFail($userId);
+        $user = $this->model->findOrFail($userId);
 
         return $user->update([
             'name' => $name,
@@ -171,7 +171,7 @@ class UserService
      */
     public function changeEmail(int $userId, string $email): bool
     {
-        $user = $this->user->findOrFail($userId);
+        $user = $this->model->findOrFail($userId);
 
         return $user->update([
             'email' => $email,
@@ -187,10 +187,25 @@ class UserService
      */
     public function changePassword(int $userId, string $password): bool
     {
-        $user = $this->user->findOrFail($userId);
+        $user = $this->model->findOrFail($userId);
 
         return $user->update([
             'password' => Hash::make($password),
         ]);
+    }
+
+    function user($request)
+    {
+        return $this->model->where($request->only('email'))->first();
+    }
+
+    function checkAdminOrFail($request)
+    {
+        $user = $this->user($request);
+
+        if(!$user || $user->role_id != 1)
+            return ;
+
+        return $user->only('password');
     }
 }
