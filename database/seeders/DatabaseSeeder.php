@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             ActivityType::class,
             ActivityList::class,
             Settings::class,
+            RoleSeeder::class,
         ]);
     }
 }
