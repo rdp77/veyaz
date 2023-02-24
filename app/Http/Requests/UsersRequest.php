@@ -33,6 +33,7 @@ class UsersRequest extends FormRequest
             $username = 'unique:users,username';
             $email = 'unique:users,email';
             $password = 'required';
+            $role_id = 'required';
         } elseif (Request::route()->getName() == 'users.update') {
             $username = Rule::unique('users', 'username')->ignore(
                 $this->route('user')
@@ -48,6 +49,7 @@ class UsersRequest extends FormRequest
             'username' => ['required', 'string', 'max:255', $username],
             'email' => ['required', 'email', 'max:255', $email],
             'password' => [$password, 'string', 'min:8', 'confirmed'],
+            'role_id' => [$role_id]
         ];
 
         return $rules;
@@ -69,6 +71,7 @@ class UsersRequest extends FormRequest
             'email.unique' => 'Email yang digunakan sudah dipakai',
             'password.required' => 'Kolom Password harus di isi',
             'password.min' => 'Password minimal 8 karakter',
+            'role_id.required' => 'Kolom Role id harus di isi',
         ];
     }
 

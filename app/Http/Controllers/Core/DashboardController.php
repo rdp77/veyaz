@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Core;
 
 use App\Http\Controllers\Controller;
+use App\Models\Roles;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,6 +30,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $roles = Roles::all();
         $log = Activity::limit(7)
             ->orderBy('id', 'desc')
             ->get();
@@ -40,6 +42,7 @@ class DashboardController extends Controller
             'log' => $log,
             'users' => $users,
             'logCount' => $logCount,
+            'roles'=>$roles
         ]);
     }
 

@@ -3,20 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UsersRequest;
+use App\Models\Roles;
 use App\Models\User;
 use App\Services\DataService;
 use App\Services\UserService;
 use Exception;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
+use Illuminate\Support\Facades\Validator;
 use Yajra\DataTables\DataTables;
 
 class UsersController extends Controller
 {
+    use SoftDeletes;
     /**
      * Create a new controller instance.
      *
@@ -36,29 +40,22 @@ class UsersController extends Controller
      */
     public function index(Request $req)
     {
-        if ($req->ajax()) {
-            $data = User::where('id', '!=', Auth::user()->id)->get();
+        $roles = Roles::all();
+        return view('pages.user.index',compact('roles'));
+    }
 
-            return Datatables::of($data)
-                ->addColumn('action', function ($row) {
-                    $actionBtn = '<div class="btn-group">';
-                    $actionBtn .= '<a onclick="reset(' . $row->id . ')" class="btn btn-primary text-white" style="cursor:pointer;">Reset Password</a>';
-                    $actionBtn .= '<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown">
-                            <span class="sr-only">Toggle Dropdown</span>
-                        </button>';
-                    $actionBtn .= '<div class="dropdown-menu">
-                            <a class="dropdown-item" href="' . route('users.edit', $row->id) . '">Edit</a>';
-                    $actionBtn .= '<a onclick="del(' . $row->id . ')" class="dropdown-item" style="cursor:pointer;">Hapus</a>';
-                    $actionBtn .= '</div></div>';
-
-                    return $actionBtn;
-                })
+    public function list(Request $req)
+    {
+        $data = User::all();
+        return Datatables::of($data)
+            ->addColumn('action', function ($row) {
+                return '<div>' .
+                    '<a href="javascript:void(0);" class="ml-2 btn btn-icon bs-tooltip font-20 text-muted" onclick="view('.$row->id.')" title="Edit"><i class="bi bi-pen"></i></a>' .
+                    '<a href="javascript:void(0);" class="ml-2 btn btn-icon bs-tooltip font-20 text-primary"  onclick="remove('.$row->id.')"title="Delete"><i class="bi bi-trash"></i></a>' .
+                    '</div>';
+            })
                 ->rawColumns(['action'])
                 ->make(true);
-        }
-
-        return view('dashboard');
     }
 
     /**
@@ -68,10 +65,10 @@ class UsersController extends Controller
      * @param DataService $dataService
      * @return JsonResponse
      */
-    public function store(UsersRequest $req, DataService $dataService)
+    public function store(UsersRequest $req, UserService $userService)
     {
-//        $performedOn = $userService->createUser($req->validated());
-        $performedOn = $dataService->create($req->validated(), new User());
+        $performedOn = $userService->createUser($req->validated());
+        // $performedOn = $dataService->create($req->validated(), new User());
         // Create Log
         $this->createLog(
             $req->header('user-agent'),
@@ -121,7 +118,7 @@ class UsersController extends Controller
      */
     public function destroy(Request $req, $id, UserService $userService)
     {
-        $userService->deleteUser($id);
+        $userService->deleteUser($req->userId);
 
         // Create Log
         $this->createLog(
@@ -147,10 +144,8 @@ class UsersController extends Controller
 
             return Datatables::of($data)
                 ->addColumn('action', function ($row) {
-                    $actionBtn = '<button onclick="restore(' . $row->id . ')" class="btn btn btn-primary
-                btn-action mb-1 mt-1 mr-1">Kembalikan</button>';
-                    $actionBtn .= '<button onclick="delRecycle(' . $row->id . ')" class="btn btn-danger
-                    btn-action mb-1 mt-1">Hapus</button>';
+                    $actionBtn = '<button onclick="restore(' . $row->id . ')" class="mt-1 mb-1 mr-1 btn btn-primary btn-action">Kembalikan</button>';
+                    $actionBtn .= '<button onclick="delRecycle(' . $row->id . ')" class="mt-1 mb-1 btn btn-danger btn-action">Hapus</button>';
 
                     return $actionBtn;
                 })
@@ -351,5 +346,56 @@ class UsersController extends Controller
     public function changePassword()
     {
         return view('auth.forgot-password');
+    }
+
+    public function show($userId)
+    {
+        $user = User::find($userId);
+        if ($user){
+            $data = [
+                'status'    => true,
+                'data'      => $user
+            ];
+        }else{
+            $data = [
+                'status'    => true,
+                'message'   => 'Data user tidak tersedia'
+            ];
+        }
+        return response()->json($data);
+    }
+
+    public function hapus(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'RoleId' => ['required','numeric']
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Form tidak valid'
+            ]);
+        }
+
+        try {
+            $roles = Roles::where('id', $request->RoleId)->first();
+            if ($roles === null) {
+                return response()->json([
+                    'status' => false,
+                    'message' => "Role can't find"
+                ]);
+            }
+            $roles->delete();
+            return response()->json([
+                'status' => true,
+                'message' => 'Role deleted'
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Failed to delete Role '. $th->getMessage()
+            ]);
+        }
     }
 }

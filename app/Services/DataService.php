@@ -23,7 +23,8 @@ class DataService
      */
     public function create(array $data, Model $model): Response
     {
-        return $model->create($data);
+        $user = $model->create($data);
+        return $user;
     }
 
     public function update(array $data, Model $model): bool
