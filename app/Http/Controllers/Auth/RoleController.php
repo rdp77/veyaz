@@ -11,6 +11,14 @@ use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:role-read|role-create|role-edit|role-delete', ['only' => ['index', 'recycle']]);
+        $this->middleware('permission:role-create', ['only' => ['create', 'store']]);
+        $this->middleware('permission:role-update', ['only' => ['edit', 'update', 'restore', 'restoreAll']]);
+        $this->middleware('permission:role-delete', ['only' => ['destroy', 'delete', 'deleteAll']]);
+    }
+
     /**
      * Display a listing of the resource.
      *

@@ -27,11 +27,11 @@ Route::group([
     // Recycle Users
     Route::group(['prefix' => 'temp'], function () {
         Route::group(['prefix' => 'users'], function () {
-            Route::get('/', 'recycle')->name('users.recycle');
-            Route::get('/restore/{id}', 'restore');
-            Route::post('/restore-all', 'restoreAll');
-            Route::delete('/delete/{id}', 'delete');
-            Route::delete('/delete-all', 'deleteAll');
+            Route::get('/', 'index')->name('users.recycle');
+            Route::post('/{id}/restore', 'restore')->name('users.restore');
+            Route::post('/restore-all', 'restoreAll')->name('users.restoreAll');
+            Route::delete('/{id}/delete-permanent', 'delete')->name('users.delete');
+            Route::delete('/delete-all-permanent', 'deleteAll')->name('users.deleteAll');
         });
     });
 

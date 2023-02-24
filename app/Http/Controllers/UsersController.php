@@ -2,239 +2,216 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UsersRequest;
+use App\Http\Resources\ResponseResource;
+use App\Models\Role;
 use App\Models\User;
-use App\Services\DataService;
-use App\Services\UserService;
-use Exception;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Response;
-use Yajra\DataTables\DataTables;
 
 class UsersController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('permission:user-read|user-create|user-edit|user-delete', ['only' => ['index', 'recycle']]);
         $this->middleware('permission:user-create', ['only' => ['create', 'store']]);
-        $this->middleware('permission:user-edit', ['only' => ['edit', 'update']]);
-        $this->middleware('permission:user-delete', ['only' => ['destroy']]);
+        $this->middleware('permission:user-update', ['only' => ['edit', 'update', 'restore', 'restoreAll']]);
+        $this->middleware('permission:user-delete', ['only' => ['destroy', 'delete', 'deleteAll']]);
     }
 
     /**
-     * Show the users dashboard.
+     * Display a listing of the resource.
      *
-     * @param Request $req
-     * @return mixed
-     * @throws Exception
+     * @return \Illuminate\Http\Response
      */
-    public function index(Request $req)
+    public function index()
     {
-        if ($req->ajax()) {
-            
+        if (request()->ajax()) {
+            $query = User::with('roles')->orderBy('name');
+            if (request()->route()->getName() == "users.recycle") {
+                $query->onlyTrashed();
+            }
+
+            $users = $query->get();
+            return response()->json(ResponseResource::collection($users));
         }
 
-        return view('pages.auth.users.index');
+        $user_count = User::count();
+        $user_trash_count = User::onlyTrashed()->count();
+        return view('pages.auth.users.index', compact('user_count', 'user_trash_count'));
     }
 
     /**
-     * Store a new user.
+     * Show the form for creating a new resource.
      *
-     * @param UsersRequest $req
-     * @param DataService $dataService
-     * @return JsonResponse
-     */
-    public function store(UsersRequest $req, DataService $dataService)
-    {
-//        $performedOn = $userService->createUser($req->validated());
-        $performedOn = $dataService->create($req->validated(), new User());
-        // Create Log
-        $this->createLog(
-            $req->header('user-agent'),
-            $req->ip(),
-            $this->getStatus(3),
-            true,
-            User::find($performedOn->id)
-        );
-
-        return Response::json([
-            'status' => 'success',
-            'data' => 'Berhasil membuat pengguna baru',
-        ]);
-    }
-
-    /**
-     * Show the users dashboard.
-     *
-     * @return \Illuminate\View\View
+     * @return \Illuminate\Http\Response
      */
     public function create()
     {
-        return view('pages.backend.data.users.createUsers');
+        $roles = Role::orderBy('name', 'ASC')->get();
+        return view('pages.auth.users.create', compact('roles'));
     }
 
     /**
-     * Show the users dashboard.
+     * Store a newly created resource in storage.
      *
-     * @return mixed
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function store(Request $request)
     {
-        $user = User::find($id);
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users',
+            'username' => 'required|unique:users',
+            'password' => 'required|min:6|confirmed',
+            'roles' => 'required',
+        ]);
 
-        return view('pages.backend.data.users.updateUsers', [
-            'user' => $user,
+        $data = $request->all();
+        $data['password'] = Hash::make($data['password']);
+
+        $user = User::create($data);
+        $user->assignRole($request->input('roles'));
+
+        return response()->json([
+            "status" => "success",
+            "data" => $user
         ]);
     }
 
     /**
-     * Delete the given user.
+     * Show the form for editing the specified resource.
      *
-     * @param Request $req
-     * @param string $id
-     * @param UserService $userService
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Request $req, $id, UserService $userService)
+    public function edit($id)
     {
-        $userService->deleteUser($id);
-
-        // Create Log
-        $this->createLog(
-            $req->header('user-agent'),
-            $req->ip(),
-            $this->getStatus(5),
-            false
-        );
-
-        return Response::json(['status' => 'success']);
+        $user = User::find(decrypt($id));
+        $roles = Role::orderBy('name', 'ASC')->get();
+        $userRole = $user->roles->pluck('name')->all();
+        return view('pages.auth.users.edit', compact("user", "roles", "userRole"));
     }
 
     /**
-     * Show the recycle users.
+     * Update the specified resource in storage.
      *
-     * @param Request $req
-     * @return mixed
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
      */
-    public function recycle(Request $req)
+    public function update(Request $request, $id)
     {
-        if ($req->ajax()) {
-            $data = User::onlyTrashed()->get();
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|email|unique:users,email,' . decrypt($id),
+            'password' => 'confirmed',
+            'roles' => 'required',
+        ]);
 
-            return Datatables::of($data)
-                ->addColumn('action', function ($row) {
-                    $actionBtn = '<button onclick="restore(' . $row->id . ')" class="btn btn btn-primary
-                btn-action mb-1 mt-1 mr-1">Kembalikan</button>';
-                    $actionBtn .= '<button onclick="delRecycle(' . $row->id . ')" class="btn btn-danger
-                    btn-action mb-1 mt-1">Hapus</button>';
-
-                    return $actionBtn;
-                })
-                ->rawColumns(['action'])
-                ->make(true);
+        $data = $request->all();
+        if (!empty($data['password'])) {
+            $data['password'] = Hash::make($data['password']);
+        } else {
+            $data = Arr::except($data, array('password'));
         }
 
-        return view('pages.backend.data.users.recycleUsers');
+        $data['role'] = implode(",", $request->roles);
+
+        $user = User::find(decrypt($id));
+        $user->update($data);
+
+        DB::table('model_has_roles')->where('model_id', decrypt($id))->delete();
+        $user->assignRole($request->input('roles'));
+
+        return response()->json([
+            "status" => "success",
+            "data" => $user
+        ]);
     }
 
     /**
-     * Restore the given user.
+     * Remove the specified resource from storage.
      *
-     * @param string $id
-     * @param Request $req
-     * @param UserService $userService
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function restore($id, Request $req, UserService $userService)
+    public function destroy($id)
     {
-        $userService->restoreUser($id);
+        $user = User::find($id);
+        $user->delete();
 
-        // Create Log
-        $this->createLog(
-            $req->header('user-agent'),
-            $req->ip(),
-            $this->getStatus(6),
-            true,
-            User::find($id)
-        );
+        return response()->json([
+            "status" => "success",
+            "data" => null
+        ]);
+    }
 
-        return Response::json(['status' => 'success']);
+    /** SoftDelete ================ */
+
+    /**
+     * Restore data from trash.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function restore($id)
+    {
+        User::onlyTrashed()->where('id', $id)->restore();
+        return response()->json([
+            "status" => "success",
+            "data" => null
+        ]);
     }
 
     /**
-     * Restore all users.
+     * Restore All data from trash.
      *
-     * @param Request $req
-     * @param UserService $userService
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function restoreAll(Request $req, UserService $userService)
+    public function restoreAll()
     {
-        $userService->restoreAll();
+        User::onlyTrashed()->restore();
+        return response()->json([
+            "status" => "success",
+            "data" => null
+        ]);
+    }
 
-        // Create Log
-        $this->createLog(
-            $req->header('user-agent'),
-            $req->ip(),
-            $this->getStatus(6),
-            false
-        );
 
-        return Response::json(['status' => 'success']);
+    /**
+     * Remove pemanent in trash.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function delete($id)
+    {
+        User::onlyTrashed()->where('id', $id)->forceDelete();
+        return response()->json([
+            "status" => "success",
+            "data" => null
+        ]);
     }
 
     /**
-     * Delete permanently the given user.
+     * Remove all pemanent in trash.
      *
-     * @param string $id
-     * @param Request $req
-     * @param UserService $userService
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function delete($id, Request $req, UserService $userService)
+    public function deleteAll()
     {
-        $userService->deleteUserRecycle($id);
-
-        // Create Log
-        $this->createLog(
-            $req->header('user-agent'),
-            $req->ip(),
-            $this->getStatus(5),
-            false
-        );
-
-        return Response::json(['status' => 'success']);
-    }
-
-    /**
-     * Delete permanently all users.
-     *
-     * @param Request $req
-     * @param UserService $userService
-     * @return \Illuminate\Http\Response
-     */
-    public function deleteAll(Request $req, UserService $userService)
-    {
-        $userService->deleteAllUserRecycle();
-
-        // Create Log
-        $this->createLog(
-            $req->header('user-agent'),
-            $req->ip(),
-            $this->getStatus(6),
-            false
-        );
-
-        return Response::json(['status' => 'success']);
+        User::onlyTrashed()->forceDelete();
+        return response()->json([
+            "status" => "success",
+            "data" => null
+        ]);
     }
 
     /**
@@ -265,33 +242,6 @@ class UsersController extends Controller
                 'status' => 'Password untuk pengguna ' . User::find($id)->name . ' telah diganti menjadi \'1234567890\'',
                 'type' => 'success',
             ]);
-    }
-
-    /**
-     * Update the given user.
-     *
-     * @param string $id
-     * @param App\Http\Requests\UsersRequest $req
-     * @param UserService $userService
-     * @return \Illuminate\Http\Response
-     */
-    public function update($id, UsersRequest $req, UserService $userService)
-    {
-        $userService->updateUser($id, $req->validated());
-
-        // Create Log
-        $this->createLog(
-            $req->header('user-agent'),
-            $req->ip(),
-            $this->getStatus(4),
-            true,
-            User::find($id)
-        );
-
-        return Response::json([
-            'status' => 'success',
-            'data' => 'Berhasil mengubah pengguna',
-        ]);
     }
 
     /**

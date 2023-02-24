@@ -8,7 +8,7 @@
 
         <div class="card-header d-flex justify-content-between">
             <h4 class="card-title">
-                <span class="text-muted">Roles /</span> Create
+                <span class="text-muted">Roles /</span> Edit
             </h4>
         </div>
         <div class="card-body">

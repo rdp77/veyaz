@@ -26,11 +26,11 @@
     </div>
     <div class="card-body">
         <div class="d-block mb-3">
-            <a href="{{ route('roles.index') }}">All ({{ isset($role_count) ? $role_count : 0 }})</a>
+            <a href="{{ route('roles.index') }}" class="{{ request()->route()->getName() == 'roles.index' ? 'text-primary fw-bold' : 'text-muted' }}">All ({{ isset($role_count) ? $role_count : 0 }})</a>
             
             <span class="mx-1 text-light">|</span>
 
-            <a href="{{ route('roles.recycle') }}">Trash ({{ isset($role_trash_count) ? $role_trash_count : 0 }})</a>
+            <a href="{{ route('roles.recycle') }}" class="{{ request()->route()->getName() == 'roles.recycle' ? 'text-primary fw-bold' : 'text-muted'}}">Trash ({{ isset($role_trash_count) ? $role_trash_count : 0 }})</a>
         </div>
         <table class="table datatable"></table>
     </div>
