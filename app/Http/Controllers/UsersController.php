@@ -65,14 +65,29 @@ class UsersController extends Controller
      * @param DataService $dataService
      * @return JsonResponse
      */
-    public function store(UsersRequest $req, UserService $userService)
+    public function store(Request $request, UserService $userService)
     {
-        $performedOn = $userService->createUser($req->validated());
-        // $performedOn = $dataService->create($req->validated(), new User());
-        // Create Log
+        $validator = Validator::make($request->all(),[
+            'userId'            => 'required_if:status,1',
+            'name' => ['required', 'string', 'max:255'],
+            'username' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'email', 'max:255'],
+            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role_id' => ['required']
+        ]);
+        if ($validator->fails()){
+            $data = [
+                'status'    => FALSE,
+                'message'   => 'Form yang anda kirim tidak valid / kurang sesuai',
+            ];
+            return response()->json($data);
+        }
+        $data = $request->all();
+        $performedOn = $userService->updateOrCreate($request->userId,$data);
+
         $this->createLog(
-            $req->header('user-agent'),
-            $req->ip(),
+            $request->header('user-agent'),
+            $request->ip(),
             $this->getStatus(3),
             true,
             User::find($performedOn->id)
@@ -80,7 +95,7 @@ class UsersController extends Controller
 
         return Response::json([
             'status' => 'success',
-            'data' => 'Berhasil membuat pengguna baru',
+            'message' => 'Berhasil membuat pengguna baru',
         ]);
     }
 
@@ -368,7 +383,7 @@ class UsersController extends Controller
     public function hapus(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'RoleId' => ['required','numeric']
+            'userId' => ['required','numeric']
         ]);
 
         if ($validator->fails()) {
@@ -379,22 +394,22 @@ class UsersController extends Controller
         }
 
         try {
-            $roles = Roles::where('id', $request->RoleId)->first();
+            $roles = User::where('id', $request->userId)->first();
             if ($roles === null) {
                 return response()->json([
                     'status' => false,
-                    'message' => "Role can't find"
+                    'message' => "User can't find"
                 ]);
             }
             $roles->delete();
             return response()->json([
                 'status' => true,
-                'message' => 'Role deleted'
+                'message' => 'User deleted'
             ]);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
-                'message' => 'Failed to delete Role '. $th->getMessage()
+                'message' => 'Failed to delete User '. $th->getMessage()
             ]);
         }
     }

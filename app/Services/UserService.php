@@ -193,4 +193,13 @@ class UserService
             'password' => Hash::make($password),
         ]);
     }
+
+    public function updateOrCreate(int $userId, array $userData): User
+    {
+        $user = $this->user->findOrFail($userId);
+
+        $user->updateOrCreate(['id'=>$userId],$userData);
+
+        return $user;
+    }
 }

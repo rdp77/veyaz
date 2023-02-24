@@ -187,10 +187,11 @@
                     if (response.status) {
                         $('#status').val(1);
                         $('#userId').val(response.data.id);
-                        $('#description').val(response.data.description);
-                        $('#start_date').val(response.data.start_date);
-                        $('#end_date').val(response.data.end_date);
-                        $('#groupId').val(response.data.groupId).prop('selected',true);
+                        $('#name').val(response.data.name);
+                        $('#email').val(response.data.email);
+                        $('#username').val(response.data.username);
+                        $('#password').val(response.data.password);
+                        $('#role_id').val(response.data.role_id).prop('selected',true);
                         $('#modalUserTitle').html('Edit User');
                         $('#modalUser').modal('show');
                     } else {
@@ -407,10 +408,11 @@
                 if (response.status) {
                     $('#status').val(1);
                     $('#userId').val(response.data.id);
-                    $('#description').val(response.data.description);
-                    $('#start_date').val(response.data.start_date);
-                    $('#end_date').val(response.data.end_date);
-                    $('#groupId').val(response.data.groupId).prop('selected',true);
+                    $('#name').val(response.data.name);
+                    $('#email').val(response.data.email);
+                    $('#username').val(response.data.username);
+                    $('#password').val(response.data.password);
+                    $('#role_id').val(response.data.role_id).prop('selected',true);
                     $('#modalUserTitle').html('Edit User');
                     $('#modalUser').modal('show');
                 } else {

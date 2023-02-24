@@ -18,7 +18,7 @@ Route::controller(UsersController::class)->group(function () {
     // Create, read, update, edit and delete users
     Route::group(['prefix' => 'data'], function () {
         Route::get('/list',[UsersController::class,'list'])->name('users.list');
-        Route::get('/show',[UsersController::class,'show'])->name('users.show');
+        Route::get('/show/{id}',[UsersController::class,'show'])->name('users.show');
         Route::post('/hapus',[UsersController::class,'hapus'])->name('users.hapus');
         Route::resource('users', UsersController::class)
             ->except([
