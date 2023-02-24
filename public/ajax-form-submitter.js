@@ -14,7 +14,7 @@ class AjaxFormSubmitter {
             const field = $(element).data("field");
             if (field) {
                 if ($(element).find(".text-danger").length === 0) {
-                    $(element).html($(element).html() + '<div><small class="text-danger error-' + field + '"></small></div>');
+                    $(element).html($(element).html() + '<div><span class="text-danger error-' + field + '"></span></div>');
                 }
             }
         });

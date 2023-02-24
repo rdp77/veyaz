@@ -21,11 +21,11 @@ Route::group([
         // Recycle Roles
         Route::group(['prefix' => 'temp'], function () {
             Route::group(['prefix' => 'roles'], function () {
-                Route::get('/', 'recycle')->name('roles.recycle');
-                Route::get('/restore/{id}', 'restore');
-                Route::post('/restore-all', 'restoreAll');
-                Route::delete('/delete/{id}', 'delete');
-                Route::delete('/delete-all', 'deleteAll');
+                Route::get('/', 'index')->name('roles.recycle');
+                Route::post('/{id}/restore', 'restore')->name('roles.restore');
+                Route::post('/restore-all', 'restoreAll')->name('roles.restoreAll');
+                Route::delete('/{id}/delete-permanent', 'delete')->name('roles.delete');
+                Route::delete('/delete-all-permanent', 'deleteAll')->name('roles.deleteAll');
             });
         });
     });

@@ -11,4 +11,9 @@ class Role extends SpatieRole
 {
     use HasFactory;
     use SoftDeletes;
+
+    protected $table = "roles";
+    protected $fillable = [
+        'name', 'guard_name'
+    ];
 }
