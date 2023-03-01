@@ -35,10 +35,10 @@ class UserService
     {
         return $this->user->create([
             'name' => $userData['name'],
+            'role_id' => $userData['role'],
             'username' => $userData['username'],
             'email' => $userData['email'],
             'password' => Hash::make($userData['password']),
-            'is_admin' => false,
         ]);
     }
 
@@ -55,6 +55,7 @@ class UserService
 
         $user->update([
             'name' => $userData['name'],
+            'role_id' => $userData['role'],
             'username' => $userData['username'],
             'email' => $userData['email'],
         ]);

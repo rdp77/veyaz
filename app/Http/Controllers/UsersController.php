@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UsersRequest;
 use App\Models\User;
+use App\Models\Role;
 use App\Services\DataService;
 use App\Services\UserService;
 use Exception;
@@ -14,6 +15,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Arr;
 
 class UsersController extends Controller
 {
@@ -37,19 +39,21 @@ class UsersController extends Controller
     public function index(Request $req)
     {
         if ($req->ajax()) {
-            $data = User::where('id', '!=', Auth::user()->id)->get();
+            // $data = User::where('id', '!=', Auth::user()->id)->get();
+            // $data = User::select('id','name','email')->get();
+            $data = User::with('role')->get();
 
             return Datatables::of($data)
                 ->addColumn('action', function ($row) {
                     $actionBtn = '<div class="btn-group">';
-                    $actionBtn .= '<a onclick="reset(' . $row->id . ')" class="btn btn-primary text-white" style="cursor:pointer;">Reset Password</a>';
-                    $actionBtn .= '<button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown">
-                            <span class="sr-only">Toggle Dropdown</span>
+                    $actionBtn .= '<a id="'.$row->id.'"  class="reset btn btn-md btn-primary text-white" style="cursor:pointer;"><small>Reset Password</small></a>';
+                    $actionBtn .= '<button type="button" class="btn btn-md btn-primary dropdown-toggle dropdown-toggle-split"
+                            data-bs-toggle="dropdown">
+                            <small class="sr-only">Toggle Dropdown</small>
                         </button>';
                     $actionBtn .= '<div class="dropdown-menu">
                             <a class="dropdown-item" href="' . route('users.edit', $row->id) . '">Edit</a>';
-                    $actionBtn .= '<a onclick="del(' . $row->id . ')" class="dropdown-item" style="cursor:pointer;">Hapus</a>';
+                    $actionBtn .= '<a id="'.$row->id.'" class="delete dropdown-item" style="cursor:pointer;">Hapus</a>';
                     $actionBtn .= '</div></div>';
 
                     return $actionBtn;
@@ -57,8 +61,7 @@ class UsersController extends Controller
                 ->rawColumns(['action'])
                 ->make(true);
         }
-
-        return view('dashboard');
+        return view('pages.backend.data.users.viewUsers');
     }
 
     /**
@@ -70,15 +73,15 @@ class UsersController extends Controller
      */
     public function store(UsersRequest $req, DataService $dataService)
     {
-//        $performedOn = $userService->createUser($req->validated());
-        $performedOn = $dataService->create($req->validated(), new User());
+        $performedOn = $dataService->create(array_merge(Arr::except($req->validated(), 'password'), [ 'password' => Hash::make($req->password) ]), new User());
+        
         // Create Log
         $this->createLog(
             $req->header('user-agent'),
             $req->ip(),
             $this->getStatus(3),
             true,
-            User::find($performedOn->id)
+            User::find($performedOn->original['id'])
         );
 
         return Response::json([
@@ -94,7 +97,9 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('pages.backend.data.users.createUsers');
+        $roleModel = new Role();
+        $roles = $roleModel->getRoles();
+        return view('pages.backend.data.users.createUsers', compact('roles'));
     }
 
     /**
@@ -104,10 +109,12 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
+        $roleModel = new Role();
         $user = User::find($id);
-
+        $roles = $roleModel->getRoles();
         return view('pages.backend.data.users.updateUsers', [
             'user' => $user,
+            'roles' => $roles,
         ]);
     }
 
@@ -146,11 +153,11 @@ class UsersController extends Controller
             $data = User::onlyTrashed()->get();
 
             return Datatables::of($data)
-                ->addColumn('action', function ($row) {
-                    $actionBtn = '<button onclick="restore(' . $row->id . ')" class="btn btn btn-primary
-                btn-action mb-1 mt-1 mr-1">Kembalikan</button>';
-                    $actionBtn .= '<button onclick="delRecycle(' . $row->id . ')" class="btn btn-danger
-                    btn-action mb-1 mt-1">Hapus</button>';
+                    ->addColumn('action', function ($row) {
+                        $actionBtn = '<button id="'.$row->id.'" class="restore btn btn btn-primary
+                    btn-action mb-1 mt-1 mr-1">Kembalikan</button>';
+                        $actionBtn .= '<button id="'.$row->id.'" class="delRecycle btn btn-danger
+                        btn-action mb-1 mt-1">Hapus</button>';
 
                     return $actionBtn;
                 })
@@ -275,11 +282,16 @@ class UsersController extends Controller
             User::find($id)
         );
 
-        return Redirect::route('users.index')
-            ->with([
-                'status' => 'Password untuk pengguna ' . User::find($id)->name . ' telah diganti menjadi \'1234567890\'',
-                'type' => 'success',
-            ]);
+        return Response::json([
+            'status' => 'success',
+            'data' => 'Password untuk pengguna ' . User::find($id)->name . ' telah diganti menjadi \'1234567890\'',
+        ]);
+
+        // return Redirect::route('users.index')
+        //     ->with([
+        //         'status' => 'Password untuk pengguna ' . User::find($id)->name . ' telah diganti menjadi \'1234567890\'',
+        //         'type' => 'success',
+        //     ]);
     }
 
     /**

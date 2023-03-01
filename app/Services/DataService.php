@@ -3,7 +3,8 @@
 namespace App\Services;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Response;
+// use Illuminate\Support\Facades\Response;
+use Illuminate\Http\JsonResponse;
 
 class DataService
 {
@@ -21,9 +22,14 @@ class DataService
      * @param Model $model
      * @return Response
      */
-    public function create(array $data, Model $model): Response
+    public function create(array $data, Model $model): JsonResponse
     {
-        return $model->create($data);
+        $newId = $model->create($data);
+        // return Response::json([
+        //     'status' => 'success',
+        //     'data' => 'Berhasil membuat pengguna baru',
+        // ]);
+        return response()->json(['id' => $newId->id], 201);
     }
 
     public function update(array $data, Model $model): bool
