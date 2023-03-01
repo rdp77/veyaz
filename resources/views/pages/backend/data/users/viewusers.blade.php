@@ -99,17 +99,15 @@ $(document).ready(function(){
             {data: 'name', name: 'name'},
             {data: 'email', name: 'email'},
             {data: 'role.role_name', name: 'role_name'},
-            {
-                data: 'password',
-                name: 'password',
-                render: function (data, type, row, meta) {
-                    if ({{ Auth::user()->role->role_name == 'Admin' }}) {
-                        return '******';
-                    } else {
-                        return '';
+            @if (Auth::check() && Auth::user()->role->role_name == 'Admin')
+                {
+                    data: 'password',
+                    name: 'password',
+                    render: function (data, type, row, meta) {
+                         return '******';
                     }
-                }
-            },
+                },
+            @endif
             {data: 'action', name: 'action', orderable: false, searchable: false},
         ]
     });

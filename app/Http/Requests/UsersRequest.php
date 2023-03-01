@@ -33,7 +33,7 @@ class UsersRequest extends FormRequest
             $username = 'unique:users,username';
             $email = 'unique:users,email';
             $password = 'required';
-            $role = 'required';
+            $role_id = 'required';
         } elseif (Request::route()->getName() == 'users.update') {
             $username = Rule::unique('users', 'username')->ignore(
                 $this->route('user')
@@ -42,7 +42,7 @@ class UsersRequest extends FormRequest
                 $this->route('user')
             );
             $password = 'nullable';
-            $role = 'required';
+            $role_id = 'required';
         }
 
         $rules = [
@@ -50,7 +50,7 @@ class UsersRequest extends FormRequest
             'username' => ['required', 'string', 'max:255', $username],
             'email' => ['required', 'email', 'max:255', $email],
             'password' => [$password, 'string', 'min:8', 'confirmed'],
-            'role' => ['required',$role],
+            'role_id' => ['required',$role_id],
         ];
 
         return $rules;

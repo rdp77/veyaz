@@ -25,10 +25,6 @@ class DataService
     public function create(array $data, Model $model): JsonResponse
     {
         $newId = $model->create($data);
-        // return Response::json([
-        //     'status' => 'success',
-        //     'data' => 'Berhasil membuat pengguna baru',
-        // ]);
         return response()->json(['id' => $newId->id], 201);
     }
 

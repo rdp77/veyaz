@@ -117,7 +117,7 @@ $(document).ready(function(){
                 setTimeout(function(){
                     $('#confirmModalRestore').modal('hide');
                     $('.user_datatable').DataTable().ajax.reload();
-                    swal.fire("Done!", 'User Berhasil Dihapus' , "success");
+                    swal.fire("Done!", 'User Berhasil Direstore' , "success");
                     $('#ok_buttonRestore').text('Restore');
                 }, 2000);
             },

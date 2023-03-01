@@ -29,7 +29,7 @@
                     </div>
                     <div class="form-group">
                         {!! Form::label('role', 'Role') !!}
-                        {!! Form::select('role', $roles, null, ['class' => 'form-control']) !!}
+                        {!! Form::select('role_id', $roles, null, ['class' => 'form-control']) !!}
                     </div>
                     <div class="form-group">
                         <label>Username : </label>

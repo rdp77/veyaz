@@ -51,7 +51,7 @@
                 success: function(data) {
                     $('#role_form')[0].reset();
                     swal.fire("Done!", data.data , "success");
-                    window.location='{{ route("users.index") }}';
+                    window.location='{{ route("roles.index") }}';
                 },
                 error: function(data) {
                     var errors = data.responseJSON;
